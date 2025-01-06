@@ -43,7 +43,7 @@
 		"build": "pnpm lint && pnpm test:ci && tsup",
 		"build:watch": "tsup --watch",
 		"lint": "eslint",
-		"release": "node scripts/publish.js --verbose --nopm",
+		"release": "node scripts/publish.js --verbose --npm",
 		"test": "pnpm test:watch",
 		"test:watch": "jest --watchAll --verbose",
 		"test:jsdom": "JSDOM=true pnpm test:watch",
