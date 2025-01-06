@@ -1,7 +1,7 @@
 {
-	"name": "@alessiofrittoli/node-module-starter",
-	"version": "1.2.0",
-	"description": "Basic Node Module repository",
+	"name": "@alessiofrittoli/web-utils",
+	"version": "0.1.0",
+	"description": "Common TypeScript web utilities",
 	"author": {
 		"name": "Alessio Frittoli",
 		"email": "info@alessiofrittoli.it",
@@ -9,18 +9,16 @@
 	},
 	"license": "MIT",
 	"keywords": [
-		"nodejs",
-		"npm",
-		"node_modules"
+		"web-utilities"
 	],
-	"homepage": "https://github.com/alessiofrittoli/node-module-starter#readme",
+	"homepage": "https://github.com/alessiofrittoli/web-utils#readme",
 	"bugs": {
-		"url": "https://github.com/alessiofrittoli/node-module-starter/issues",
+		"url": "https://github.com/alessiofrittoli/web-utils/issues",
 		"email": "info@alessiofrittoli.it"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/alessiofrittoli/node-module-starter.git"
+		"url": "git+https://github.com/alessiofrittoli/web-utils.git"
 	},
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
@@ -33,7 +31,7 @@
 		"build": "pnpm lint && pnpm test:ci && pnpm test:ci:jsdom && tsup",
 		"build:watch": "tsup --watch",
 		"lint": "eslint",
-		"release": "node scripts/publish.js --verbose",
+		"release": "node scripts/publish.js --verbose --nopm",
 		"test": "pnpm test:watch",
 		"test:watch": "jest --watchAll --verbose",
 		"test:jsdom": "JSDOM=true pnpm test:watch",
