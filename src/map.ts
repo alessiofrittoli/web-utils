@@ -33,6 +33,8 @@ export interface TypedMap<T, K extends keyof T = keyof T> extends Map<K, T[ K ]>
  * @template T The object type defining the key-value relationships.
  * @returns A new instance of a type-safe Map.
  */
-export const getTypedMap = <T>() => (
-	new Map<keyof T, T[ keyof T ]>() as TypedMap<T>
+export const getTypedMap = <T>(
+	iterable?: Iterable<readonly [ keyof T, T[ keyof T ] ]> | null
+) => (
+	new Map<keyof T, T[ keyof T ]>( iterable ) as TypedMap<T>
 )
