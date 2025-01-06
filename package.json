@@ -40,7 +40,7 @@
 	},
 	"sideEffects": false,
 	"scripts": {
-		"build": "pnpm lint && pnpm test:ci && pnpm test:ci:jsdom && tsup",
+		"build": "pnpm lint && pnpm test:ci && tsup",
 		"build:watch": "tsup --watch",
 		"lint": "eslint",
 		"release": "node scripts/publish.js --verbose --nopm",
@@ -56,7 +56,8 @@
 		"test:coverage:jsdom": "JSDOM=true pnpm test:coverage",
 		"test:coverage:jsdom:serve": "JSDOM=true pnpm test:coverage:serve",
 		"test:jest": "pnpm test:watch jest.test.ts",
-		"test:jest:jsdom": "JSDOM=true pnpm test:jest"
+		"test:jest:jsdom": "JSDOM=true pnpm test:jest",
+		"test:map": "pnpm test:watch map.test.ts"
 	},
 	"devDependencies": {
 		"@alessiofrittoli/node-scripts": "^2.2.1",
