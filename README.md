@@ -1,4 +1,4 @@
-# Node Web Utils 🛠️
+# Web Utils 🛠️
 
 Version 0.1.0
 
