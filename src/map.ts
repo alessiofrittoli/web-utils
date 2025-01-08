@@ -10,14 +10,14 @@ export interface TypedMap<T, K extends keyof T = keyof T> extends Map<K, T[ K ]>
 	 * Executes a provided function once per each key/value pair in the Map, in insertion order.
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	forEach<K extends keyof T>( callbackfn: ( value: T[ K ], key: K, map: Map<K, T[ K ]> ) => void, thisArg?: any ): void
+	forEach<K extends keyof T>( callbackfn: ( value: T[ K ], key: K, map: TypedMap<T, K> ) => void, thisArg?: any ): void
 	
 	
 	/**
 	 * Returns a specified element from the Map object. If the value that is associated to the provided key is an object, then you will get a reference to that object and any change made to that object will effectively modify it inside the Map.
 	 * @returns Returns the element associated with the specified key. If no element is associated with the specified key, undefined is returned.
 	 */
-	get<K extends keyof T>( key: K ): T[ K ] | undefined
+	get<K extends keyof T>( key: K ): T[ K ]
 	
 	
 	/**
