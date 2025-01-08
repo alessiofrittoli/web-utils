@@ -1,6 +1,6 @@
 # Web Utils 🛠️
 
-Version 0.1.0
+Version 0.2.0
 
 [![Coverage Status](https://coveralls.io/repos/github/alessiofrittoli/web-utils/badge.svg)](https://coveralls.io/github/alessiofrittoli/web-utils) [![Dependencies](https://img.shields.io/librariesio/release/npm/%40alessiofrittoli%2Fweb-utils)](https://libraries.io/npm/%40alessiofrittoli%2Fweb-utils)
 
