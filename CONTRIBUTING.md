@@ -1,6 +1,6 @@
-# Contributing to Node Web Utils 🛠️
+# Contributing to Web Utils 🛠️
 
-We’re excited that you’re interested in contributing to Node Web Utils! This guide will help you get started.
+We’re excited that you’re interested in contributing to Web Utils! This guide will help you get started.
 
 ## How to Contribute
 
@@ -91,4 +91,4 @@ Pull requests will be reviewed by maintainers.
 Feedback may be provided; be prepared to make changes if requested.
 Once approved, your contribution will be merged into the main branch.
 
-Thank you for helping improve Node Web Utils! 🎉
+Thank you for helping improve Web Utils! 🎉
