@@ -1,8 +1,14 @@
 # Web Utils 🛠️
 
-Version 0.2.0
+[![NPM Latest Version][version-badge]][npm-url] [![Coverage Status][coverage-badge]][coverage-url] [![NPM Monthly Downloads][downloads-badge]][npm-url] [![Dependencies][deps-badge]][deps-url]
 
-[![Coverage Status](https://coveralls.io/repos/github/alessiofrittoli/web-utils/badge.svg)](https://coveralls.io/github/alessiofrittoli/web-utils) [![Dependencies](https://img.shields.io/librariesio/release/npm/%40alessiofrittoli%2Fweb-utils)](https://libraries.io/npm/%40alessiofrittoli%2Fweb-utils)
+[version-badge]: https://img.shields.io/npm/v/%40alessiofrittoli%2Fweb-utils
+[npm-url]: https://npmjs.org/package/%40alessiofrittoli%2Fweb-utils
+[coverage-badge]: https://coveralls.io/repos/github/alessiofrittoli/web-utils/badge.svg
+[coverage-url]: https://coveralls.io/github/alessiofrittoli/web-utils
+[downloads-badge]: https://img.shields.io/npm/dm/%40alessiofrittoli%2Fweb-utils.svg
+[deps-badge]: https://img.shields.io/librariesio/release/npm/%40alessiofrittoli%2Fweb-utils
+[deps-url]: https://libraries.io/npm/%40alessiofrittoli%2Fweb-utils
 
 ## Common TypeScript web utilities
 
