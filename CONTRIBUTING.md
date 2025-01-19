@@ -10,9 +10,9 @@ If you find a bug, have a question, or want to suggest a new feature:
 
 - Search Existing Issues: Check the [Issues](https://github.com/alessiofrittoli/web-utils/issues) tab to see if your concern has already been addressed.
 - Create a New Issue: If not, open a new issue. Please provide:
-	- A clear and descriptive title.
-	- Detailed steps to reproduce the issue (if applicable).
-	- Suggestions or ideas (if applicable).
+  - A clear and descriptive title.
+  - Detailed steps to reproduce the issue (if applicable).
+  - Suggestions or ideas (if applicable).
 
 ### 2. Fork the Repository
 
