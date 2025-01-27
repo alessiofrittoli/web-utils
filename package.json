@@ -74,7 +74,8 @@
 		"test:jest:jsdom": "JSDOM=true pnpm test:jest",
 		"test:map": "pnpm test:watch map.test.ts",
 		"test:blob": "pnpm test:watch blob.test.ts",
-		"test:generators": "pnpm test:watch generators.test.ts"
+		"test:generators": "pnpm test:watch generators.test.ts",
+		"test:strings": "pnpm test:watch strings.test.ts"
 	},
 	"devDependencies": {
 		"@alessiofrittoli/node-scripts": "^2.2.1",
