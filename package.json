@@ -37,6 +37,11 @@
 			"import": "./dist/blob.mjs",
 			"require": "./dist/blob.js"
 		},
+		"./generators": {
+			"types": "./dist/generators.d.ts",
+			"import": "./dist/generators.mjs",
+			"require": "./dist/generators.js"
+		},
 		"./map": {
 			"types": "./dist/map.d.ts",
 			"import": "./dist/map.mjs",
@@ -63,7 +68,8 @@
 		"test:jest": "pnpm test:watch jest.test.ts",
 		"test:jest:jsdom": "JSDOM=true pnpm test:jest",
 		"test:map": "pnpm test:watch map.test.ts",
-		"test:blob": "pnpm test:watch blob.test.ts"
+		"test:blob": "pnpm test:watch blob.test.ts",
+		"test:generators": "pnpm test:watch generators.test.ts"
 	},
 	"devDependencies": {
 		"@alessiofrittoli/node-scripts": "^2.2.1",
