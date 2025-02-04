@@ -1,4 +1,4 @@
-import { ucFirst } from '@/strings'
+import { toKebabCase, ucFirst } from '@/strings'
 
 describe( 'ucFirst', () => {
 
@@ -47,6 +47,23 @@ describe( 'ucFirst', () => {
 		// @ts-expect-error negative testing
 		expect( () => ucFirst( [] ) )
 			.toThrow( 'string.charAt is not a function' )
+
+	} )
+
+} )
+
+describe( 'toKebabCase', () => {
+
+	it( 'replaces an uppercase letter with a lowercase one prefixed with a dash', () => {
+
+		expect( toKebabCase( 'fontFamily' ) )
+			.toBe( 'font-family' )
+		
+		expect( toKebabCase( 'backgroundColor' ) )
+			.toBe( 'background-color' )
+		
+		expect( toKebabCase( 'WebkitAlignContent' ) )
+			.toBe( '-webkit-align-content' )
 
 	} )
 
