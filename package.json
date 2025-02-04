@@ -1,6 +1,6 @@
 {
 	"name": "@alessiofrittoli/web-utils",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"description": "Common TypeScript web utilities",
 	"author": {
 		"name": "Alessio Frittoli",
