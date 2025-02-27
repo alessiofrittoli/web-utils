@@ -59,7 +59,7 @@
 		"build:watch": "tsup --watch",
 		"lint": "eslint",
 		"release": "node scripts/publish.js --verbose --npm",
-		"test": "jest",
+		"test": "jest --verbose",
 		"test:watch": "jest --watchAll --verbose",
 		"test:jsdom": "JSDOM=true pnpm test:watch",
 		"test:ci": "jest --ci --verbose",
@@ -75,7 +75,8 @@
 		"test:map": "pnpm test:watch map.test.ts",
 		"test:blob": "pnpm test:watch blob.test.ts",
 		"test:generators": "pnpm test:watch generators.test.ts",
-		"test:strings": "pnpm test:watch strings.test.ts"
+		"test:strings": "pnpm test:watch strings.test.ts",
+		"test:types": "pnpm test:watch types.test.ts"
 	},
 	"devDependencies": {
 		"@alessiofrittoli/node-scripts": "^2.2.1",
