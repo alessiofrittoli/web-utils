@@ -1,4 +1,4 @@
-import { toKebabCase, ucFirst } from '@/strings'
+import { toCamelCase, toKebabCase, ucFirst } from '@/strings'
 
 describe( 'ucFirst', () => {
 
@@ -51,6 +51,31 @@ describe( 'ucFirst', () => {
 	} )
 
 } )
+
+
+describe( 'toCamelCase', () => {
+
+	it( 'replaces a dash, underscore or space prefixed lowercase letters with an uppercase one', () => {
+
+		expect( toCamelCase( 'font-family' ) )
+			.toBe( 'fontFamily' )
+		
+		expect( toCamelCase( 'background-color' ) )
+			.toBe( 'backgroundColor' )
+		
+		expect( toCamelCase( '-webkit-align-content' ) )
+			.toBe( 'WebkitAlignContent' )
+		
+		expect( toCamelCase( 'some value' ) )
+			.toBe( 'someValue' )
+		
+		expect( toCamelCase( 'some_value' ) )
+			.toBe( 'someValue' )
+
+	} )
+
+} )
+
 
 describe( 'toKebabCase', () => {
 

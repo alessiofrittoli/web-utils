@@ -9,6 +9,20 @@ export const ucFirst = ( string: string ): string => (
 
 
 /**
+ * Convert string to CamelCase.
+ * 
+ * @param input The input string to convert.
+ * @returns The converted string to CamelCase.
+ */
+export const toCamelCase = ( input: string ) => (
+	input
+		.replace(
+			/[-_\s](.)/g, ( match, group1 ) => group1.toUpperCase()
+		)
+)
+
+
+/**
  * Convert string to kebab-case string.
  * 
  * @param input The input string to convert.
