@@ -26,7 +26,7 @@ export const isEmpty = ( string: string ) => ! isNotEmpty( string )
  * 
  * @returns True if the email is valid, false otherwise.
  */
-export const isValidEmail = ( email: string ) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/.test( email )
+export const isValidEmail = ( email: string ) => /^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/.test( email )
 
 
 /**
