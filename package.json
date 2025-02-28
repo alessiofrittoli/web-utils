@@ -76,7 +76,8 @@
 		"test:blob": "pnpm test:watch blob.test.ts",
 		"test:generators": "pnpm test:watch generators.test.ts",
 		"test:strings": "pnpm test:watch strings.test.ts",
-		"test:types": "pnpm test:watch types.test.ts"
+		"test:types": "pnpm test:watch types.test.ts",
+		"test:validation": "pnpm test:watch validation.test.ts"
 	},
 	"devDependencies": {
 		"@alessiofrittoli/node-scripts": "^2.2.1",
