@@ -7,6 +7,13 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@alessiofrittoli/date-utils':
+        specifier: ^2.2.0
+        version: 2.2.0
+      '@alessiofrittoli/math-utils':
+        specifier: ^1.9.0
+        version: 1.9.0
     devDependencies:
       '@alessiofrittoli/node-scripts':
         specifier: ^2.2.1
@@ -62,8 +69,23 @@ importers:
 
 packages:
 
+  '@alessiofrittoli/chain-functions@2.0.0':
+    resolution: {integrity: sha512-6Qm/F813NvqbnhMHtJWZnPKKrOqSC+pZzOxz8g2XC5OoZZ2fWcYvfE3q8aeAx/tKoWelRVr8GJm6vF9vwGTprw==}
+
+  '@alessiofrittoli/date-utils@2.2.0':
+    resolution: {integrity: sha512-tbAUZ30XQ26cQPA5MzwjB1+f6P4cRZUiiCp2WhKhpnxn4yIDoHx1gdRs/tziuACmagvcAWJs9FAxNm7Awl7HAg==}
+
+  '@alessiofrittoli/math-utils@1.9.0':
+    resolution: {integrity: sha512-4KXSv8wlVyN6dSkeGqAXK3LtrDPH4klXzsLGHK8kjA1mO3Ik9atSU1Wp4vHi98CFhfPgb3UFqhnpvxm1aszTQw==}
+
   '@alessiofrittoli/node-scripts@2.2.1':
     resolution: {integrity: sha512-VP9pUyrPhudlv/1UOxb1BfisKOSAAl/0H8beM5Udn3ddMHPVbrP4ul1rLqDbHWsFzePmpOiOsvOpEAsj2YPnWA==}
+
+  '@alessiofrittoli/type-utils@1.5.0':
+    resolution: {integrity: sha512-UCc2S8PCYaWS9uaKwF3k8MkU1vPqulnGk08NFDBi+dmjFQvyGCkG1mkSvfQjjXz0XOzh5zgn+mVqP+fZLF2CcQ==}
+
+  '@alessiofrittoli/web-utils@0.7.0':
+    resolution: {integrity: sha512-WmdTP1yQIK6IeY/Ys+6++LPYKH1mV+X6sWt0G801MQqMdzBWfmhzw0lSVUmN+kKzlM5MJJzXE+yqsh5HP6PGhQ==}
 
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
@@ -2427,7 +2449,25 @@ packages:
 
 snapshots:
 
+  '@alessiofrittoli/chain-functions@2.0.0': {}
+
+  '@alessiofrittoli/date-utils@2.2.0':
+    dependencies:
+      '@alessiofrittoli/math-utils': 1.9.0
+      '@alessiofrittoli/type-utils': 1.5.0
+
+  '@alessiofrittoli/math-utils@1.9.0':
+    dependencies:
+      '@alessiofrittoli/web-utils': 0.7.0
+
   '@alessiofrittoli/node-scripts@2.2.1': {}
+
+  '@alessiofrittoli/type-utils@1.5.0':
+    dependencies:
+      '@alessiofrittoli/chain-functions': 2.0.0
+      '@alessiofrittoli/node-scripts': 2.2.1
+
+  '@alessiofrittoli/web-utils@0.7.0': {}
 
   '@ampproject/remapping@2.3.0':
     dependencies:
