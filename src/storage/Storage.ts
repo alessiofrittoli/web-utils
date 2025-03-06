@@ -82,5 +82,5 @@ export class Storage
 	/**
 	 * Reference to the {@link Cookie} utility.
 	 */
-	static Cookie = Cookie
+	static cookie = Cookie
 }
