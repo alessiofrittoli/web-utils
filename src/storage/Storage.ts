@@ -4,6 +4,7 @@ import { isNumeric } from '@alessiofrittoli/math-utils'
 import { isPromise, isString } from '@/types'
 import { isEmpty } from '@/validation'
 
+import { Cookie } from './Cookie'
 import { LocalStorage } from './LocalStorage'
 
 
@@ -77,6 +78,11 @@ export class Storage
 			
 		}
 	}
+
+	/**
+	 * Reference to the {@link Cookie} utility.
+	 */
+	static cookie = Cookie
 
 
 	/**
