@@ -4,6 +4,8 @@ import { isNumeric } from '@alessiofrittoli/math-utils'
 import { isPromise, isString } from '@/types'
 import { isEmpty } from '@/validation'
 
+import { SessionStorage } from './SessionStorage'
+
 
 /**
  * A utility class for handling storage operations.
@@ -75,4 +77,10 @@ export class Storage
 			
 		}
 	}
+
+
+	/**
+	 * Reference to the {@link SessionStorage} storage utility.
+	 */
+	static session = SessionStorage
 }
