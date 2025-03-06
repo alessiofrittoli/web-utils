@@ -92,7 +92,8 @@
 		"test:validation": "pnpm test:watch validation.test.ts",
 		"test:storage": "pnpm test:watch storage/index.test.ts",
 		"test:cookie": "pnpm test:watch storage/cookie.test.ts",
-		"test:cookie:jsdom": "pnpm test:watch storage/cookie-jsdom.test.ts"
+		"test:cookie:jsdom": "pnpm test:watch storage/cookie-jsdom.test.ts",
+		"test:local": "pnpm test:watch storage/local.test.ts"
 	},
 	"devDependencies": {
 		"@alessiofrittoli/node-scripts": "^2.2.1",
