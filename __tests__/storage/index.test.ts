@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { Storage } from '@/storage/Storage'
 
 describe( 'Storage', () => {
