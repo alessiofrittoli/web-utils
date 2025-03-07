@@ -1,5 +1,4 @@
-import { Storage } from './Storage'
-
+import { parseValue, stringifyValue } from '@/strings'
 
 /**
  * A browser-compatible implementation of [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage). Data is stored in
@@ -29,7 +28,7 @@ export class SessionStorage
 	static get<T>( name: string )
 	{
 		return (
-			Storage.parseValue<T>( sessionStorage.getItem( name ) || undefined )
+			parseValue<T>( sessionStorage.getItem( name ) || undefined )
 		)
 	}
 
@@ -45,7 +44,7 @@ export class SessionStorage
 	 */
 	static set<T>( name: string, value: T )
 	{
-		return sessionStorage.setItem( name, Storage.stringifyValue( value ) )
+		return sessionStorage.setItem( name, stringifyValue( value ) )
 	}
 	
 

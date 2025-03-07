@@ -1,8 +1,7 @@
 import { isValidDate } from '@alessiofrittoli/date-utils'
-import { toCamelCase, ucFirst } from '@/strings'
+import { parseValue, stringifyValue, toCamelCase, ucFirst } from '@/strings'
 
 import { getTypedMap, type TypedMap } from '@/map'
-import { Storage } from './Storage'
 
 
 /** The Cookie Priority. */
@@ -251,7 +250,7 @@ export class Cookie
 					}
 					if ( key === 'MaxAge' ) key = 'Max-Age' as K
 
-					return [ key, Storage.stringifyValue( value ) ].join( '=' )
+					return [ key, stringifyValue( value ) ].join( '=' )
 				} )
 				.join( ';' )
 		)
@@ -338,6 +337,6 @@ export class Cookie
 			return ( value !== 'false' ) as T
 		}
 
-		return Storage.parseValue<T>( value )
+		return parseValue<T>( value )
 	}
 }

@@ -37,6 +37,9 @@ export interface TypedMap<
  *
  * @template T The object type defining the key-value relationships.
  * @template P Defines whether the `Map.get()` method should return a possibily undefined value.
+ * 
+ * @param iterable Initial `Map` constructor iterable object.
+ * 
  * @returns A new instance of a type-safe Map.
  */
 export const getTypedMap = <

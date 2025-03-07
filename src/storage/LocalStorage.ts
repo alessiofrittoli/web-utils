@@ -1,5 +1,4 @@
-import { Storage } from './Storage'
-
+import { parseValue, stringifyValue } from '@/strings'
 
 /**
  * A browser-compatible implementation of [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). Data is stored
@@ -33,7 +32,7 @@ export class LocalStorage
 	static get<T>( name: string )
 	{
 		return (
-			Storage.parseValue<T>( localStorage.getItem( name ) || undefined )
+			parseValue<T>( localStorage.getItem( name ) || undefined )
 		)
 	}
 
@@ -49,7 +48,7 @@ export class LocalStorage
 	 */
 	static set<T>( name: string, value: T )
 	{
-		return localStorage.setItem( name, Storage.stringifyValue( value ) )
+		return localStorage.setItem( name, stringifyValue( value ) )
 	}
 	
 

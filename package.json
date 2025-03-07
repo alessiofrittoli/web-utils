@@ -63,9 +63,9 @@
 			"require": "./dist/validation.js"
 		},
 		"./storage": {
-			"types": "./dist/storage/Storage.d.ts",
-			"import": "./dist/storage/Storage.mjs",
-			"require": "./dist/storage/Storage.js"
+			"types": "./dist/storage/index.d.ts",
+			"import": "./dist/storage/index.mjs",
+			"require": "./dist/storage/index.js"
 		},
 		"./storage/Cookie": {
 			"types": "./dist/storage/Cookie.d.ts",
