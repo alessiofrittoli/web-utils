@@ -51,6 +51,36 @@
 			"types": "./dist/strings.d.ts",
 			"import": "./dist/strings.mjs",
 			"require": "./dist/strings.js"
+		},
+		"./types": {
+			"types": "./dist/types.d.ts",
+			"import": "./dist/types.mjs",
+			"require": "./dist/types.js"
+		},
+		"./validation": {
+			"types": "./dist/validation.d.ts",
+			"import": "./dist/validation.mjs",
+			"require": "./dist/validation.js"
+		},
+		"./storage": {
+			"types": "./dist/storage/Storage.d.ts",
+			"import": "./dist/storage/Storage.mjs",
+			"require": "./dist/storage/Storage.js"
+		},
+		"./storage/Cookie": {
+			"types": "./dist/storage/Cookie.d.ts",
+			"import": "./dist/storage/Cookie.mjs",
+			"require": "./dist/storage/Cookie.js"
+		},
+		"./storage/LocalStorage": {
+			"types": "./dist/storage/LocalStorage.d.ts",
+			"import": "./dist/storage/LocalStorage.mjs",
+			"require": "./dist/storage/LocalStorage.js"
+		},
+		"./storage/SessionStorage": {
+			"types": "./dist/storage/SessionStorage.d.ts",
+			"import": "./dist/storage/SessionStorage.mjs",
+			"require": "./dist/storage/SessionStorage.js"
 		}
 	},
 	"sideEffects": false,
