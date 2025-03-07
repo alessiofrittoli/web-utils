@@ -152,7 +152,7 @@ export class Cookie
 	 * Get a cookie by cookie name from `Document.cookie`.
 	 * 
 	 * @param	name The name of the cookie.
-	 * @returns	The cookie value.
+	 * @returns	The found parsed cookie or `undefined` if no cookie has been found in `Document.cookie`.
 	 */
 	static get<T, K extends string | number | symbol = string>( name: K )
 	{
@@ -188,11 +188,11 @@ export class Cookie
 	 * @param name The name of the cookie.
 	 * @returns	`true` if successful, `false` otherwise.
 	 */
-	static delete<K = string>( cname: K )
+	static delete<K = string>( name: K )
 	{
 		return (
 			!! Cookie.set( {
-				Name	: cname,
+				Name	: name,
 				MaxAge	: 0,
 			} )
 		)
@@ -200,29 +200,29 @@ export class Cookie
 
 
 	/**
-	 * Parse cookie options to Cookie Map.
+	 * Parse the given cookie parameters to a Cookie Map.
 	 * 
-	 * @param	options The Cookie options.
+	 * @param	params The Cookie parameters.
 	 * @returns	The parsed Cookie Map.
 	 */
-	static parse<K = string, V = string>( options: RawCookie<K, V> ): ParsedCookieMap<K, V>
+	static parse<K = string, V = string>( params: RawCookie<K, V> ): ParsedCookieMap<K, V>
 	{
-		const expires	= options.Expires ? new Date( options.Expires ) : undefined
+		const expires	= params.Expires ? new Date( params.Expires ) : undefined
 		const cookie	= getTypedMap<ParsedCookie<K, V>, false>()
 
 		cookie
-			.set( 'Name', options.Name )
-			.set( 'Value', options.Value )
+			.set( 'Name', params.Name )
+			.set( 'Value', params.Value )
 
 		if ( expires ) cookie.set( 'Expires', expires )
-		if ( typeof options.MaxAge !== 'undefined' ) cookie.set( 'MaxAge', options.MaxAge )
-		if ( options.Path ) cookie.set( 'Path', options.Path )
-		if ( options.Priority ) cookie.set( 'Priority', options.Priority )
-		if ( options.Domain ) cookie.set( 'Domain', options.Domain )
-		if ( typeof options.HttpOnly !== 'undefined' ) cookie.set( 'HttpOnly', options.HttpOnly )
-		if ( typeof options.Secure !== 'undefined' ) cookie.set( 'Secure', options.Secure )
-		if ( options.SameSite ) cookie.set( 'SameSite', options.SameSite )
-		if ( typeof options.Partitioned !== 'undefined' ) cookie.set( 'Partitioned', options.Partitioned )
+		if ( typeof params.MaxAge !== 'undefined' ) cookie.set( 'MaxAge', params.MaxAge )
+		if ( params.Path ) cookie.set( 'Path', params.Path )
+		if ( params.Priority ) cookie.set( 'Priority', params.Priority )
+		if ( params.Domain ) cookie.set( 'Domain', params.Domain )
+		if ( typeof params.HttpOnly !== 'undefined' ) cookie.set( 'HttpOnly', params.HttpOnly )
+		if ( typeof params.Secure !== 'undefined' ) cookie.set( 'Secure', params.Secure )
+		if ( params.SameSite ) cookie.set( 'SameSite', params.SameSite )
+		if ( typeof params.Partitioned !== 'undefined' ) cookie.set( 'Partitioned', params.Partitioned )
 
 		return cookie
 	}
