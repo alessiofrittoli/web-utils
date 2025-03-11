@@ -142,9 +142,37 @@ describe( 'Validation Utils', () => {
 
 
 	describe( 'isSQLStatement', () => {
-		it( 'returns `true` if the given value is a SQL statement', () => {
+		it( 'detects SQL statements', () => {
 			expect( isSQLStatement( 'SELECT * FROM users' ) ).toBe( true )
+			expect( isSQLStatement( 'DELETE FROM users WHERE id = 1' ) ).toBe( true )
+			expect( isSQLStatement( 'INSERT INTO users (name) VALUES ("John")' ) ).toBe( true )
+			expect( isSQLStatement( 'UPDATE users SET name = "John" WHERE `id` = 1' ) ).toBe( true )
+			expect( isSQLStatement( 'UNION SELECT * FROM users' ) ).toBe( true )
+			expect( isSQLStatement( 'REPLACE INTO users (id, name) VALUES (1, "John")' ) ).toBe( true )
+			expect( isSQLStatement( 'CREATE TABLE users (id INT, name VARCHAR(255))' ) ).toBe( true )
+			expect( isSQLStatement( 'DROP TABLE users' ) ).toBe( true )
+			expect( isSQLStatement( 'ALTER TABLE users ADD COLUMN age INT' ) ).toBe( true )
+			expect( isSQLStatement( 'RENAME TABLE users TO customers' ) ).toBe( true )
+			expect( isSQLStatement( 'SELECT * FROM users; --' ) ).toBe( true )
+		} )
+	
+
+		it( 'does not detect non-SQL statements', () => {
+			expect( isSQLStatement( 'This is a regular sentence.' ) ).toBe( false )
+			expect( isSQLStatement( 'SELECTING a book FROM the shelf' ) ).toBe( false )
+			expect( isSQLStatement( 'DROP the ball' ) ).toBe( false )
+			expect( isSQLStatement( 'ALTER your plans' ) ).toBe( false )
+			expect( isSQLStatement( 'RENAME the file' ) ).toBe( false )
 			expect( isSQLStatement( 'SELECT this is a normal string' ) ).toBe( false )
+		} )
+	
+
+		it('returns false for non-string values', () => {
+			expect( isSQLStatement( null ) ).toBe( false )
+			expect( isSQLStatement( undefined ) ).toBe( false )
+			expect( isSQLStatement( 123 ) ).toBe( false )
+			expect( isSQLStatement( {} ) ).toBe( false )
+			expect( isSQLStatement( [] ) ).toBe( false )
 		} )
 	} )
 

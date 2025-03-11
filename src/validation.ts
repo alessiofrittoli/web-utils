@@ -125,5 +125,18 @@ export const isStrictEqual = ( a: unknown, b: unknown ) => a === b
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isSQLStatement = ( value: any ) => (
-	typeof value === 'string' && !! value.match( /(SELECT|DELETE|INSERT|UNION|REPLACE)\s.*(FROM|INTO|DISTINCT)|(CREATE|DROP|ALTER|RENAME)\s.*(TABLE|COLUMN|VIEW)|(;\-\-)/gi )
+	typeof value === 'string' &&
+	[
+		/\bselect\b\s+.*?\bfrom\b/,
+		/\bdelete\b\s+.*?\bfrom\b/,
+		/\binsert\b\s+.*?\binto\b/,
+		/\bupdate\b\s+.*?\bset\b/,
+		/\bunion\b\s+.*?\bselect\b/,
+		/\breplace\b\s+.*?\binto\b/,
+		/\bcreate\b\s+.*?\b(table|view|index|database)\b/,
+		/\bdrop\b\s+.*?\b(table|view|index|database)\b/,
+		/\balter\b\s+.*?\b(table|view|index|database)\b/,
+		/\brename\b\s+.*?\b(table|view|index|database)\b/,
+		/;\s*--/
+	].some( pattern => pattern.test( value.toLowerCase() ) )
 )
