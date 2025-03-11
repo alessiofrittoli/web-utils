@@ -164,6 +164,17 @@ export class Cookie
 
 
 	/**
+	 * Get all cookies from `Document.cookie`.
+	 * 
+	 * @returns	The parsed cookie found in `Document.cookie`.
+	 */
+	static getAll<T extends Record<string, unknown>>()
+	{
+		return Cookie.fromListString<T>( document.cookie )
+	}
+
+
+	/**
 	 * Set a cookie to `Document.cookie`.
 	 * 
 	 * @param	options The cookie options or a parsed Cookie Map.
