@@ -7,24 +7,24 @@ describe( 'Cookie', () => {
 
 		it( 'returns a parsed Cookie Map', () => {
 			const cookie = Cookie.parse( {
-				Name		: 'cookiename',
-				Value		: { test: 'value' },
-				Path		: '/specific-path',
-				Priority	: Priority.High,
-				Expires		: Date.now() + 20 * 60 * 1000,
-				Domain		: 'example.com',
-				Secure		: true,
-				HttpOnly	: true,
-				SameSite	: SameSite.Lax,
-				MaxAge		: Date.now() + 30 * 60 * 1000,
-				Partitioned	: true,
+				name		: 'cookiename',
+				value		: { test: 'value' },
+				path		: '/specific-path',
+				priority	: Priority.High,
+				expires		: Date.now() + 20 * 60 * 1000,
+				domain		: 'example.com',
+				secure		: true,
+				httpOnly	: true,
+				sameSite	: SameSite.Lax,
+				maxAge		: Date.now() + 30 * 60 * 1000,
+				partitioned	: true,
 			} )
 	
 			expect( cookie ).toBeInstanceOf( Map )
 		} )
 
 
-		it( 'allows custom `Name` and `Value` typing', () => {
+		it( 'allows custom `name` and `value` typing', () => {
 			/** On-site stubbed cookie. */
 			enum CookieName
 			{
@@ -38,8 +38,8 @@ describe( 'Cookie', () => {
 			
 
 			const cookie = Cookie.parse<CookieName, TestCookieValue>( {
-				Name	: CookieName.TEST_COOKIE,
-				Value	: { test: 'value' },
+				name	: CookieName.TEST_COOKIE,
+				value	: { test: 'value' },
 			} )
 
 			expect( cookie ).toBeInstanceOf( Map )
@@ -47,97 +47,97 @@ describe( 'Cookie', () => {
 		} )
 
 		
-		it( 'optionally set `Expires`', () => {
+		it( 'optionally set `expires`', () => {
 			const expires	= Date.now() + 20 * 60 * 1000
 			const cookie	= Cookie.parse( {
-				Name	: 'cookiename',
-				Expires	: expires,
+				name	: 'cookiename',
+				expires	: expires,
 			} )
 	
-			expect( cookie.get( 'Expires' ) )
+			expect( cookie.get( 'expires' ) )
 				.toEqual( new Date( expires ) )
 		} )
 
 		
-		it( 'optionally set `MaxAge`', () => {
+		it( 'optionally set `maxAge`', () => {
 			const expires	= Date.now() + 20 * 60 * 1000
 			const cookie	= Cookie.parse( {
-				Name	: 'cookiename',
-				MaxAge	: expires,
+				name	: 'cookiename',
+				maxAge	: expires,
 			} )
 	
-			expect( cookie.get( 'MaxAge' ) )
+			expect( cookie.get( 'maxAge' ) )
 				.toBe( expires )
 		} )
 
 
-		it( 'optionally set `Path`', () => {
+		it( 'optionally set `path`', () => {
 			const cookie = Cookie.parse( {
-				Name	: 'cookiename',
-				Path	: '/specific-path',
+				name	: 'cookiename',
+				path	: '/specific-path',
 			} )
 	
-			expect( cookie.get( 'Path' ) ).toBe( '/specific-path' )
+			expect( cookie.get( 'path' ) ).toBe( '/specific-path' )
 		} )
 
 
-		it( 'optionally set `Priority`', () => {
+		it( 'optionally set `priority`', () => {
 			const cookie = Cookie.parse( {
-				Name	: 'cookiename',
-				Priority: Priority.High,
+				name	: 'cookiename',
+				priority: Priority.High,
 			} )
 	
-			expect( cookie.get( 'Priority' ) ).toBe( Priority.High )
+			expect( cookie.get( 'priority' ) ).toBe( Priority.High )
 		} )
 
 
-		it( 'optionally set `Domain`', () => {
+		it( 'optionally set `domain`', () => {
 			const cookie = Cookie.parse( {
-				Name	: 'cookiename',
-				Domain	: 'example.com',
+				name	: 'cookiename',
+				domain	: 'example.com',
 			} )
 	
-			expect( cookie.get( 'Domain' ) ).toBe( 'example.com' )
+			expect( cookie.get( 'domain' ) ).toBe( 'example.com' )
 		} )
 
 
-		it( 'optionally set `HttpOnly`', () => {
+		it( 'optionally set `httpOnly`', () => {
 			const cookie = Cookie.parse( {
-				Name		: 'cookiename',
-				HttpOnly	: true,
+				name		: 'cookiename',
+				httpOnly	: true,
 			} )
 	
-			expect( cookie.get( 'HttpOnly' ) ).toBe( true )
+			expect( cookie.get( 'httpOnly' ) ).toBe( true )
 		} )
 
 
-		it( 'optionally set `Secure`', () => {
+		it( 'optionally set `secure`', () => {
 			const cookie = Cookie.parse( {
-				Name	: 'cookiename',
-				Secure	: true,
+				name	: 'cookiename',
+				secure	: true,
 			} )
 	
-			expect( cookie.get( 'Secure' ) ).toBe( true )
+			expect( cookie.get( 'secure' ) ).toBe( true )
 		} )
 
 
-		it( 'optionally set `SameSite`', () => {
+		it( 'optionally set `sameSite`', () => {
 			const cookie = Cookie.parse( {
-				Name	: 'cookiename',
-				SameSite: SameSite.Lax,
+				name	: 'cookiename',
+				sameSite: SameSite.Lax,
 			} )
 	
-			expect( cookie.get( 'SameSite' ) ).toBe( SameSite.Lax )
+			expect( cookie.get( 'sameSite' ) ).toBe( SameSite.Lax )
 		} )
 
 
-		it( 'optionally set `Partitioned`', () => {
+		it( 'optionally set `partitioned`', () => {
 			const cookie = Cookie.parse( {
-				Name		: 'cookiename',
-				Partitioned	: true,
+				name		: 'cookiename',
+				partitioned	: true,
 			} )
 	
-			expect( cookie.get( 'Partitioned' ) ).toBe( true )
+			expect( cookie.get( 'partitioned' ) ).toBe( true )
 		} )
 
 	} )
@@ -146,41 +146,41 @@ describe( 'Cookie', () => {
 	describe( 'Cookie.toString()', () => {
 
 		const cookie = Cookie.parse( {
-			Name		: 'cookiename',
-			Value		: { test: 'value' },
-			Path		: '/specific-path',
-			Priority	: Priority.High,
-			Expires		: Date.now() + 20 * 60 * 1000,
-			Domain		: 'example.com',
-			Secure		: true,
-			HttpOnly	: true,
-			SameSite	: SameSite.Lax,
-			MaxAge		: Date.now() + 30 * 60 * 1000,
-			Partitioned	: true,
+			name		: 'cookiename',
+			value		: { test: 'value' },
+			path		: '/specific-path',
+			priority	: Priority.High,
+			expires		: Date.now() + 20 * 60 * 1000,
+			domain		: 'example.com',
+			secure		: true,
+			httpOnly	: true,
+			sameSite	: SameSite.Lax,
+			maxAge		: Date.now() + 30 * 60 * 1000,
+			partitioned	: true,
 		} )
 
 		const cookieString = Cookie.toString( cookie )
 
 		it( 'correctly stringify a Cookie Map', () => {
-			expect( cookieString.includes( `${ cookie.get( 'Name' ) }=${ JSON.stringify( cookie.get( 'Value' ) ) }` ) )
+			expect( cookieString.includes( `${ cookie.get( 'name' ) }=${ JSON.stringify( cookie.get( 'value' ) ) }` ) )
 				.toBe( true )
-			expect( cookieString.includes( `Expires=${ new Date( cookie.get( 'Expires' )! ).toUTCString() }` ) )
+			expect( cookieString.includes( `Expires=${ new Date( cookie.get( 'expires' )! ).toUTCString() }` ) )
 				.toBe( true )
-			expect( cookieString.includes( `Max-Age=${ cookie.get( 'MaxAge' ) }` ) )
+			expect( cookieString.includes( `Max-Age=${ cookie.get( 'maxAge' ) }` ) )
 				.toBe( true )
-			expect( cookieString.includes( `Path=${ cookie.get( 'Path' ) }` ) )
+			expect( cookieString.includes( `Path=${ cookie.get( 'path' ) }` ) )
 				.toBe( true )
-			expect( cookieString.includes( `Priority=${ cookie.get( 'Priority' ) }` ) )
+			expect( cookieString.includes( `Priority=${ cookie.get( 'priority' ) }` ) )
 				.toBe( true )
-			expect( cookieString.includes( `Domain=${ cookie.get( 'Domain' ) }` ) )
+			expect( cookieString.includes( `Domain=${ cookie.get( 'domain' ) }` ) )
 				.toBe( true )
-			expect( cookieString.includes( `HttpOnly=${ cookie.get( 'HttpOnly' ) }` ) )
+			expect( cookieString.includes( `HttpOnly=${ cookie.get( 'httpOnly' ) }` ) )
 				.toBe( true )
-			expect( cookieString.includes( `Secure=${ cookie.get( 'Secure' ) }` ) )
+			expect( cookieString.includes( `Secure=${ cookie.get( 'secure' ) }` ) )
 				.toBe( true )
-			expect( cookieString.includes( `SameSite=${ cookie.get( 'SameSite' ) }` ) )
+			expect( cookieString.includes( `SameSite=${ cookie.get( 'sameSite' ) }` ) )
 				.toBe( true )
-			expect( cookieString.includes( `Partitioned=${ cookie.get( 'Partitioned' ) }` ) )
+			expect( cookieString.includes( `Partitioned=${ cookie.get( 'partitioned' ) }` ) )
 				.toBe( true )
 		} )
 
@@ -192,17 +192,17 @@ describe( 'Cookie', () => {
 		expires.setMilliseconds( 0 ) // ms are excluded from `Date.toUTCString()` output.
 
 		const cookie = Cookie.parse( {
-			Name		: 'cookiename',
-			Value		: { test: 'value' },
-			Path		: '/specific-path',
-			Priority	: Priority.High,
-			Expires		: expires,
-			Domain		: 'example.com',
-			Secure		: true,
-			HttpOnly	: true,
-			SameSite	: SameSite.Lax,
-			MaxAge		: Date.now() + 30 * 60 * 1000,
-			Partitioned	: true,
+			name		: 'cookiename',
+			value		: { test: 'value' },
+			path		: '/specific-path',
+			priority	: Priority.High,
+			expires		: expires,
+			domain		: 'example.com',
+			secure		: true,
+			httpOnly	: true,
+			sameSite	: SameSite.Lax,
+			maxAge		: Date.now() + 30 * 60 * 1000,
+			partitioned	: true,
 		} )
 		
 
@@ -221,8 +221,8 @@ describe( 'Cookie', () => {
 		it( 'skips parameters with wrong format', () => {
 			expect( Cookie.fromString( 'cookiename=value;=0' ) )
 				.toEqual( new Map( [
-					[ 'Name', 'cookiename' ],
-					[ 'Value', 'value' ],
+					[ 'name', 'cookiename' ],
+					[ 'value', 'value' ],
 				] ) )
 		} )
 		
@@ -230,8 +230,8 @@ describe( 'Cookie', () => {
 		it( 'skips parameters with nullish values', () => {
 			expect( Cookie.fromString( 'cookiename=value;Expires=' ) )
 				.toEqual( new Map( [
-					[ 'Name', 'cookiename' ],
-					[ 'Value', 'value' ],
+					[ 'name', 'cookiename' ],
+					[ 'value', 'value' ],
 				] ) )
 		} )
 		
@@ -239,14 +239,14 @@ describe( 'Cookie', () => {
 		it( 'skips Expires parameter when invalid date is provided', () => {
 			expect( Cookie.fromString( 'cookiename=value;Expires=Invalid Date' ) )
 				.toEqual( new Map( [
-					[ 'Name', 'cookiename' ],
-					[ 'Value', 'value' ],
+					[ 'name', 'cookiename' ],
+					[ 'value', 'value' ],
 				] ) )
 			
 			expect( Cookie.fromString( 'cookiename=value;Expires=true' ) )
 				.toEqual( new Map( [
-					[ 'Name', 'cookiename' ],
-					[ 'Value', 'value' ],
+					[ 'name', 'cookiename' ],
+					[ 'value', 'value' ],
 				] ) )
 		} )
 	} )
@@ -293,30 +293,30 @@ describe( 'Cookie', () => {
 
 		const cookiesList = [
 			Cookie.parse<CookieName, Cookie1>( {
-				Name		: CookieName.COOKIE_1,
-				Value		: { test: 'value' },
-				Path		: '/specific-path',
-				Priority	: Priority.High,
-				Expires		: expires,
-				Domain		: 'example.com',
-				Secure		: true,
-				HttpOnly	: true,
-				SameSite	: SameSite.Lax,
-				MaxAge		: Date.now() + 30 * 60 * 1000,
-				Partitioned	: true,
+				name		: CookieName.COOKIE_1,
+				value		: { test: 'value' },
+				path		: '/specific-path',
+				priority	: Priority.High,
+				expires		: expires,
+				domain		: 'example.com',
+				secure		: true,
+				httpOnly	: true,
+				sameSite	: SameSite.Lax,
+				maxAge		: Date.now() + 30 * 60 * 1000,
+				partitioned	: true,
 			} ),
 			Cookie.parse<CookieName, Cookie2>( {
-				Name		: CookieName.COOKIE_2,
-				Value		: { test: true },
-				Path		: '/specific-path',
-				Priority	: Priority.High,
-				Expires		: expires,
-				Domain		: 'example.com',
-				Secure		: true,
-				HttpOnly	: true,
-				SameSite	: SameSite.Lax,
-				MaxAge		: Date.now() + 30 * 60 * 1000,
-				Partitioned	: true,
+				name		: CookieName.COOKIE_2,
+				value		: { test: true },
+				path		: '/specific-path',
+				priority	: Priority.High,
+				expires		: expires,
+				domain		: 'example.com',
+				secure		: true,
+				httpOnly	: true,
+				sameSite	: SameSite.Lax,
+				maxAge		: Date.now() + 30 * 60 * 1000,
+				partitioned	: true,
 			} ),
 		]
 		
@@ -329,10 +329,10 @@ describe( 'Cookie', () => {
 		it( 'returns a Map of Cookie Map indexed by Cookie Name', () => {
 			expect ( cookies ).toBeInstanceOf( Map )
 
-			expect( cookies.get( CookieName.COOKIE_1 )?.get( 'Value' )?.test )
+			expect( cookies.get( CookieName.COOKIE_1 )?.get( 'value' )?.test )
 				.toBe( 'value' )
 
-			expect( cookies.get( CookieName.COOKIE_2 )?.get( 'Value' )?.test )
+			expect( cookies.get( CookieName.COOKIE_2 )?.get( 'value' )?.test )
 				.toBe( true )
 
 		} )
@@ -343,7 +343,7 @@ describe( 'Cookie', () => {
 			const cookies = Cookie.fromListString( '; cookiename=value;' )
 
 			expect( cookies.size ).toBe( 1 )
-			expect( cookies.get( 'cookiename' )?.get( 'Value' ) )
+			expect( cookies.get( 'cookiename' )?.get( 'value' ) )
 				.toBe( 'value' )
 
 		} )
@@ -356,8 +356,8 @@ describe( 'Cookie', () => {
 		it( 'returns false if document is undefined', () => {
 
 			const result = Cookie.set( {
-				Name	: 'testcookie',
-				Value	: 'testvalue',
+				name	: 'testcookie',
+				value	: 'testvalue',
 			} )
 	
 			expect( result ).toBe( false )

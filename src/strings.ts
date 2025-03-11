@@ -17,10 +17,21 @@ export const ucFirst = ( input: string ): string => (
 
 
 /**
- * Convert string to CamelCase.
+ * Make first letter lowercase.
+ * 
+ * @param	input The input string to convert.
+ * @returns	The processed string.
+ */
+export const lcFirst = ( input: string ): string => (
+	input.charAt( 0 ).toLowerCase() + input.slice( 1 )
+)
+
+
+/**
+ * Convert string to camelCase.
  * 
  * @param input The input string to convert.
- * @returns The converted string to CamelCase.
+ * @returns The converted string to camelCase.
  */
 export const toCamelCase = ( input: string ) => (
 	toKebabCase( input )

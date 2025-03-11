@@ -474,9 +474,9 @@ console.log( ucFirst( 'string value' ) ) // Outputs: 'String value'
 
 ---
 
-##### `toCamelCase`
+##### `lcFirst`
 
-Convert string to CamelCase.
+Make first letter lowercase.
 
 <details>
 
@@ -496,7 +496,48 @@ Convert string to CamelCase.
 
 Type: `string`
 
-The converted string to CamelCase.
+The processed string.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+console.log( lcFirst( 'String value' ) ) // Outputs: 'string value'
+console.log( lcFirst( 'string value' ) ) // Outputs: 'string value'
+```
+
+</details>
+
+---
+
+##### `toCamelCase`
+
+Convert string to camelCase.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Description                  |
+|-----------|----------|------------------------------|
+| `input`   | `string` | The input string to convert. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `string`
+
+The converted string to camelCase.
 
 </details>
 
@@ -742,6 +783,24 @@ import { Cookie } from '@alessiofrittoli/web-utils/storage/Cookie'
 
 <details>
 
+<summary style="cursor:pointer">Importing enum and types</summary>
+
+```ts
+import { Priority, SameSite } from '@alessiofrittoli/web-utils'
+// or
+import { Priority, SameSite } from '@alessiofrittoli/web-utils/storage/Cookie'
+
+import type { RawCookie, ParsedCookie, ParsedCookieMap } from '@alessiofrittoli/web-utils'
+// or
+import type { RawCookie, ParsedCookie, ParsedCookieMap } from '@alessiofrittoli/web-utils/storage/Cookie'
+```
+
+</details>
+
+---
+
+<details>
+
 <summary style="cursor:pointer">Enumerators</summary>
 
 ###### `Priority` Enum
@@ -784,17 +843,17 @@ Interface representing Cookie properties before it get parsed.
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `Name` | `K` | The Cookie name. |
-| `Value` | `V` | The Cookie value. |
-| `Domain` | `string` | Defines the host to which the cookie will be sent. |
-| `Expires` | `string \| number \| Date` | Indicates the maximum lifetime of the cookie. |
-| `HttpOnly` | `boolean` | Forbids JavaScript from accessing the cookie, for example, through the [`Document.cookie`](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie) property. |
-| `MaxAge` | `number` | Indicates the number of seconds until the cookie expires. |
-| `Partitioned` | `boolean` | Indicates that the cookie should be stored using partitioned storage. |
-| `Path` | `string` | Indicates the path that must exist in the requested URL for the browser to send the `Cookie` header. |
-| `SameSite` | `SameSite` | Controls whether or not a cookie is sent with cross-site requests, providing some protection against cross-site request forgery attacks ([CSRF](https://developer.mozilla.org/en-US/docs/Glossary/CSRF)). |
-| `Secure` | `boolean` | Indicates that the cookie is sent to the server only when a request is made with the https: scheme. |
-| `Priority` | `Priority` | Defines the Cookie priority. |
+| `name` | `K` | The Cookie name. |
+| `value` | `V` | The Cookie value. |
+| `domain` | `string` | Defines the host to which the cookie will be sent. |
+| `expires` | `string \| number \| Date` | Indicates the maximum lifetime of the cookie. |
+| `httpOnly` | `boolean` | Forbids JavaScript from accessing the cookie, for example, through the [`Document.cookie`](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie) property. |
+| `maxAge` | `number` | Indicates the number of seconds until the cookie expires. If set, `expires` is ignored. |
+| `partitioned` | `boolean` | Indicates that the cookie should be stored using partitioned storage. |
+| `path` | `string` | Indicates the path that must exist in the requested URL for the browser to send the `Cookie` header. |
+| `sameSite` | `SameSite` | Controls whether or not a cookie is sent with cross-site requests, providing some protection against cross-site request forgery attacks ([CSRF](https://developer.mozilla.org/en-US/docs/Glossary/CSRF)). |
+| `secure` | `boolean` | Indicates that the cookie is sent to the server only when a request is made with the https: scheme. |
+| `priority` | `Priority` | Defines the Cookie priority. |
 
 </details>
 
@@ -812,7 +871,7 @@ Interface representing Cookie properties after it get parsed.
 
 | Property  | Type   | Description |
 |-----------|--------|-------------|
-| `Expires` | `Date` | Indicates the maximum lifetime of the cookie. |
+| `expires` | `Date` | Indicates the maximum lifetime of the cookie. |
 
 </details>
 
@@ -853,7 +912,7 @@ Parse the given cookie parameters to a Cookie Map.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `params`  | `RawCookie<K, V>` | The Cookie parameters. |
+| `options` | `RawCookie<K, V>` | The Cookie options. |
 
 </details>
 
@@ -877,17 +936,17 @@ The parsed Cookie Map.
 
 ```ts
 const cookie = Cookie.parse( {
-  Name        : 'cookiename',
-  Value       : { test: 'value' },
-  Path        : '/specific-path',
-  Priority    : Priority.High,
-  Expires     : Date.now() + 20 * 60 * 1000,
-  Domain      : 'example.com',
-  Secure      : true,
-  HttpOnly    : true,
-  SameSite    : SameSite.Lax,
-  MaxAge      : Date.now() + 30 * 60 * 1000,
-  Partitioned : true,
+  name        : 'cookiename',
+  value       : { test: 'value' },
+  path        : '/specific-path',
+  priority    : Priority.High,
+  expires     : Date.now() + 20 * 60 * 1000,
+  domain      : 'example.com',
+  secure      : true,
+  httpOnly    : true,
+  sameSite    : SameSite.Lax,
+  maxAge      : Date.now() + 30 * 60 * 1000,
+  partitioned : true,
 } )
 ```
 
@@ -895,23 +954,231 @@ const cookie = Cookie.parse( {
 
 ---
 
-###### `Cookie.toString()`
+###### `Cookie.toString<K, V>()`
+
+Stringify a Cookie ready to be stored.
+
+<details>
+
+<summary style="cursor:pointer">Type parameters</summary>
+
+| Parameter | Description                   |
+|-----------|-------------------------------|
+| `K`       | The typed cookie name.        |
+| `V`       | The type of the cookie value. |
+
+</details>
 
 ---
 
-###### `Cookie.fromString()`
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `options`  | `RawCookie<K, V> \| ParsedCookieMap<K, V>` | The cookie options or a parsed Cookie Map. |
+
+</details>
 
 ---
 
-###### `Cookie.fromListString()`
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `string`
+
+The stringified Cookie ready to be stored.
+
+</details>
 
 ---
 
-###### `Cookie.parseValue<T>()`
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+document.cookie = (
+  Cookie.toString( {
+    name        : 'cookiename',
+    value       : { test: 'value' },
+    path        : '/specific-path',
+    priority    : Priority.High,
+    expires     : Date.now() + 20 * 60 * 1000,
+    domain      : 'example.com',
+    secure      : true,
+    httpOnly    : false,
+    sameSite    : SameSite.Lax,
+    maxAge      : Date.now() + 30 * 60 * 1000,
+    partitioned : true,
+  } )
+)
+```
+
+</details>
 
 ---
 
-###### `Cookie.get()`
+###### `Cookie.fromString<K, V>()`
+
+Parse a cookie string to a Cookie Map.
+
+<details>
+
+<summary style="cursor:pointer">Type parameters</summary>
+
+| Parameter | Description                     |
+|-----------|---------------------------------|
+| `K`       | The typed cookie name.          |
+| `V`       | The expected cookie value type. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Description |
+|-----------|----------|-------------|
+| `cookie`  | `string` | The cookie string. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `ParsedCookieMap<K, V> | null`
+
+The parsed Cookie Map or `null` if parsing fails.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+const cookies = (
+  document.cookie.split( '; ' )
+    .map( Cookie.fromString )
+    .filter( Boolean )
+)
+```
+
+</details>
+
+---
+
+###### `Cookie.fromListString<T, K>()`
+
+Parse a cookie list string to a Map of cookies.
+
+<details>
+
+<summary style="cursor:pointer">Type parameters</summary>
+
+| Parameter | Description                     |
+|-----------|---------------------------------|
+| `T`       | A `Record` o key-value pairs (key: cookie name, value: expected cookie value type). |
+| `K`       | Internal. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Description |
+|-----------|----------|-------------|
+| `list`    | `string` | The cookie list string. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `TypedMap<{ [P in K]: ParsedCookieMap<P, T[P]>; }>`
+
+The Map of parsed cookies indexed by the Cookie name.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+###### Defining custom types
+
+```ts
+/** On-site stubbed cookie names. */
+enum CookieName
+{
+  COOKIE_1 = 'cookie-1',
+  COOKIE_2 = 'cookie-2',
+}
+
+interface Cookie1
+{
+  test: 'value'
+}
+
+interface Cookie2
+{
+  test: boolean
+}
+
+type CookiesMap = {
+  [ CookieName.COOKIE_1 ]: Cookie1
+  [ CookieName.COOKIE_2 ]: Cookie2
+}
+```
+
+---
+
+###### Get parsed cookies from `Document.cookie`
+
+```ts
+const cookies     = Cookie.fromListString<CookiesMap>( document.cookie )
+const cookie      = cookies.get( CookieName.COOKIE_1 ) // `ParsedCookieMap<CookieName.COOKIE_1, Cookie1> | undefined`
+const cookieValue = cookie?.get( 'value' ) // `Cookie1 | undefined`
+```
+
+---
+
+###### Get parsed cookies from a request `Cookie` header
+
+```ts
+const { headers } = request
+const cookielist  = headers.get( 'Cookie' )
+
+if ( cookielist ) {
+  const cookies     = Cookie.fromListString<CookiesMap>( cookielist )
+  const cookie      = cookies.get( CookieName.COOKIE_2 ) // `ParsedCookieMap<CookieName.COOKIE_2, Cookie2> | undefined`
+  const cookieValue = cookie?.get( 'value' ) // `Cookie2 | undefined`
+}
+```
+
+</details>
+
+---
+
+###### `Cookie.get<T>()`
 
 Get a cookie by cookie name from `Document.cookie`.
 
@@ -957,25 +1224,122 @@ Type: `ParsedCookieMap<typeof name, T> | undefined`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-const cookie = Cookie.get<string>( 'access_token' )
-if ( cookie ) {
-  console.log( cookie.get( 'Value' ) ) // Outputs: type `string`
-}
+const cookie  = Cookie.get<string>( 'access_token' )
+const value   = cookie?.get( 'value' ) // `string | undefined`
 ```
 
 </details>
 
 ---
 
+###### `Cookie.set<K, V>()`
 
+Set a cookie to `Document.cookie`.
+
+<details>
+
+<summary style="cursor:pointer">Type parameters</summary>
+
+| Parameter | Description            |
+|-----------|------------------------|
+| `K`       | The typed cookie name. |
+| `V`       | The cookie value type. |
+
+</details>
 
 ---
 
-###### `Cookie.set()`
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `options`  | `RawCookie<K, V> \| ParsedCookieMap<K, V>` | The cookie options or a parsed Cookie Map. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `ParsedCookieMap<K, V> | false`
+
+- The set Cookie `Map` if successful.
+- `false` on failure.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+const cookieOptions: RawCookie = {
+  name        : 'cookiename',
+  value       : { test: 'value' },
+  path        : '/specific-path',
+  priority    : Priority.High,
+  expires     : Date.now() + 20 * 60 * 1000,
+  domain      : 'example.com',
+  secure      : true,
+  httpOnly    : false,
+  sameSite    : SameSite.Lax,
+  maxAge      : Date.now() + 30 * 60 * 1000,
+  partitioned : true,
+}
+
+Cookie.set( cookieOptions )
+// or
+Cookie.set( Coookie.parse( cookieOptions ) )
+```
+
+</details>
 
 ---
 
 ###### `Cookie.delete()`
+
+Delete a cookie by cookie name from `Document.cookie`.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Description |
+|-----------|----------|-------------|
+| `name`    | `string` | The cookie name to delete. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `boolean`
+
+- `true` on successfull.
+- `false` on failure.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+Cookie.delete( 'some_cookie' )
+```
+
+</details>
 
 </details>
 
@@ -983,9 +1347,272 @@ if ( cookie ) {
 
 ##### `LocalStorage` Class
 
+A browser-compatible implementation of [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
+
+<details>
+
+<summary style="cursor:pointer">Importing the class</summary>
+
+```ts
+import { LocalStorage } from '@alessiofrittoli/web-utils'
+// or
+import { LocalStorage } from '@alessiofrittoli/web-utils/storage/LocalStorage'
+```
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Static methods</summary>
+
+###### `LocalStorage.key()`
+
+Get storage item name by item numeric index.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Description |
+|-----------|----------|-------------|
+| `index`   | `number` | The item index in the storage. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `string | null`
+
+- The name of the nth key.
+- `null` if n is greater than or equal to the number of key/value pairs.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+console.log( LocalStorage.key( 0 ) ) // Outputs: first item name if any.
+```
+
+</details>
+
+---
+
+###### `LocalStorage.getLength()`
+
+Get the number of key/value pairs.
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `number`
+
+The number of key/value pairs.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+console.log( LocalStorage.getLength() )
+```
+
+</details>
+
+---
+
+###### `LocalStorage.get<T>()`
+
+Get the current value associated with the given `key`, or `undefined` if the given `key` does not exist.
+
+<details>
+
+<summary style="cursor:pointer">Type parameters</summary>
+
+| Parameter | Description                   |
+|-----------|-------------------------------|
+| `T`       | The expected item value type. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Description    |
+|-----------|----------|----------------|
+| `key`     | `string` | The item name. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `T | undefined`
+
+- The current value associated with the given `key`.
+- `undefined` if the given `key` does not exist.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+LocalStorage.get<Date>( 'expiration' )
+```
+
+</details>
+
+---
+
+###### `LocalStorage.set<T>()`
+
+Sets the value of the pair identified by key to value, creating a new key/value pair if none existed for key previously.
+
+Dispatches a storage event on Window objects holding an equivalent Storage object.
+
+<details>
+
+<summary style="cursor:pointer">Type parameters</summary>
+
+| Parameter | Description          |
+|-----------|----------------------|
+| `T`       | The item value type. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Description     |
+|-----------|----------|-----------------|
+| `key`     | `string` | The item name.  |
+| `value`   | `T`      | The item value. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Throws</summary>
+
+Type: `DOMException`
+
+A "QuotaExceededError" DOMException exception if the new value couldn't be set. (Setting could fail if, e.g., the user has disabled storage for the site, or if the quota has been exceeded.)
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+LocalStorage.set<Date>( 'expiration', new Date() )
+```
+
+</details>
+
+---
+
+###### `LocalStorage.delete()`
+
+Removes the key/value pair with the given key, if a key/value pair with the given key exists.
+
+Dispatches a storage event on Window objects holding an equivalent Storage object.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Description    |
+|-----------|----------|----------------|
+| `key`     | `string` | The item name. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+LocalStorage.delete( 'expiration' )
+```
+
+</details>
+
+---
+
+###### `LocalStorage.clear()`
+
+Removes all key/value pairs, if there are any.
+
+Dispatches a storage event on Window objects holding an equivalent Storage object.
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+LocalStorage.clear()
+```
+
+</details>
+
+</details>
+
 ---
 
 ##### `SessionStorage` Class
+
+A browser-compatible implementation of [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage).
+
+Same API References of [`LocalStorage` Class](#localstorage-class) is applied to the `SessionStorage` Class.
+
+Please, refer to [`LocalStorage` Class](#localstorage-class) static methods API Reference for more informations.
+
+<details>
+
+<summary style="cursor:pointer">Importing the class</summary>
+
+```ts
+import { SessionStorage } from '@alessiofrittoli/web-utils'
+// or
+import { SessionStorage } from '@alessiofrittoli/web-utils/storage/SessionStorage'
+```
+
+</details>
 
 ---
 
