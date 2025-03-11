@@ -214,6 +214,8 @@ describe( 'isTouchDevice', () => {
 	} )
 
 	it( 'returns `true` if the device is a touch device', () => {
+		Object.defineProperty( navigator, 'msMaxTouchPoints', { value: 2 } )
+		expect( isTouchDevice() ).toBe( true )
 		Object.defineProperty( window, 'ontouchstart', { value: true } )
 		expect( isTouchDevice() ).toBe( true )
 	} )

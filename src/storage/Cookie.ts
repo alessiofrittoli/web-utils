@@ -50,7 +50,7 @@ export enum SameSite
  * Interface representing Cookie properties before it get parsed.
  * 
  */
-export interface RawCookie<K = string, V = string>
+export interface RawCookie<K = string, V = unknown>
 {
 	/**
 	 * The Cookie name.
@@ -124,7 +124,7 @@ export interface RawCookie<K = string, V = string>
  * Interface representing Cookie properties after it get parsed.
  * 
  */
-export interface ParsedCookie<K = string, V = string> extends Omit<RawCookie<K, V>, 'expires'>
+export interface ParsedCookie<K = string, V = unknown> extends Omit<RawCookie<K, V>, 'expires'>
 {
 	/**
 	 * Indicates the maximum lifetime of the cookie.
@@ -139,7 +139,7 @@ export interface ParsedCookie<K = string, V = string> extends Omit<RawCookie<K, 
  * Map representation of a parsed Cookie.
  * 
  */
-export type ParsedCookieMap<K = string, V = string> = TypedMap<ParsedCookie<K, V>, false>
+export type ParsedCookieMap<K = string, V = unknown> = TypedMap<ParsedCookie<K, V>, false>
 
 
 /**
@@ -169,7 +169,7 @@ export class Cookie
 	 * @param	options The cookie options or a parsed Cookie Map.
 	 * @returns	The set Cookie Map if successful, `false` otherwise.
 	 */
-	static set<K = string, V = string>( options: RawCookie<K, V> | ParsedCookieMap<K, V> )
+	static set<K = string, V = unknown>( options: RawCookie<K, V> | ParsedCookieMap<K, V> )
 	{
 		const cookie = options instanceof Map ? options : Cookie.parse( options )
 
@@ -205,7 +205,7 @@ export class Cookie
 	 * @param	options The Cookie options.
 	 * @returns	The parsed Cookie Map.
 	 */
-	static parse<K = string, V = string>( options: RawCookie<K, V> ): ParsedCookieMap<K, V>
+	static parse<K = string, V = unknown>( options: RawCookie<K, V> ): ParsedCookieMap<K, V>
 	{
 		const expires	= options.expires ? new Date( options.expires ) : undefined
 		const cookie	= getTypedMap<ParsedCookie<K, V>, false>()
@@ -234,7 +234,7 @@ export class Cookie
 	 * @param	options The cookie options or a parsed Cookie Map.
 	 * @returns	The stringified Cookie ready to be stored.
 	 */
-	static toString<K = string, V = string>( options: RawCookie<K, V> | ParsedCookieMap<K, V> )
+	static toString<K = string, V = unknown>( options: RawCookie<K, V> | ParsedCookieMap<K, V> )
 	{
 		const cookie = options instanceof Map ? options : Cookie.parse( options )
 		
@@ -249,8 +249,7 @@ export class Cookie
 		return (
 			[ nameValue, ...values ]
 				.map( ( [ key, value ] ) => {
-					if ( ! key ) return null
-					key = key !== name ? ucFirst( key.toString() ) as K : key
+					key = key !== name ? ucFirst( key!.toString() ) as K : key
 					
 					if ( key === 'Expires' && isValidDate( value ) ) {
 						value = value.toUTCString()
@@ -273,7 +272,7 @@ export class Cookie
 	 * @param	cookie The cookie string.
 	 * @returns	The parsed Cookie Map or `null` if parsing fails.
 	 */
-	static fromString<K = string, V = string>( cookie: string ): ParsedCookieMap<K, V> | null
+	static fromString<K = string, V = unknown>( cookie: string ): ParsedCookieMap<K, V> | null
 	{
 		const [ kv, ...rawValues ] = cookie.split( ';' )
 

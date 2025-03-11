@@ -1,4 +1,4 @@
-import { Cookie, Priority, SameSite } from '@/storage/Cookie'
+import { Cookie, Priority, RawCookie, SameSite } from '@/storage/Cookie'
 
 
 describe( 'Cookie', () => {
@@ -145,7 +145,7 @@ describe( 'Cookie', () => {
 
 	describe( 'Cookie.toString()', () => {
 
-		const cookie = Cookie.parse( {
+		const options: RawCookie = {
 			name		: 'cookiename',
 			value		: { test: 'value' },
 			path		: '/specific-path',
@@ -157,11 +157,12 @@ describe( 'Cookie', () => {
 			sameSite	: SameSite.Lax,
 			maxAge		: Date.now() + 30 * 60 * 1000,
 			partitioned	: true,
-		} )
+		}
+		const cookie = Cookie.parse( options )
 
-		const cookieString = Cookie.toString( cookie )
+		it( 'correctly stringify a Cookie from options object', () => {
+			const cookieString = Cookie.toString( options )
 
-		it( 'correctly stringify a Cookie Map', () => {
 			expect( cookieString.includes( `${ cookie.get( 'name' ) }=${ JSON.stringify( cookie.get( 'value' ) ) }` ) )
 				.toBe( true )
 			expect( cookieString.includes( `Expires=${ new Date( cookie.get( 'expires' )! ).toUTCString() }` ) )
@@ -182,6 +183,44 @@ describe( 'Cookie', () => {
 				.toBe( true )
 			expect( cookieString.includes( `Partitioned=${ cookie.get( 'partitioned' ) }` ) )
 				.toBe( true )
+		} )
+
+
+		it( 'correctly stringify a Cookie Map', () => {
+
+			const cookieString = Cookie.toString( cookie )
+
+			expect( cookieString.includes( `${ cookie.get( 'name' ) }=${ JSON.stringify( cookie.get( 'value' ) ) }` ) )
+				.toBe( true )
+			expect( cookieString.includes( `Expires=${ new Date( cookie.get( 'expires' )! ).toUTCString() }` ) )
+				.toBe( true )
+			expect( cookieString.includes( `Max-Age=${ cookie.get( 'maxAge' ) }` ) )
+				.toBe( true )
+			expect( cookieString.includes( `Path=${ cookie.get( 'path' ) }` ) )
+				.toBe( true )
+			expect( cookieString.includes( `Priority=${ cookie.get( 'priority' ) }` ) )
+				.toBe( true )
+			expect( cookieString.includes( `Domain=${ cookie.get( 'domain' ) }` ) )
+				.toBe( true )
+			expect( cookieString.includes( `HttpOnly=${ cookie.get( 'httpOnly' ) }` ) )
+				.toBe( true )
+			expect( cookieString.includes( `Secure=${ cookie.get( 'secure' ) }` ) )
+				.toBe( true )
+			expect( cookieString.includes( `SameSite=${ cookie.get( 'sameSite' ) }` ) )
+				.toBe( true )
+			expect( cookieString.includes( `Partitioned=${ cookie.get( 'partitioned' ) }` ) )
+				.toBe( true )
+		} )
+
+
+		it( 'skips values with a falsey `key`', () => {
+			console.log( 'skips values with a falsey', Cookie.toString( {
+				name: 'testcookie',
+				value: 'value',
+				// @ts-expect-error fdfs
+				[null]: '2024-10-24',
+			} ) )
+			
 		} )
 
 	} )
