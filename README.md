@@ -1232,6 +1232,45 @@ const value   = cookie?.get( 'value' ) // `string | undefined`
 
 ---
 
+###### `Cookie.getAll<T>()`
+
+Get a `Map` of all cookies found in `Document.cookie`.
+
+<details>
+
+<summary style="cursor:pointer">Type parameters</summary>
+
+| Parameter | Description                     |
+|-----------|---------------------------------|
+| `T`       | A `Record` o key-value pairs (key: cookie name, value: expected cookie value type). |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `TypedMap<{ [P in K]: ParsedCookieMap<P, T[P]>; }>`
+
+The Map of parsed cookies indexed by the Cookie name.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+const cookies = Cookie.getAll()
+const cookie  = cookies.get( 'somecookie' )
+```
+
+</details>
+
 ###### `Cookie.set<K, V>()`
 
 Set a cookie to `Document.cookie`.

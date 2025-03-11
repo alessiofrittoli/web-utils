@@ -90,6 +90,16 @@ describe( 'Cookie', () => {
 	} )
 
 
+	describe( 'Cookie.getAll()', () => {
+
+		it( 'returns all cookies found in Document.cookie', () => {
+			const cookies = Cookie.getAll()
+			expect( cookies.size ).toBe( 2 )
+		} )
+
+	} )
+
+
 	describe( 'Cookie.set()', () => {
 
 		it( 'accepts an object with Cookie parameters', () => {
