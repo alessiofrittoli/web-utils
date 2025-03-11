@@ -1,5 +1,5 @@
 import { isValidDate } from '@alessiofrittoli/date-utils'
-import { parseValue, stringifyValue, toCamelCase, ucFirst } from '@/strings'
+import { parseValue, stringifyValue, toCamelCase, lcFirst, ucFirst } from '@/strings'
 
 import { getTypedMap, type TypedMap } from '@/map'
 
@@ -50,73 +50,73 @@ export enum SameSite
  * Interface representing Cookie properties before it get parsed.
  * 
  */
-export interface RawCookie<K = string, V = string>
+export interface RawCookie<K = string, V = unknown>
 {
 	/**
 	 * The Cookie name.
 	 * 
 	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#cookie-namecookie-value)
 	 */
-	Name: K
+	name: K
 	/**
 	 * The Cookie value.
 	 * 
 	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#cookie-namecookie-value)
 	 */
-	Value?: V
+	value?: V
 	/**
 	 * Defines the host to which the cookie will be sent.
 	 * 
 	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#domaindomain-value)
 	 */
-	Domain?: string
+	domain?: string
 	/**
 	 * Indicates the maximum lifetime of the cookie.
 	 * 
 	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#expiresdate)
 	 */
-	Expires?: string | number | Date
+	expires?: string | number | Date
 	/**
 	 * Forbids JavaScript from accessing the cookie, for example, through the [`Document.cookie`](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie) property.
 	 * 
 	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#httponly)
 	 */
-	HttpOnly?: boolean
+	httpOnly?: boolean
 	/**
 	 * Indicates the number of seconds until the cookie expires.
 	 * 
 	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#max-agenumber)
 	 */
-	MaxAge?: number
+	maxAge?: number
 	/**
 	 * Indicates that the cookie should be stored using partitioned storage.
 	 * 
 	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#partitioned)
 	 */
-	Partitioned?: boolean
+	partitioned?: boolean
 	/**
 	 * Indicates the path that must exist in the requested URL for the browser to send the `Cookie` header.
 	 * 
 	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#pathpath-value)
 	 */
-	Path?: string
+	path?: string
 	/**
 	 * Controls whether or not a cookie is sent with cross-site requests, providing some protection against cross-site request forgery attacks ([CSRF](https://developer.mozilla.org/en-US/docs/Glossary/CSRF)).
 	 * 
 	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#samesitesamesite-value)
 	 */
-	SameSite?: SameSite
+	sameSite?: SameSite
 	/**
 	 * Indicates that the cookie is sent to the server only when a request is made with the https: scheme.
 	 * 
 	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#secure)
 	 */
-	Secure?: boolean
+	secure?: boolean
 	/**
 	 * Defines the Cookie priority.
 	 * 
 	 */
-	Priority?: Priority
+	priority?: Priority
 }
 
 
@@ -124,14 +124,14 @@ export interface RawCookie<K = string, V = string>
  * Interface representing Cookie properties after it get parsed.
  * 
  */
-export interface ParsedCookie<K = string, V = string> extends Omit<RawCookie<K, V>, 'Expires'>
+export interface ParsedCookie<K = string, V = unknown> extends Omit<RawCookie<K, V>, 'expires'>
 {
 	/**
 	 * Indicates the maximum lifetime of the cookie.
 	 * 
 	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#expiresdate)
 	 */
-	Expires?: Date
+	expires?: Date
 }
 
 
@@ -139,7 +139,7 @@ export interface ParsedCookie<K = string, V = string> extends Omit<RawCookie<K, 
  * Map representation of a parsed Cookie.
  * 
  */
-export type ParsedCookieMap<K = string, V = string> = TypedMap<ParsedCookie<K, V>, false>
+export type ParsedCookieMap<K = string, V = unknown> = TypedMap<ParsedCookie<K, V>, false>
 
 
 /**
@@ -152,7 +152,7 @@ export class Cookie
 	 * Get a cookie by cookie name from `Document.cookie`.
 	 * 
 	 * @param	name The name of the cookie.
-	 * @returns	The cookie value.
+	 * @returns	The found parsed cookie or `undefined` if no cookie has been found in `Document.cookie`.
 	 */
 	static get<T, K extends string | number | symbol = string>( name: K )
 	{
@@ -166,10 +166,10 @@ export class Cookie
 	/**
 	 * Set a cookie to `Document.cookie`.
 	 * 
-	 * @param	options The cookie options.
+	 * @param	options The cookie options or a parsed Cookie Map.
 	 * @returns	The set Cookie Map if successful, `false` otherwise.
 	 */
-	static set<K = string, V = string>( options: RawCookie<K, V> | TypedMap<ParsedCookie<K, V>, false> )
+	static set<K = string, V = unknown>( options: RawCookie<K, V> | ParsedCookieMap<K, V> )
 	{
 		const cookie = options instanceof Map ? options : Cookie.parse( options )
 
@@ -188,70 +188,78 @@ export class Cookie
 	 * @param name The name of the cookie.
 	 * @returns	`true` if successful, `false` otherwise.
 	 */
-	static delete<K = string>( cname: K )
+	static delete( name: string )
 	{
 		return (
 			!! Cookie.set( {
-				Name	: cname,
-				MaxAge	: 0,
+				name	: name,
+				maxAge	: 0,
 			} )
 		)
 	}
 
 
 	/**
-	 * Parse cookie options to Cookie Map.
+	 * Parse the given cookie options to a Cookie Map.
 	 * 
 	 * @param	options The Cookie options.
 	 * @returns	The parsed Cookie Map.
 	 */
-	static parse<K = string, V = string>( options: RawCookie<K, V> ): ParsedCookieMap<K, V>
+	static parse<K = string, V = unknown>( options: RawCookie<K, V> ): ParsedCookieMap<K, V>
 	{
-		const expires	= options.Expires ? new Date( options.Expires ) : undefined
+		const expires	= options.expires ? new Date( options.expires ) : undefined
 		const cookie	= getTypedMap<ParsedCookie<K, V>, false>()
 
 		cookie
-			.set( 'Name', options.Name )
-			.set( 'Value', options.Value )
+			.set( 'name', options.name )
+			.set( 'value', options.value )
 
-		if ( expires ) cookie.set( 'Expires', expires )
-		if ( typeof options.MaxAge !== 'undefined' ) cookie.set( 'MaxAge', options.MaxAge )
-		if ( options.Path ) cookie.set( 'Path', options.Path )
-		if ( options.Priority ) cookie.set( 'Priority', options.Priority )
-		if ( options.Domain ) cookie.set( 'Domain', options.Domain )
-		if ( typeof options.HttpOnly !== 'undefined' ) cookie.set( 'HttpOnly', options.HttpOnly )
-		if ( typeof options.Secure !== 'undefined' ) cookie.set( 'Secure', options.Secure )
-		if ( options.SameSite ) cookie.set( 'SameSite', options.SameSite )
-		if ( typeof options.Partitioned !== 'undefined' ) cookie.set( 'Partitioned', options.Partitioned )
+		if ( expires ) cookie.set( 'expires', expires )
+		if ( typeof options.maxAge !== 'undefined' ) cookie.set( 'maxAge', options.maxAge )
+		if ( options.path ) cookie.set( 'path', options.path )
+		if ( options.priority ) cookie.set( 'priority', options.priority )
+		if ( options.domain ) cookie.set( 'domain', options.domain )
+		if ( typeof options.httpOnly !== 'undefined' ) cookie.set( 'httpOnly', options.httpOnly )
+		if ( typeof options.secure !== 'undefined' ) cookie.set( 'secure', options.secure )
+		if ( options.sameSite ) cookie.set( 'sameSite', options.sameSite )
+		if ( typeof options.partitioned !== 'undefined' ) cookie.set( 'partitioned', options.partitioned )
 
 		return cookie
 	}
 
 
 	/**
-	 * Parse and join the Cookie values.
-	 *
-	 * @returns The joined Cookie values.
+	 * Stringify a Cookie ready to be stored.
+	 * 
+	 * @param	options The cookie options or a parsed Cookie Map.
+	 * @returns	The stringified Cookie ready to be stored.
 	 */
-	static toString<K = string, V = string>( cookie: ParsedCookieMap<K, V> )
+	static toString<K = string, V = unknown>( options: RawCookie<K, V> | ParsedCookieMap<K, V> )
 	{
+		const cookie = options instanceof Map ? options : Cookie.parse( options )
+		
 		const values = (
 			Array.from( cookie )
-				.filter( ( [ key ] ) => key !== 'Name' && key !== 'Value' )
+				.filter( ( [ key ] ) => key !== 'name' && key !== 'value' )
 		)
 
-		const nameValue = [ cookie.get( 'Name' ), cookie.get( 'Value' ) ]
+		const name		= cookie.get( 'name' )
+		const nameValue	= [ name, cookie.get( 'value' ) ]
 
 		return (
 			[ nameValue, ...values ]
 				.map( ( [ key, value ] ) => {
+					key = key !== name ? ucFirst( key!.toString() ) as K : key
+					
 					if ( key === 'Expires' && isValidDate( value ) ) {
 						value = value.toUTCString()
 					}
+
 					if ( key === 'MaxAge' ) key = 'Max-Age' as K
 
 					return [ key, stringifyValue( value ) ].join( '=' )
 				} )
+				.filter( Boolean )
 				.join( ';' )
 		)
 
@@ -264,7 +272,7 @@ export class Cookie
 	 * @param	cookie The cookie string.
 	 * @returns	The parsed Cookie Map or `null` if parsing fails.
 	 */
-	static fromString<K = string, V = string>( cookie: string ): ParsedCookieMap<K, V> | null
+	static fromString<K = string, V = unknown>( cookie: string ): ParsedCookieMap<K, V> | null
 	{
 		const [ kv, ...rawValues ] = cookie.split( ';' )
 
@@ -281,17 +289,19 @@ export class Cookie
 				
 				if ( ! key || ! key.trim().length ) return null
 
-				const value = Cookie.parseValue( rawValue, key )
+				const parsedKey	= lcFirst( toCamelCase( key ) ) as keyof ParsedCookie
+				const value		= Cookie.parseValue( rawValue, parsedKey )
+
 				if ( value == null ) return null
 
-				return [ ucFirst( toCamelCase( key ) ), value ]
+				return [ parsedKey, value ]
 
 			} ).filter( Boolean ) as [ keyof ParsedCookie<K, V>, ParsedCookie<K, V>[ keyof ParsedCookie<K, V> ] ][]
 		)
 		
 		return getTypedMap<ParsedCookie<K, V>, false>( [
-			[ 'Name', name ],
-			[ 'Value', Cookie.parseValue<V>( value ) ],
+			[ 'name', name ],
+			[ 'value', Cookie.parseValue<V>( value ) ],
 			...values,
 		] )
 	}
@@ -301,7 +311,7 @@ export class Cookie
 	 * Parse a cookie list string to a Map of cookies.
 	 * 
 	 * @param	list The cookie list string.
-	 * @returns	The Map of parsed cookies.
+	 * @returns	The Map of parsed cookies indexed by the Cookie name.
 	 */
 	static fromListString<T extends Record<string, unknown>, K extends keyof T = keyof T>( list: string )
 	{
@@ -310,7 +320,7 @@ export class Cookie
 		list.split( '; ' ).map( cookieString => {
 			const cookie = Cookie.fromString<K, T[ K ]>( cookieString )
 			if ( ! cookie ) return null
-			cookies.set( cookie.get( 'Name' ), cookie )
+			cookies.set( cookie.get( 'name' ), cookie )
 		} )
 
 		return cookies
@@ -325,15 +335,15 @@ export class Cookie
 	 * 
 	 * @returns	The parsed value.
 	 */
-	static parseValue<T>( value?: string, key?: keyof ParsedCookie )
+	private static parseValue<T>( value?: string, key?: keyof ParsedCookie )
 	{
-		if ( key === 'Expires' && value ) {
+		if ( key === 'expires' && value ) {
 			const date = new Date( value )
 			if ( ! isValidDate( date ) ) return undefined
 			return date as T
 		}
 
-		if ( key === 'HttpOnly' || key === 'Secure' || key === 'Partitioned' ) {
+		if ( key === 'httpOnly' || key === 'secure' || key === 'partitioned' ) {
 			return ( value !== 'false' ) as T
 		}
 

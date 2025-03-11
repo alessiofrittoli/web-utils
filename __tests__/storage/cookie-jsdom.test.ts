@@ -30,22 +30,22 @@ describe( 'Cookie', () => {
 	}
 	
 	const cookie1 = Cookie.parse<CookieName, Cookie1>( {
-		Name		: CookieName.COOKIE_1,
-		Value		: { test: 'value' },
-		Path		: '/specific-path',
-		Priority	: Priority.High,
-		Expires		: Date.now() + 20 * 60 * 1000,
-		Domain		: 'example.com',
-		Secure		: true,
-		HttpOnly	: true,
-		SameSite	: SameSite.Lax,
-		MaxAge		: Date.now() + 30 * 60 * 1000,
-		Partitioned	: true,
+		name		: CookieName.COOKIE_1,
+		value		: { test: 'value' },
+		path		: '/specific-path',
+		priority	: Priority.High,
+		expires		: Date.now() + 20 * 60 * 1000,
+		domain		: 'example.com',
+		secure		: true,
+		httpOnly	: true,
+		sameSite	: SameSite.Lax,
+		maxAge		: Date.now() + 30 * 60 * 1000,
+		partitioned	: true,
 	} )
 
 	const cookie2 = Cookie.parse<CookieName, Cookie2>( {
-		Name		: CookieName.COOKIE_2,
-		Value		: { test: true },
+		name		: CookieName.COOKIE_2,
+		value		: { test: true },
 	} )
 
 	const defaultCookies = [ cookie1, cookie2 ]
@@ -65,7 +65,7 @@ describe( 'Cookie', () => {
 
 				if ( ! newCookie ) return
 
-				cookies.set( newCookie.get( 'Name' ), newCookie )
+				cookies.set( newCookie.get( 'name' ), newCookie )
 
 				cookieValue = Array.from( cookies.entries() )
 					.map( ( [, cookie ] ) => Cookie.toString( cookie ) )
@@ -94,7 +94,7 @@ describe( 'Cookie', () => {
 
 		it( 'accepts an object with Cookie parameters', () => {
 			const cookie = Cookie.set( {
-				Name: 'testcookie',
+				name: 'testcookie',
 			} )
 
 			expect( cookie ).toBeInstanceOf( Map )
@@ -106,7 +106,7 @@ describe( 'Cookie', () => {
 
 		it( 'accepts an object with a Cookie Map', () => {
 			const cookie = Cookie.parse( {
-				Name: 'testcookie',
+				name: 'testcookie',
 			} )
 			expect( Cookie.set( cookie ) ).toBe( cookie )
 			expect(
@@ -124,7 +124,7 @@ describe( 'Cookie', () => {
 			Cookie.delete( CookieName.COOKIE_1 )
 			const cookies = Cookie.fromListString( document.cookie )
 
-			expect( cookies.get( CookieName.COOKIE_1 )?.get( 'MaxAge' ) )
+			expect( cookies.get( CookieName.COOKIE_1 )?.get( 'maxAge' ) )
 				.toBe( 0 )
 			
 		} )

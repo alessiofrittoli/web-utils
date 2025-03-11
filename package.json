@@ -62,11 +62,6 @@
 			"import": "./dist/validation.mjs",
 			"require": "./dist/validation.js"
 		},
-		"./storage": {
-			"types": "./dist/storage/index.d.ts",
-			"import": "./dist/storage/index.mjs",
-			"require": "./dist/storage/index.js"
-		},
 		"./storage/Cookie": {
 			"types": "./dist/storage/Cookie.d.ts",
 			"import": "./dist/storage/Cookie.mjs",
@@ -120,7 +115,6 @@
 		"test:strings": "pnpm test:watch strings.test.ts",
 		"test:types": "pnpm test:watch types.test.ts",
 		"test:validation": "pnpm test:watch validation.test.ts",
-		"test:storage": "pnpm test:watch storage/index.test.ts",
 		"test:cookie": "pnpm test:watch storage/cookie.test.ts",
 		"test:cookie:jsdom": "pnpm test:watch storage/cookie-jsdom.test.ts",
 		"test:local": "pnpm test:watch storage/local.test.ts",

@@ -1,4 +1,4 @@
-import { parseValue, stringifyValue, toCamelCase, toKebabCase, ucFirst } from '@/strings'
+import { lcFirst, parseValue, stringifyValue, toCamelCase, toKebabCase, ucFirst } from '@/strings'
 
 describe( 'ucFirst', () => {
 
@@ -46,6 +46,59 @@ describe( 'ucFirst', () => {
 		
 		// @ts-expect-error negative testing
 		expect( () => ucFirst( [] ) )
+			.toThrow( 'input.charAt is not a function' )
+
+	} )
+
+} )
+
+
+describe( 'lcFirst', () => {
+
+	it( 'returns the given string with first lowercase letter', () => {
+		
+		expect( lcFirst( 'Some string' ) )
+			.toBe( 'some string' )
+
+	} )
+	
+	
+	it( 'throws a TypeError when a non-stirng value is provided', () => {
+
+		// @ts-expect-error negative testing
+		expect( () => lcFirst() )
+			.toThrow( 'Cannot read properties of undefined (reading \'charAt\')' )
+		
+		// @ts-expect-error negative testing
+		expect( () => lcFirst( undefined ) )
+			.toThrow( 'Cannot read properties of undefined (reading \'charAt\')' )
+		
+		// @ts-expect-error negative testing
+		expect( () => lcFirst( null ) )
+			.toThrow( 'Cannot read properties of null (reading \'charAt\')' )
+
+		// @ts-expect-error negative testing
+		expect( () => lcFirst( false ) )
+			.toThrow( 'input.charAt is not a function' )
+
+		// @ts-expect-error negative testing
+		expect( () => lcFirst( true ) )
+			.toThrow( 'input.charAt is not a function' )
+
+		// @ts-expect-error negative testing
+		expect( () => lcFirst( 1 ) )
+			.toThrow( 'input.charAt is not a function' )
+		
+		// @ts-expect-error negative testing
+		expect( () => lcFirst( {} ) )
+			.toThrow( 'input.charAt is not a function' )
+		
+		// @ts-expect-error negative testing
+		expect( () => lcFirst( () => {} ) )
+			.toThrow( 'input.charAt is not a function' )
+		
+		// @ts-expect-error negative testing
+		expect( () => lcFirst( [] ) )
 			.toThrow( 'input.charAt is not a function' )
 
 	} )
