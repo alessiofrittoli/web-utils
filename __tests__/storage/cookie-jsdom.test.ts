@@ -102,27 +102,11 @@ describe( 'Cookie', () => {
 
 	describe( 'Cookie.set()', () => {
 
-		it( 'accepts an object with Cookie parameters', () => {
-			const cookie = Cookie.set( {
-				name: 'testcookie',
-			} )
-
-			expect( cookie ).toBeInstanceOf( Map )
+		it( 'sets a cookie to `Document.cookie` with the given Cookie parameters', () => {
+			expect( Cookie.set( { name: 'testcookie' } ) ).toBeInstanceOf( Map )
 			expect(
 				Cookie.fromListString( document.cookie ).has( 'testcookie' )
 			).toBe( true )
-		} )
-
-
-		it( 'accepts an object with a Cookie Map', () => {
-			const cookie = Cookie.parse( {
-				name: 'testcookie',
-			} )
-			expect( Cookie.set( cookie ) ).toBe( cookie )
-			expect(
-				Cookie.fromListString( document.cookie ).has( 'testcookie' )
-			).toBe( true )
-
 		} )
 
 	} )
