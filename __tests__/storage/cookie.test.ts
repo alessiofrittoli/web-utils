@@ -6,6 +6,7 @@ describe( 'Cookie', () => {
 	describe( 'Cookie.parse()', () => {
 
 		it( 'returns a parsed Cookie Map', () => {
+
 			const cookie = Cookie.parse( {
 				name		: 'cookiename',
 				value		: { test: 'value' },
@@ -21,6 +22,27 @@ describe( 'Cookie', () => {
 			} )
 	
 			expect( cookie ).toBeInstanceOf( Map )
+
+		} )
+
+		it( 'skips parsing if a Cookie Map object is provided', () => {
+
+			const cookie = Cookie.parse( {
+				name		: 'cookiename',
+				value		: { test: 'value' },
+				path		: '/specific-path',
+				priority	: Priority.High,
+				expires		: Date.now() + 20 * 60 * 1000,
+				domain		: 'example.com',
+				secure		: true,
+				httpOnly	: true,
+				sameSite	: SameSite.Lax,
+				maxAge		: Date.now() + 30 * 60 * 1000,
+				partitioned	: true,
+			} )
+	
+			expect( Cookie.parse( cookie ) ).toBe( cookie )
+
 		} )
 
 
@@ -160,35 +182,8 @@ describe( 'Cookie', () => {
 		}
 		const cookie = Cookie.parse( options )
 
-		it( 'correctly stringify a Cookie from options object', () => {
+		it( 'correctly stringify a Cookie', () => {
 			const cookieString = Cookie.toString( options )
-
-			expect( cookieString.includes( `${ cookie.get( 'name' ) }=${ JSON.stringify( cookie.get( 'value' ) ) }` ) )
-				.toBe( true )
-			expect( cookieString.includes( `Expires=${ new Date( cookie.get( 'expires' )! ).toUTCString() }` ) )
-				.toBe( true )
-			expect( cookieString.includes( `Max-Age=${ cookie.get( 'maxAge' ) }` ) )
-				.toBe( true )
-			expect( cookieString.includes( `Path=${ cookie.get( 'path' ) }` ) )
-				.toBe( true )
-			expect( cookieString.includes( `Priority=${ cookie.get( 'priority' ) }` ) )
-				.toBe( true )
-			expect( cookieString.includes( `Domain=${ cookie.get( 'domain' ) }` ) )
-				.toBe( true )
-			expect( cookieString.includes( `HttpOnly=${ cookie.get( 'httpOnly' ) }` ) )
-				.toBe( true )
-			expect( cookieString.includes( `Secure=${ cookie.get( 'secure' ) }` ) )
-				.toBe( true )
-			expect( cookieString.includes( `SameSite=${ cookie.get( 'sameSite' ) }` ) )
-				.toBe( true )
-			expect( cookieString.includes( `Partitioned=${ cookie.get( 'partitioned' ) }` ) )
-				.toBe( true )
-		} )
-
-
-		it( 'correctly stringify a Cookie Map', () => {
-
-			const cookieString = Cookie.toString( cookie )
 
 			expect( cookieString.includes( `${ cookie.get( 'name' ) }=${ JSON.stringify( cookie.get( 'value' ) ) }` ) )
 				.toBe( true )
