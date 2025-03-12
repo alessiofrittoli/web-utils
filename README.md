@@ -912,7 +912,7 @@ Parse the given cookie parameters to a Cookie Map.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `options` | `RawCookie<K, V>` | The Cookie options. |
+| `options` | `RawCookie<K, V> \| ParsedCookieMap<K, V>` | The cookie options or a parsed Cookie Map. |
 
 </details>
 
