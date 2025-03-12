@@ -184,6 +184,10 @@ export class Cookie
 	{
 		const cookie = options instanceof Map ? options : Cookie.parse( options )
 
+		if ( ! cookie.has( 'path' ) ) {
+			cookie.set( 'path', '/' )
+		}
+
 		if ( typeof document !== 'undefined' ) {
 			document.cookie = Cookie.toString( cookie )
 			return cookie
@@ -218,7 +222,7 @@ export class Cookie
 	 */
 	static parse<K = string, V = unknown>( options: RawCookie<K, V> ): ParsedCookieMap<K, V>
 	{
-		const expires	= options.expires ? new Date( options.expires ) : undefined
+		const expires	= typeof options.expires !== 'undefined' ? new Date( options.expires ) : undefined
 		const cookie	= getTypedMap<ParsedCookie<K, V>, false>()
 
 		cookie
@@ -252,6 +256,7 @@ export class Cookie
 		const values = (
 			Array.from( cookie )
 				.filter( ( [ key ] ) => key !== 'name' && key !== 'value' )
+				.filter( ( [, value ] ) => typeof value !== 'boolean' || !! value )
 		)
 
 		const name		= cookie.get( 'name' )
