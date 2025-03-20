@@ -82,6 +82,11 @@
 			"types": "./dist/storage/SessionStorage.d.ts",
 			"import": "./dist/storage/SessionStorage.mjs",
 			"require": "./dist/storage/SessionStorage.js"
+		},
+		"./browser-api": {
+			"types": "./dist/browser-api/index.d.ts",
+			"import": "./dist/browser-api/index.mjs",
+			"require": "./dist/browser-api/index.js"
 		}
 	},
 	"sideEffects": false,
@@ -124,7 +129,8 @@
 		"test:cookie": "pnpm test:watch storage/cookie.test.ts",
 		"test:cookie:jsdom": "pnpm test:watch storage/cookie-jsdom.test.ts",
 		"test:local": "pnpm test:watch storage/local.test.ts",
-		"test:session": "pnpm test:watch storage/session.test.ts"
+		"test:session": "pnpm test:watch storage/session.test.ts",
+		"test:browser-api": "pnpm test:watch browser-api/*"
 	},
 	"devDependencies": {
 		"@alessiofrittoli/node-scripts": "^2.3.1",
@@ -153,6 +159,7 @@
 	},
 	"dependencies": {
 		"@alessiofrittoli/date-utils": "^2.3.0",
-		"@alessiofrittoli/math-utils": "^1.10.1"
+		"@alessiofrittoli/math-utils": "^1.10.1",
+		"@alessiofrittoli/url-utils": "^3.1.0"
 	}
 }

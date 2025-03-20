@@ -1,3 +1,4 @@
+export * from './browser-api'
 export * from './storage'
 export * from './blob'
 export * from './generators'
