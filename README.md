@@ -29,6 +29,7 @@
   - [Strings utilities](#strings-utilities)
   - [Types utilities](#types-utilities)
   - [Validation utilities](#validation-utilities)
+  - [Browser API utilities](#browser-api-utilities)
   - [Storage utilities](#storage-utilities)
     - [`Cookie` Class](#cookie-class)
     - [`LocalStorage` Class](#localstorage-class)
@@ -766,6 +767,103 @@ console.log( parseValue( 'String value' ) ) // Outputs: 'String value'
 #### Validation utilities
 
 ⚠️ Docs coming soon
+
+---
+
+#### Browser API utilities
+
+###### Importing the utilitites
+
+```ts
+import { ... } from '@alessiofrittoli/web-utils'
+// or
+import { ... } from '@alessiofrittoli/web-utils/browser-api'
+```
+
+###### `openBrowserPopUp`
+
+Opens a webpage in a browser PopUp.
+
+The `openBrowserPopUp` uses [`Window.open()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open) under the hood, but provides default options to make your work easier.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter          | Type | Default | Description |
+|--------------------|------|---------|-------------|
+| `options`          | `OpenBrowserPopUpOptions` | - | An object defining custom PopUp options. |
+| `options.url`      | `UrlInput` | - | The URL or path of the resource to be loaded. See [UrlInput](https://github.com/alessiofrittoli/url-utils?tab=readme-ov-file#urlinput) for more info about accepted formats. |
+| `options.width`    | `number` | `600` | The PopUp width. |
+| `options.height`   | `number` | `800` | The PopUp height. |
+| `options.context`  | `string` | - | A string, without whitespace, specifying the name of the browsing context the resource is being loaded into. |
+| `options.features` | `OptionsFeatures` | - | Additional custom PopUp features. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `WindowProxy | null`
+
+- a `WindowProxy` object is returned if the browser successfully opens the new browsing context.
+- `null` is returned if the browser fails to open the new browsing context, for example because it was blocked by a browser popup blocker.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+###### Re-focus a previously opened popup
+
+```ts
+let windowProxy: WindowProxy | null = null
+
+const clickHandler = () => {
+  if ( windowProxy && ! windowProxy.closed ) {
+    return windowProxy.focus()
+  }
+
+  windowProxy = openBrowserPopUp( {
+    url     : {
+      pathname  : '/',
+      query     : { key: 'value' }
+    },
+  } )
+}
+```
+
+---
+
+###### Re-use a popup
+
+```ts
+const clickHandler = () => {
+  openBrowserPopUp( {
+    context : 'some-context-name',
+    url     : {
+      pathname  : '/',
+      query     : { key: 'value' }
+    },
+  } )
+}
+
+
+const clickHandler2 = () => {
+  openBrowserPopUp( {
+    context : 'some-context-name',
+    url     : '/other-path',
+  } )
+}
+```
+
+</details>
 
 ---
 

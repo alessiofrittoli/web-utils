@@ -14,6 +14,9 @@ importers:
       '@alessiofrittoli/math-utils':
         specifier: ^1.10.1
         version: 1.10.1
+      '@alessiofrittoli/url-utils':
+        specifier: ^3.2.0
+        version: 3.2.0
     devDependencies:
       '@alessiofrittoli/node-scripts':
         specifier: ^2.3.1
@@ -83,6 +86,9 @@ packages:
 
   '@alessiofrittoli/type-utils@1.6.1':
     resolution: {integrity: sha512-nyL4gH1kyPyDpaK/EIaf0Wpp4iAr0CQJ07GVgcPqe0XH8V81qGiGM5/8pQfI4ZkioeO+AowLacMJhiCD3u+6zw==}
+
+  '@alessiofrittoli/url-utils@3.2.0':
+    resolution: {integrity: sha512-nm6XMM0KFQqwZyq1XMaiEMP37orO0zhLjcUL0EWGilkAlvYFQUHhfsWgZMb+Pfkkk4rOjLk7H58TN6Gu3TLPzA==}
 
   '@alessiofrittoli/web-utils@1.2.0':
     resolution: {integrity: sha512-vPCt/hFXf//3Rk7rtBEF++DpaJN3Hn76/XbeEF6EFIDU0k2+UeSkDTuGdmnLTAfFQQKMdF4dhS56HhsUku5YbA==}
@@ -2483,6 +2489,8 @@ snapshots:
     dependencies:
       '@alessiofrittoli/chain-functions': 2.0.1
       '@alessiofrittoli/node-scripts': 2.3.1
+
+  '@alessiofrittoli/url-utils@3.2.0': {}
 
   '@alessiofrittoli/web-utils@1.2.0':
     dependencies:
