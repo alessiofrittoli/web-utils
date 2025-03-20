@@ -8,6 +8,12 @@
 		"url": "https://alessiofrittoli.it"
 	},
 	"license": "MIT",
+	"funding": [
+		{
+			"type": "github",
+			"url": "https://github.com/sponsors/alessiofrittoli"
+		}
+	],
 	"keywords": [
 		"web-utilities"
 	],
