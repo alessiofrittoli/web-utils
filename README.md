@@ -1,14 +1,21 @@
 # Web Utils 🛠️
 
-[![NPM Latest Version][version-badge]][npm-url] [![Coverage Status][coverage-badge]][coverage-url] [![NPM Monthly Downloads][downloads-badge]][npm-url] [![Dependencies][deps-badge]][deps-url]
+[![NPM Latest Version][version-badge]][npm-url] [![Coverage Status][coverage-badge]][coverage-url] [![Socket Status][socket-badge]][socket-url] [![NPM Monthly Downloads][downloads-badge]][npm-url] [![Dependencies][deps-badge]][deps-url]
+
+[![GitHub Sponsor][sponsor-badge]][sponsor-url]
 
 [version-badge]: https://img.shields.io/npm/v/%40alessiofrittoli%2Fweb-utils
 [npm-url]: https://npmjs.org/package/%40alessiofrittoli%2Fweb-utils
 [coverage-badge]: https://coveralls.io/repos/github/alessiofrittoli/web-utils/badge.svg
 [coverage-url]: https://coveralls.io/github/alessiofrittoli/web-utils
+[socket-badge]: https://socket.dev/api/badge/npm/package/@alessiofrittoli/web-utils
+[socket-url]: https://socket.dev/npm/package/@alessiofrittoli/web-utils/overview
 [downloads-badge]: https://img.shields.io/npm/dm/%40alessiofrittoli%2Fweb-utils.svg
 [deps-badge]: https://img.shields.io/librariesio/release/npm/%40alessiofrittoli%2Fweb-utils
 [deps-url]: https://libraries.io/npm/%40alessiofrittoli%2Fweb-utils
+
+[sponsor-badge]: https://img.shields.io/static/v1?label=Fund%20this%20package&message=%E2%9D%A4&logo=GitHub&color=%23DB61A2
+[sponsor-url]: https://github.com/sponsors/alessiofrittoli
 
 ## Common TypeScript web utilities
 
@@ -31,8 +38,7 @@
   - [Build the source code](#build-the-source-code)
   - [ESLint](#eslint)
   - [Jest](#jest)
-  - [Contributing](#contributing)
-  - [Security](#security)
+- [Contributing](#contributing)
 - [Security](#security)
 - [Credits](#made-with-)
 
@@ -1705,6 +1711,8 @@ pnpm test:ci:jsdom
 
 You can eventually run specific suits like so:
 
+- See [`package.json`](./package.json) file scripts for more info.
+
 ```bash
 pnpm test:jest
 pnpm test:jest:jsdom
@@ -1724,8 +1732,13 @@ test:coverage:serve
 
 ### Contributing
 
-Contributions are truly welcome!\
+Contributions are truly welcome!
+
 Please refer to the [Contributing Doc](./CONTRIBUTING.md) for more information on how to start contributing to this project.
+
+Help keep this project up to date with [GitHub Sponsor][sponsor-url].
+
+[![GitHub Sponsor][sponsor-badge]][sponsor-url]
 
 ---
 
