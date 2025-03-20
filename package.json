@@ -160,6 +160,6 @@
 	"dependencies": {
 		"@alessiofrittoli/date-utils": "^2.3.0",
 		"@alessiofrittoli/math-utils": "^1.10.1",
-		"@alessiofrittoli/url-utils": "^3.1.0"
+		"@alessiofrittoli/url-utils": "^3.2.0"
 	}
 }
