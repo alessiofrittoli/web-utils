@@ -1,6 +1,6 @@
 {
 	"name": "@alessiofrittoli/web-utils",
-	"version": "1.3.0",
+	"version": "1.4.0",
 	"description": "Common TypeScript web utilities",
 	"author": {
 		"name": "Alessio Frittoli",
@@ -15,7 +15,12 @@
 		}
 	],
 	"keywords": [
-		"web-utilities"
+		"web-utilities",
+		"typed-map",
+		"map",
+		"string-utilities",
+		"web-storage-api",
+		"browser-api-utilities"
 	],
 	"homepage": "https://github.com/alessiofrittoli/web-utils#readme",
 	"bugs": {
@@ -103,9 +108,7 @@
 		"//2c": "*********************************************************************",
 		"test": "jest --verbose",
 		"test:watch": "jest --watchAll --verbose",
-		"test:jsdom": "JSDOM=true pnpm test:watch",
 		"test:ci": "jest --ci --verbose",
-		"test:ci:jsdom": "JSDOM=true pnpm test:ci",
 		"//3a": "*********************************************************************",
 		"//3b": "************************ UNIT TESTS COVERAGE ************************",
 		"//3c": "*********************************************************************",
@@ -113,31 +116,26 @@
 		"test:ci:coverage": "pnpm test:ci --coverage",
 		"test:serve-coverage": "http-server ./coverage/lcov-report --gzip true -p 0 -o --silent",
 		"test:coverage:serve": "concurrently --prefix none --kill-others \"pnpm test:coverage\" \"pnpm test:serve-coverage\"",
-		"test:coverage:jsdom": "JSDOM=true pnpm test:coverage",
-		"test:coverage:jsdom:serve": "JSDOM=true pnpm test:coverage:serve",
 		"//4a": "*********************************************************************",
 		"//4b": "************************ TARGETED UNIT TESTS ************************",
 		"//4c": "*********************************************************************",
-		"test:jest": "pnpm test:watch jest.test.ts",
-		"test:jest:jsdom": "JSDOM=true pnpm test:jest",
 		"test:map": "pnpm test:watch map.test.ts",
 		"test:blob": "pnpm test:watch blob.test.ts",
 		"test:generators": "pnpm test:watch generators.test.ts",
 		"test:strings": "pnpm test:watch strings.test.ts",
 		"test:types": "pnpm test:watch types.test.ts",
 		"test:validation": "pnpm test:watch validation.test.ts",
-		"test:cookie": "pnpm test:watch storage/cookie.test.ts",
-		"test:cookie:jsdom": "pnpm test:watch storage/cookie-jsdom.test.ts",
+		"test:cookie": "pnpm test:watch storage/cookie.test.ts storage/cookie.jsdom.test.ts",
 		"test:local": "pnpm test:watch storage/local.test.ts",
 		"test:session": "pnpm test:watch storage/session.test.ts",
 		"test:browser-api": "pnpm test:watch browser-api/*"
 	},
 	"devDependencies": {
-		"@alessiofrittoli/node-scripts": "^2.3.1",
+		"@alessiofrittoli/node-scripts": "^2.4.0",
 		"@eslint/js": "^9.22.0",
 		"@jest/globals": "^29.7.0",
 		"@types/jest": "^29.5.14",
-		"@types/node": "^22.13.10",
+		"@types/node": "^22.13.11",
 		"concurrently": "^9.1.2",
 		"dotenv": "^16.4.7",
 		"eslint": "^9.22.0",
@@ -158,8 +156,8 @@
 		]
 	},
 	"dependencies": {
-		"@alessiofrittoli/date-utils": "^2.3.0",
-		"@alessiofrittoli/math-utils": "^1.10.1",
-		"@alessiofrittoli/url-utils": "^3.2.0"
+		"@alessiofrittoli/date-utils": "^2.3.1",
+		"@alessiofrittoli/math-utils": "^1.11.0",
+		"@alessiofrittoli/url-utils": "^3.3.0"
 	}
 }
