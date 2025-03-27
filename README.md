@@ -26,6 +26,7 @@
   - [Blob utilities](#blob-utilities)
   - [Generators utilities](#generators-utilities)
   - [Map utilities](#map-utilities)
+  - [Promises utilities](#promises-utilities)
   - [Strings utilities](#strings-utilities)
   - [Types utilities](#types-utilities)
   - [Validation utilities](#validation-utilities)
@@ -422,6 +423,62 @@ console.log( user.get( 'name' ) ) // type: `string`
 console.log( user.get( 'age' ) ) // type: `number`
 console.log( user.get( 'isActive' ) ) // type: `boolean`
 console.log( user.get( 'banned' ) ) // type: `boolean | undefined`
+```
+
+</details>
+
+---
+
+#### Promises utilities
+
+###### Importing the utilitites
+
+```ts
+import { ... } from '@alessiofrittoli/web-utils'
+// or
+import { ... } from '@alessiofrittoli/web-utils/promises'
+```
+
+---
+
+##### `sleep`
+
+Await a void Promise that resolves after the given time.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Description                  |
+|-----------|----------|------------------------------|
+| `time`    | `number` | The sleep time in milliseconds after the Promise get resolved. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `Promise<void>`
+
+A new Promise which get resolved after the specified time.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+const fn = async () => {
+  // ...
+  await sleep( 2000 )
+  // ...
+}
 ```
 
 </details>

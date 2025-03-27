@@ -58,6 +58,11 @@
 			"import": "./dist/map.mjs",
 			"require": "./dist/map.js"
 		},
+		"./promises": {
+			"types": "./dist/promises.d.ts",
+			"import": "./dist/promises.mjs",
+			"require": "./dist/promises.js"
+		},
 		"./strings": {
 			"types": "./dist/strings.d.ts",
 			"import": "./dist/strings.mjs",
@@ -128,7 +133,8 @@
 		"test:cookie": "pnpm test:watch storage/cookie.test.ts storage/cookie.jsdom.test.ts",
 		"test:local": "pnpm test:watch storage/local.test.ts",
 		"test:session": "pnpm test:watch storage/session.test.ts",
-		"test:browser-api": "pnpm test:watch browser-api/*"
+		"test:browser-api": "pnpm test:watch browser-api/*",
+		"test:promises": "pnpm test:watch promises.test.ts"
 	},
 	"devDependencies": {
 		"@alessiofrittoli/node-scripts": "^2.4.0",
