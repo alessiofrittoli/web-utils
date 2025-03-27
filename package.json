@@ -58,6 +58,11 @@
 			"import": "./dist/map.mjs",
 			"require": "./dist/map.js"
 		},
+		"./promises": {
+			"types": "./dist/promises.d.ts",
+			"import": "./dist/promises.mjs",
+			"require": "./dist/promises.js"
+		},
 		"./strings": {
 			"types": "./dist/strings.d.ts",
 			"import": "./dist/strings.mjs",
