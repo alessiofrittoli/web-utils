@@ -17,6 +17,24 @@ describe( 'LocalStorage', () => {
 			expect( LocalStorage.get( 'key' ) ).toBe( 'value' )
 		} )
 
+
+		it( 'deletes an item if nullish or empty value is provided', () => {
+			LocalStorage.set( 'key', 'value' )
+			LocalStorage.set( 'key2', 'value' )
+			LocalStorage.set( 'key3', 'value' )
+			expect( LocalStorage.get( 'key' ) ).toBe( 'value' )
+			expect( LocalStorage.get( 'key2' ) ).toBe( 'value' )
+			expect( LocalStorage.get( 'key3' ) ).toBe( 'value' )
+			
+			LocalStorage.set( 'key', '' )
+			LocalStorage.set( 'key2', undefined )
+			LocalStorage.set( 'key3', null )
+
+			expect( LocalStorage.get( 'key' ) ).toBe( undefined )
+			expect( LocalStorage.get( 'key2' ) ).toBe( undefined )
+			expect( LocalStorage.get( 'key3' ) ).toBe( undefined )
+		} )
+
 	} )
 	
 	

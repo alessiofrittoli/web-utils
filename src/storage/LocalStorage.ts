@@ -41,8 +41,14 @@ export class LocalStorage
 	 */
 	static set<T>( key: string, value: T )
 	{
+		const stringified = stringifyValue( value )
+
+		if ( value == null || ! stringified ) {
+			return LocalStorage.delete( key )
+		}
+
 		return (
-			localStorage.setItem( key, stringifyValue( value ) )
+			localStorage.setItem( key, stringified )
 		)
 	}
 	

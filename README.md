@@ -1695,6 +1695,8 @@ Sets the value of the pair identified by key to value, creating a new key/value 
 
 Dispatches a storage event on Window objects holding an equivalent Storage object.
 
+If a nullish or empty string value is provided, the `LocalStorage.delete()` method is invoked.
+
 <details>
 
 <summary style="cursor:pointer">Type parameters</summary>
