@@ -17,6 +17,23 @@ describe( 'SessionStorage', () => {
 			expect( SessionStorage.get( 'key' ) ).toBe( 'value' )
 		} )
 
+		it( 'deletes an item if nullish or empty value is provided', () => {
+			SessionStorage.set( 'key', 'value' )
+			SessionStorage.set( 'key2', 'value' )
+			SessionStorage.set( 'key3', 'value' )
+			expect( SessionStorage.get( 'key' ) ).toBe( 'value' )
+			expect( SessionStorage.get( 'key2' ) ).toBe( 'value' )
+			expect( SessionStorage.get( 'key3' ) ).toBe( 'value' )
+			
+			SessionStorage.set( 'key', '' )
+			SessionStorage.set( 'key2', undefined )
+			SessionStorage.set( 'key3', null )
+
+			expect( SessionStorage.get( 'key' ) ).toBe( undefined )
+			expect( SessionStorage.get( 'key2' ) ).toBe( undefined )
+			expect( SessionStorage.get( 'key3' ) ).toBe( undefined )
+		} )
+
 	} )
 	
 	
