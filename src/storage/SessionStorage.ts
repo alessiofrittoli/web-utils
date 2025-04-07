@@ -37,8 +37,14 @@ export class SessionStorage
 	 */
 	static set<T>( key: string, value: T )
 	{
+		const stringified = stringifyValue( value )
+
+		if ( value == null || ! stringified ) {
+			return SessionStorage.delete( key )
+		}
+
 		return (
-			sessionStorage.setItem( key, stringifyValue( value ) )
+			sessionStorage.setItem( key, stringified )
 		)
 	}
 	
