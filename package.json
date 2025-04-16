@@ -48,6 +48,11 @@
 			"import": "./dist/blob.mjs",
 			"require": "./dist/blob.js"
 		},
+		"./dom": {
+			"types": "./dist/dom.d.ts",
+			"import": "./dist/dom.mjs",
+			"require": "./dist/dom.js"
+		},
 		"./generators": {
 			"types": "./dist/generators.d.ts",
 			"import": "./dist/generators.mjs",
