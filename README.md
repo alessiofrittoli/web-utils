@@ -24,6 +24,7 @@
 - [Getting started](#getting-started)
 - [API Reference](#api-reference)
   - [Blob utilities](#blob-utilities)
+  - [Dom utilities](#dom-utilities)
   - [Generators utilities](#generators-utilities)
   - [Map utilities](#map-utilities)
   - [Promises utilities](#promises-utilities)
@@ -115,6 +116,120 @@ fetch( ... )
   .catch( error => {
     console.error( error )
   } )
+```
+
+</details>
+
+---
+
+#### Dom utilities
+
+###### Importing the utilitites
+
+```ts
+import { ... } from '@alessiofrittoli/web-utils'
+// or
+import { ... } from '@alessiofrittoli/web-utils/dom'
+```
+
+---
+
+##### `blockScroll`
+
+Prevent Element Overflow.
+
+It calculates the scrollbar width and the resulting value is applied to the target element right padding-right to prevent width grows.
+
+It also applies the `--scrollbar-size` CSS variable that can be used to apply a padding-right to the position fixed elements inside the target.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type          | Default | Description |
+|-----------|---------------|---------|-------------|
+| `target`  | `HTMLElement` | `Document.documentElement` | (Optional) The target Element. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+###### Block Document HTML scroll when a popup is opened
+
+```ts
+const openPopUpHandler = () => {
+  blockScroll()
+  // ... handle popup
+}
+```
+
+```css
+.modal-wrapper {
+  position      : fixed;
+  inset         : 0;
+  padding-right : var( --scrollbar-size, 0 );
+}
+```
+
+---
+
+###### Block scroll of a specific HTMLElement
+
+```ts
+const element = document.querySelector( '.css-selector' )
+
+if ( element ) {
+  blockScroll( element )
+}
+```
+
+</details>
+
+---
+
+##### `blockScroll`
+
+Restore Element Overflow.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type          | Default | Description |
+|-----------|---------------|---------|-------------|
+| `target`  | `HTMLElement` | `Document.documentElement` | (Optional) The target Element. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+###### Restore Document HTML scroll when a popup is closed
+
+```ts
+const closePopUpHandler = () => {
+  // ... handle close
+  restoreScroll()
+}
+```
+
+---
+
+###### Restore scroll of a specific HTMLElement
+
+```ts
+const element = document.querySelector( '.css-selector' )
+
+if ( element ) {
+  restoreScroll( element )
+}
 ```
 
 </details>

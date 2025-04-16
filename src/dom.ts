@@ -1,17 +1,17 @@
 /**
  * Prevent Element Overflow.
  * 
- * @param el (Optional) The target Element. Default: `Document`.
+ * @param target (Optional) The target HTMLElement. Default: `Document.documentElement`.
  */
-export const blockScroll = ( el?: HTMLElement ) => {
+export const blockScroll = ( target?: HTMLElement ) => {
 
-	const _el			= el || document.documentElement
-	const { width }		= _el.getBoundingClientRect()
-	_el.style.overflow	= 'hidden'
-	const scrollBarSize	= _el.clientWidth - width
+	const el			= target || document.documentElement
+	const { width }		= el.getBoundingClientRect()
+	el.style.overflow	= 'hidden'
+	const scrollBarSize	= el.clientWidth - width
 
-	_el.style.paddingRight	= `${ scrollBarSize }px`
-	_el.style.setProperty( '--scrollbar-size', `${ scrollBarSize }px` )
+	el.style.paddingRight	= `${ scrollBarSize }px`
+	el.style.setProperty( '--scrollbar-size', `${ scrollBarSize }px` )
 
 }
 
@@ -19,14 +19,14 @@ export const blockScroll = ( el?: HTMLElement ) => {
 /**
  * Restore Element Overflow.
  * 
- * @param el (Optional) The target Element. Default: `Document`.
+ * @param target (Optional) The target HTMLElement. Default: `Document.documentElement`.
  */
-export const restoreScroll = ( el?: HTMLElement ) => {
+export const restoreScroll = ( target?: HTMLElement ) => {
 
-	const $el = el || document.documentElement
+	const el = target || document.documentElement
 	
-	$el.style.removeProperty( 'overflow' )
-	$el.style.removeProperty( 'padding-right' )
-	$el.style.removeProperty( '--scrollbar-size' )
+	el.style.removeProperty( 'overflow' )
+	el.style.removeProperty( 'padding-right' )
+	el.style.removeProperty( '--scrollbar-size' )
 
 }
