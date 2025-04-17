@@ -3,15 +3,14 @@
  * 
  * @param target (Optional) The target HTMLElement. Default: `Document.documentElement`.
  */
-export const blockScroll = ( target?: HTMLElement ) => {
+export const blockScroll = ( target: HTMLElement = document.documentElement ) => {
 
-	const el			= target || document.documentElement
-	const { width }		= el.getBoundingClientRect()
-	el.style.overflow	= 'hidden'
-	const scrollBarSize	= el.clientWidth - width
+	const { width }		= target.getBoundingClientRect()
+	target.style.overflow	= 'hidden'
+	const scrollBarSize	= target.clientWidth - width
 
-	el.style.paddingRight	= `${ scrollBarSize }px`
-	el.style.setProperty( '--scrollbar-size', `${ scrollBarSize }px` )
+	target.style.paddingRight	= `${ scrollBarSize }px`
+	target.style.setProperty( '--scrollbar-size', `${ scrollBarSize }px` )
 
 }
 
@@ -21,12 +20,10 @@ export const blockScroll = ( target?: HTMLElement ) => {
  * 
  * @param target (Optional) The target HTMLElement. Default: `Document.documentElement`.
  */
-export const restoreScroll = ( target?: HTMLElement ) => {
-
-	const el = target || document.documentElement
+export const restoreScroll = ( target: HTMLElement = document.documentElement ) => {
 	
-	el.style.removeProperty( 'overflow' )
-	el.style.removeProperty( 'padding-right' )
-	el.style.removeProperty( '--scrollbar-size' )
+	target.style.removeProperty( 'overflow' )
+	target.style.removeProperty( 'padding-right' )
+	target.style.removeProperty( '--scrollbar-size' )
 
 }
