@@ -191,7 +191,7 @@ if ( element ) {
 
 ---
 
-##### `blockScroll`
+##### `restoreScroll`
 
 Restore Element Overflow.
 
