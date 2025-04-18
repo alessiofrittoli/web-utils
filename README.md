@@ -952,6 +952,49 @@ import { ... } from '@alessiofrittoli/web-utils'
 import { ... } from '@alessiofrittoli/web-utils/browser-api'
 ```
 
+###### `getMediaMatches`
+
+Safely executes `window.matchMedia()` in server and browser environments.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Description |
+|-----------|----------|-------------|
+| `query`   | `string` | The Media Query string to check. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `boolean`
+
+- `false` if `window` is not defined or if the `document` currently doesn't matches the given `query`.
+- `true` otherwise.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+###### Check if current device is landscape oriented
+
+```ts
+console.log( getMediaMatches( '(orientation:portrait)' ) )
+```
+
+</details>
+
+---
+
 ###### `openBrowserPopUp`
 
 Opens a webpage in a browser PopUp.
