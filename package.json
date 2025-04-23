@@ -144,6 +144,7 @@
 		"test:local": "pnpm test:watch storage/local.test.ts",
 		"test:session": "pnpm test:watch storage/session.test.ts",
 		"test:browser-api": "pnpm test:watch browser-api/*",
+		"test:device": "pnpm test:watch device/*",
 		"test:promises": "pnpm test:watch promises.test.ts"
 	},
 	"devDependencies": {
