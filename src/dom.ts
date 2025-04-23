@@ -5,11 +5,11 @@
  */
 export const blockScroll = ( target: HTMLElement = document.documentElement ) => {
 
-	const { width }		= target.getBoundingClientRect()
+	const { width }			= target.getBoundingClientRect()
 	target.style.overflow	= 'hidden'
-	const scrollBarSize	= target.clientWidth - width
+	const scrollBarSize		= Math.max( 0, target.clientWidth - width )
 
-	target.style.paddingRight	= `${ scrollBarSize }px`
+	target.style.paddingRight = `${ scrollBarSize }px`
 	target.style.setProperty( '--scrollbar-size', `${ scrollBarSize }px` )
 
 }
