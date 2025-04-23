@@ -1,4 +1,5 @@
 export * from './browser-api'
+export * from './device'
 export * from './storage'
 export * from './blob'
 export * from './dom'

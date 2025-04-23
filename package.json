@@ -43,6 +43,31 @@
 			"import": "./dist/index.mjs",
 			"require": "./dist/index.js"
 		},
+		"./browser-api": {
+			"types": "./dist/browser-api/index.d.ts",
+			"import": "./dist/browser-api/index.mjs",
+			"require": "./dist/browser-api/index.js"
+		},
+		"./device": {
+			"types": "./dist/device/index.d.ts",
+			"import": "./dist/device/index.mjs",
+			"require": "./dist/device/index.js"
+		},
+		"./storage/Cookie": {
+			"types": "./dist/storage/Cookie.d.ts",
+			"import": "./dist/storage/Cookie.mjs",
+			"require": "./dist/storage/Cookie.js"
+		},
+		"./storage/LocalStorage": {
+			"types": "./dist/storage/LocalStorage.d.ts",
+			"import": "./dist/storage/LocalStorage.mjs",
+			"require": "./dist/storage/LocalStorage.js"
+		},
+		"./storage/SessionStorage": {
+			"types": "./dist/storage/SessionStorage.d.ts",
+			"import": "./dist/storage/SessionStorage.mjs",
+			"require": "./dist/storage/SessionStorage.js"
+		},
 		"./blob": {
 			"types": "./dist/blob.d.ts",
 			"import": "./dist/blob.mjs",
@@ -82,26 +107,6 @@
 			"types": "./dist/validation.d.ts",
 			"import": "./dist/validation.mjs",
 			"require": "./dist/validation.js"
-		},
-		"./storage/Cookie": {
-			"types": "./dist/storage/Cookie.d.ts",
-			"import": "./dist/storage/Cookie.mjs",
-			"require": "./dist/storage/Cookie.js"
-		},
-		"./storage/LocalStorage": {
-			"types": "./dist/storage/LocalStorage.d.ts",
-			"import": "./dist/storage/LocalStorage.mjs",
-			"require": "./dist/storage/LocalStorage.js"
-		},
-		"./storage/SessionStorage": {
-			"types": "./dist/storage/SessionStorage.d.ts",
-			"import": "./dist/storage/SessionStorage.mjs",
-			"require": "./dist/storage/SessionStorage.js"
-		},
-		"./browser-api": {
-			"types": "./dist/browser-api/index.d.ts",
-			"import": "./dist/browser-api/index.mjs",
-			"require": "./dist/browser-api/index.js"
 		}
 	},
 	"sideEffects": false,
@@ -139,6 +144,7 @@
 		"test:local": "pnpm test:watch storage/local.test.ts",
 		"test:session": "pnpm test:watch storage/session.test.ts",
 		"test:browser-api": "pnpm test:watch browser-api/*",
+		"test:device": "pnpm test:watch device/*",
 		"test:promises": "pnpm test:watch promises.test.ts"
 	},
 	"devDependencies": {

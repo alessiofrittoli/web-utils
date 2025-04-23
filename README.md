@@ -32,6 +32,7 @@
   - [Types utilities](#types-utilities)
   - [Validation utilities](#validation-utilities)
   - [Browser API utilities](#browser-api-utilities)
+  - [Device utilities](#device-utilities)
   - [Storage utilities](#storage-utilities)
     - [`Cookie` Class](#cookie-class)
     - [`LocalStorage` Class](#localstorage-class)
@@ -988,7 +989,7 @@ Type: `boolean`
 ###### Check if current device is landscape oriented
 
 ```ts
-console.log( getMediaMatches( '(orientation:portrait)' ) )
+console.log( ! getMediaMatches( '(orientation:portrait)' ) )
 ```
 
 </details>
@@ -1076,6 +1077,47 @@ const clickHandler2 = () => {
     url     : '/other-path',
   } )
 }
+```
+
+</details>
+
+---
+
+#### Device utilities
+
+###### Importing the utilitites
+
+```ts
+import { ... } from '@alessiofrittoli/web-utils'
+// or
+import { ... } from '@alessiofrittoli/web-utils/device'
+```
+
+###### `isPortrait`
+
+Check if device is in portrait orientation.
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `boolean`
+
+- `true` if the device is in portrait orientation when this function is executed.
+- `false` otherwise.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+###### Check if current device is landscape oriented
+
+```ts
+console.log( ! isPortrait() )
 ```
 
 </details>
