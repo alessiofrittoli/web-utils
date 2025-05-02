@@ -112,10 +112,11 @@
 	"sideEffects": false,
 	"scripts": {
 		"//1a": "*********************************************************************",
-		"//1b": "*********************** BUILD - LINT - RELEASE **********************",
+		"//1b": "******************** DEV - BUILD - LINT - RELEASE *******************",
 		"//1c": "*********************************************************************",
-		"build": "pnpm lint && pnpm test:ci && tsup",
-		"build:watch": "tsup --watch",
+		"dev": "NODE_ENV=development tsup --watch",
+		"build:prod": "NODE_ENV=production tsup",
+		"build": "pnpm lint && pnpm test:ci && pnpm build:prod",
 		"lint": "eslint",
 		"release": "node scripts/publish.js --verbose --npm",
 		"//2a": "*********************************************************************",
@@ -148,11 +149,11 @@
 		"test:promises": "pnpm test:watch promises.test.ts"
 	},
 	"devDependencies": {
-		"@alessiofrittoli/node-scripts": "^2.4.0",
+		"@alessiofrittoli/node-scripts": "^2.5.0",
 		"@eslint/js": "^9.25.1",
 		"@jest/globals": "^29.7.0",
 		"@types/jest": "^29.5.14",
-		"@types/node": "^22.14.1",
+		"@types/node": "^22.15.3",
 		"concurrently": "^9.1.2",
 		"dotenv": "^16.5.0",
 		"eslint": "^9.25.1",
@@ -164,7 +165,7 @@
 		"ts-node": "^10.9.2",
 		"tsup": "^8.4.0",
 		"typescript": "^5.8.3",
-		"typescript-eslint": "^8.31.0"
+		"typescript-eslint": "^8.31.1"
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [
@@ -173,8 +174,8 @@
 		]
 	},
 	"dependencies": {
-		"@alessiofrittoli/date-utils": "^3.1.0",
-		"@alessiofrittoli/math-utils": "^1.11.0",
-		"@alessiofrittoli/url-utils": "^3.3.0"
+		"@alessiofrittoli/date-utils": "^3.2.0",
+		"@alessiofrittoli/math-utils": "^1.13.0",
+		"@alessiofrittoli/url-utils": "^3.4.0"
 	}
 }
