@@ -20,6 +20,7 @@ const config: JestConfigWithTsJest = {
 	testEnvironment: 'node',
 	moduleDirectories: [ 'node_modules', '<rootDir>/' ],
 	setupFilesAfterEnv: [ './jest.setup.ts' ],
+	testMatch: [ '**/__tests__/**/*.(test|spec).ts' ],
 	/**
 	 * If you're using [Module Path Aliases](https://nextjs.org/docs/advanced-features/module-path-aliases),
 	 * you will have to add the moduleNameMapper in order for jest to resolve your absolute paths.
