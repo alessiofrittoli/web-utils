@@ -1,6 +1,7 @@
 export * from './browser-api'
 export * from './device'
 export * from './storage'
+export * from './arrays'
 export * from './blob'
 export * from './dom'
 export * from './generators'

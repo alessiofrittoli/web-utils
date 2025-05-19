@@ -68,6 +68,11 @@
 			"import": "./dist/storage/SessionStorage.mjs",
 			"require": "./dist/storage/SessionStorage.js"
 		},
+		"./arrays": {
+			"types": "./dist/arrays.d.ts",
+			"import": "./dist/arrays.mjs",
+			"require": "./dist/arrays.js"
+		},
 		"./blob": {
 			"types": "./dist/blob.d.ts",
 			"import": "./dist/blob.mjs",
