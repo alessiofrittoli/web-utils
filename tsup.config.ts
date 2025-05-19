@@ -1,6 +1,6 @@
 import { defineConfig } from 'tsup'
 
-const enableSourcemap = process.env.NODE_ENV !== 'production'
+const isProduction = process.env.NODE_ENV === 'production'
 
 export default defineConfig( {
 	entry		: [ 'src/**/*.ts' ],
@@ -11,6 +11,6 @@ export default defineConfig( {
 	skipNodeModulesBundle: true,
 	clean		: true,
 	treeshake	: true,
-	minify		: true,
-	sourcemap	: enableSourcemap,
+	minify		: isProduction,
+	sourcemap	: ! isProduction,
 } )
