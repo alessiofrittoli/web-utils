@@ -24,6 +24,7 @@
 - [Getting started](#getting-started)
 - [API Reference](#api-reference)
   - [Blob utilities](#blob-utilities)
+  - [Array utilities](#array-utilities)
   - [Dom utilities](#dom-utilities)
   - [Generators utilities](#generators-utilities)
   - [Map utilities](#map-utilities)
@@ -65,6 +66,128 @@ pnpm i @alessiofrittoli/web-utils
 ---
 
 ### API Reference
+
+#### Array utilities
+
+###### Importing the utilitites
+
+```ts
+import { ... } from '@alessiofrittoli/web-utils'
+// or
+import { ... } from '@alessiofrittoli/web-utils/arrays'
+```
+
+---
+
+##### `arrayUnique`
+
+Removes duplicate values from an array.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter  | Type  | Description |
+|------------|-------|-------------|
+| `array`    | `T[]` | The input array. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `T[]`
+
+The filtered array.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+###### Removes duplicates from array
+
+```ts
+const pointer = {}
+console.log( arrayUnique( [ pointer, 'b', pointer, 'c', 'b' ] ) )
+// Outputs: [ {}, 'b', 'c' ]
+```
+
+</details>
+
+---
+
+##### `arrayObjectUnique`
+
+Removes duplicate entries from an array referencing an object key.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter  | Type  | Description |
+|------------|-------|-------------|
+| `array`    | `T[]` | An array of objects. |
+| `property` |  `keyof T` | The Object property to refer to. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `T[]`
+
+The filtered array.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+###### Removes duplicates from array with the same propery value
+
+```ts
+const arr = [
+  { id: 1, name: 'a' },
+  { id: 2, name: 'b' },
+  { id: 1, name: 'c' }, // duplicate `id`
+  { id: 3, name: 'd' },
+  { id: 4, name: 'a' }, // duplicate `name`
+]
+
+console.log( arrayObjectUnique( arr, 'id' ) )
+// Outputs: [
+//     { id: 1, name: 'a' },
+//     { id: 2, name: 'b' },
+//     { id: 3, name: 'd' },
+//     { id: 4, name: 'a' },
+// ]
+
+
+console.log( arrayObjectUnique( arr, 'name' ) )
+// Outputs: [
+//     { id: 1, name: 'a' },
+//     { id: 2, name: 'b' },
+//     { id: 1, name: 'c' },
+//     { id: 3, name: 'd' },
+// ]
+```
+
+</details>
+
+---
 
 #### Blob utilities
 

@@ -4,7 +4,7 @@
  * @param	array The input array.
  * @returns	The filtered array.
  */
-export const arrayUnique = <T>( array: T[] ) => (
+export const arrayUnique = <T>( array: T[] ): T[] => (
 	array.length <= 0
 		? array
 		: [ ...new Set( array ) ]
@@ -18,7 +18,7 @@ export const arrayUnique = <T>( array: T[] ) => (
  * @param	property	The Object property to refer to.
  * @returns The filtered array.
  */
-export const arrayObjectUnique = <T>( array: T[], property: keyof T ) => {
+export const arrayObjectUnique = <T>( array: T[], property: keyof T ): T[] => {
 	if ( array.length <= 0 ) return array
 
 	const map = new Map()
