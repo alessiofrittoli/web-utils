@@ -29,3 +29,17 @@ export const arrayObjectUnique = <T>( array: T[], property: keyof T ): T[] => {
 
 	return Array.from( map.values() )
 }
+
+
+/**
+ * Convert a stringified Array to Array object.
+ * 
+ * @param	string The string to convert. ( e.g. `value1, value2` or `value1,value2` )
+ * @returns	The converted string Array.
+ */
+export const listToArray = ( string: string ) => (
+	string
+		.replace( /\s/g, '' )
+		.split( ',' )
+		.filter( Boolean )
+)

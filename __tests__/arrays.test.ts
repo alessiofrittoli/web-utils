@@ -1,4 +1,4 @@
-import { arrayUnique, arrayObjectUnique } from '@/arrays'
+import { arrayUnique, arrayObjectUnique, listToArray } from '@/arrays'
 
 
 describe( 'arrayUnique', () => {
@@ -79,6 +79,46 @@ describe( 'arrayObjectUnique', () => {
 
 		expect( arrayObjectUnique( arr, 'id' ) ).toEqual( arr )
 		
+	} )
+
+} )
+
+
+describe( 'listToArray', () => {
+
+	it( 'converts comma-separated string to array', () => {
+
+		expect( listToArray( 'a,b,c' ) ).toEqual( [ 'a', 'b', 'c' ] )
+		expect( listToArray( '1,2,3' ) ).toEqual( [ '1', '2', '3' ] )
+		expect( listToArray( 'foo, bar, baz' ) ).toEqual( [ 'foo', 'bar', 'baz' ] )
+		expect( listToArray( '  x , y ,z ' ) ).toEqual( [ 'x', 'y', 'z' ] )
+		
+	} )
+
+
+	it( 'handles empty string', () => {
+		expect( listToArray( '' ) ).toEqual( [] )
+	} )
+
+
+	it( 'handles string with only spaces', () => {
+		expect( listToArray( '   ' ) ).toEqual( [] )
+		expect( listToArray( '   ' ) ).toEqual( [] )
+	} )
+
+
+	it( 'handles string with trailing comma', () => {
+		expect( listToArray( 'a,b,c,' ) ).toEqual( [ 'a', 'b', 'c' ] )
+	} )
+
+
+	it( 'handles string with leading comma', () => {
+		expect( listToArray( ',a,b,c' ) ).toEqual( [ 'a', 'b', 'c' ] )
+	} )
+
+
+	it( 'handles string with multiple consecutive commas', () => {
+		expect( listToArray( 'a,,b,,,c' ) ).toEqual( [ 'a', 'b', 'c' ] )
 	} )
 
 } )
