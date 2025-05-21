@@ -43,3 +43,48 @@ export const listToArray = ( string: string ) => (
 		.split( ',' )
 		.filter( Boolean )
 )
+
+
+export type ChunkIntoOptions = (
+	{
+		/**
+		 * Will split the given Array in a way to ensure each chunk length is, whenever possible, equal to the given value.
+		 * 
+		 */
+		chunkSize: number
+		chunksCount?: never
+	} | {
+		/**
+		 * Will split the given Array in a way to ensure n chunks as the given value.
+		 * 
+		 */
+		chunksCount: number
+		chunkSize?: never
+	}
+)
+
+
+/**
+ * Split Array into chunks.
+ * 
+ * @param	array	The original Array.
+ * @param	options The options.
+ * @returns	An Array of chunks.
+ */
+export function chunkInto<
+	T extends unknown[]
+>( array: T, options: ChunkIntoOptions ): T[]
+{
+
+	const chunkSize		= options && 'chunkSize' in options && options.chunkSize
+	const chunksCount	= options && 'chunksCount' in options && options.chunksCount
+	const size			= chunksCount ? Math.ceil( array.length / chunksCount ) : ( chunkSize || 1 )
+	const length		= chunksCount || Math.ceil( array.length / size )
+
+	return (
+		Array.from( { length }, ( value, index ) => (
+			array.slice( index * size, index * size + size )
+		) ).filter( array => array.length > 0 )
+	) as T[]
+
+}
