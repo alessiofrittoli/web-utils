@@ -51,15 +51,15 @@ export type ChunkIntoOptions = (
 		 * Will split the given Array in a way to ensure each chunk length is, whenever possible, equal to the given value.
 		 * 
 		 */
-		chunkSize: number
-		chunksCount?: never
+		size: number
+		count?: never
 	} | {
 		/**
 		 * Will split the given Array in a way to ensure n chunks as the given value.
 		 * 
 		 */
-		chunksCount: number
-		chunkSize?: never
+		count: number
+		size?: never
 	}
 )
 
@@ -67,8 +67,11 @@ export type ChunkIntoOptions = (
 /**
  * Split Array into chunks.
  * 
+ * @template T The input `array` type.
+ * 
  * @param	array	The original Array.
- * @param	options The options.
+ * @param	options An object defining split criteria. See {@link ChunkIntoOptions} for more info.
+ * 
  * @returns	An Array of chunks.
  */
 export function chunkInto<
@@ -76,8 +79,8 @@ export function chunkInto<
 >( array: T, options: ChunkIntoOptions ): T[]
 {
 
-	const chunkSize		= options && 'chunkSize' in options && options.chunkSize
-	const chunksCount	= options && 'chunksCount' in options && options.chunksCount
+	const chunkSize		= options && 'size' in options && options.size
+	const chunksCount	= options && 'count' in options && options.count
 	const size			= chunksCount ? Math.ceil( array.length / chunksCount ) : ( chunkSize || 1 )
 	const length		= chunksCount || Math.ceil( array.length / size )
 

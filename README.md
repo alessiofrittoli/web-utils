@@ -232,6 +232,67 @@ console.log( listToArray( '1,2, 3, 4' ).map( Number ) )
 
 ---
 
+##### `chunkInto`
+
+Split Array into chunks.
+
+<details>
+
+<summary style="cursor:pointer">Type Parameters</summary>
+
+| Parameter | Default     | Description |
+|-----------|-------------|-------------|
+| `T`       | `unknown[]` | The input `array` type. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter  | Type        | Description |
+|------------|-------------|-------------|
+| `array`    | `T[]` | The original Array. |
+| `options`  | `ChunkIntoOptions` | An object defining split criteria. |
+| `options.size` | `number` | Will split the given Array in a way to ensure each chunk length is, whenever possible, equal to the given value. |
+| `options.count` | `number` | Will split the given Array in a way to ensure n chunks as the given value. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `T[]`
+
+An Array of chunks.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+###### Basic usage
+
+```ts
+console.log( chunkInto( [ 1, 2, 3, 4, 5 ], { count: 2 } ) )
+// Output: [ [ 1, 2, 3 ], [ 4, 5 ] ]
+
+console.log( chunkInto( [ 1, 2, 3, 4, 5 ], { size: 2 } ) )
+// Output: [ [ 1, 2 ], [ 3, 4 ], [ 5 ] ]
+```
+
+</details>
+
+---
+
 #### Blob utilities
 
 ###### Importing the utilitites
