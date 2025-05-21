@@ -1,4 +1,4 @@
-import { arrayUnique, arrayObjectUnique, listToArray } from '@/arrays'
+import { arrayUnique, arrayObjectUnique, listToArray, chunkInto } from '@/arrays'
 
 
 describe( 'arrayUnique', () => {
@@ -119,6 +119,76 @@ describe( 'listToArray', () => {
 
 	it( 'handles string with multiple consecutive commas', () => {
 		expect( listToArray( 'a,,b,,,c' ) ).toEqual( [ 'a', 'b', 'c' ] )
+	} )
+
+} )
+
+
+describe( 'chunkInto', () => {
+
+	const array = [ 1, 2, 3, 4, 5, 6, 7, 8 ]
+
+	it( 'splits array into chunks of given size', () => {
+
+		expect( chunkInto( array, { chunkSize: 2 } ) )
+			.toEqual( [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ] ] )
+
+		expect( chunkInto( array, { chunkSize: 3 } ) )
+			.toEqual( [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8 ] ] )
+		
+	} )
+
+
+	it( 'tries to split array into given number of chunks', () => {
+		
+		expect( chunkInto( array, { chunksCount: 4 } ) )
+			.toEqual( [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ], [ 7, 8 ] ] )
+
+		expect( chunkInto( [ 1, 2, 3, 4, 5 ], { chunksCount: 2 } ) )
+			.toEqual( [ [ 1, 2, 3 ], [ 4, 5 ] ] )
+
+	} )
+
+
+	it( 'returns empty array when input is empty', () => {
+
+		expect( chunkInto( [], { chunkSize: 3 } ) ).toEqual( [] )
+		expect( chunkInto( [], { chunksCount: 2 } ) ).toEqual( [] )
+
+	} )
+
+	
+	it( 'returns one chunk if chunkSize >= array.length', () => {
+
+		expect( chunkInto( [ 1, 2, 3 ], { chunkSize: 3 } ) )
+			.toEqual( [ [ 1, 2, 3 ] ] )
+		expect( chunkInto( [ 1, 2, 3 ], { chunkSize: 10 } ) )
+			.toEqual( [ [ 1, 2, 3 ] ] )
+
+	} )
+
+
+	it( 'doesn\'t return empty chunks if chunksCount >= array.length', () => {
+		expect( chunkInto( [ 1, 2, 3 ], { chunksCount: 5 } ) )
+			.toEqual( [ [ 1 ], [ 2 ], [ 3 ] ] )
+	} )
+
+
+	it( 'splits into chunk of 1 if no options or invalid options are provided', () => {
+		// @ts-expect-error negative testing
+		expect( chunkInto( [ 1, 2, 3 ] ) )
+			.toEqual( [ [ 1 ], [ 2 ], [ 3 ] ] )
+		
+		// @ts-expect-error negative testing
+		expect( chunkInto( [ 1, 2, 3 ], {} ) )
+			.toEqual( [ [ 1 ], [ 2 ], [ 3 ] ] )
+		
+		expect( chunkInto( [ 1, 2, 3 ], { chunksCount: 0 } ) )
+			.toEqual( [ [ 1 ], [ 2 ], [ 3 ] ] )
+		
+		expect( chunkInto( [ 1, 2, 3 ], { chunkSize: 0 } ) )
+			.toEqual( [ [ 1 ], [ 2 ], [ 3 ] ] )
+		
 	} )
 
 } )
