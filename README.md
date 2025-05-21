@@ -189,6 +189,49 @@ console.log( arrayObjectUnique( arr, 'name' ) )
 
 ---
 
+##### `listToArray`
+
+Convert a stringified Array to Array object.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter  | Type     | Description |
+|------------|----------|-------------|
+| `string`   | `string` | An array of objects. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `string[]`
+
+The converted stringified Array to Array object.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+###### Basic usage
+
+```ts
+console.log( listToArray( '1,2, 3, 4' ).map( Number ) )
+// Outputs: [ 1, 2, 3, 4 ]
+```
+
+</details>
+
+---
+
 #### Blob utilities
 
 ###### Importing the utilitites
