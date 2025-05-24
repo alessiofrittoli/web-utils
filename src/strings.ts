@@ -3,6 +3,7 @@ import { isNumeric } from '@alessiofrittoli/math-utils'
 
 import { isPromise, isString } from './types'
 import { isEmpty } from './validation'
+import { escapeRegExpCharSet } from './regex'
 
 
 /**
@@ -117,4 +118,93 @@ export const parseValue = <T>( input?: string ): T | undefined => {
 		return input as T
 		
 	}
+}
+
+
+/**
+ * Add leading character to a string.
+ * 
+ * The given `input` won't be modified if it already contains the given `character`.
+ * 
+ * @param	input		The string to process.
+ * @param	character	The character to add.
+ * @param	search		( Optional ) A custom search expression. Default `character`.
+ * 
+ * @returns	The given string with leading character.
+ */
+export const addLeadingCharacter = ( input: string, character: string, search: string | RegExp = character ) => {
+	if ( typeof input !== 'string' ) throw new TypeError( 'Input must be a string.' )
+	
+	const regEx = (
+		search instanceof RegExp
+			? search
+			: new RegExp( `^[${ escapeRegExpCharSet( search ) }]?` )
+	)
+	
+	return input.replace( regEx, character )
+}
+
+
+/**
+ * Remove leading character from a string.
+ * 
+ * @param	input		The string to process.
+ * @param	character	The character to remove.
+ * 
+ * @returns	The given string with leading character removed.
+ */
+export const removeLeadingCharacter = ( input: string, character: string | RegExp ) => {
+	if ( typeof input !== 'string' ) throw new TypeError( 'Input must be a string.' )
+	
+	const regEx = (
+		character instanceof RegExp
+			? character
+			: new RegExp( `^[${ escapeRegExpCharSet( character ) }]+` )
+	)
+
+	return input.replace( regEx, '' )
+}
+
+
+/**
+ * Add trailing character to a string.
+ * 
+ * The given `input` won't be modified if it already contains the given `character`.
+ * 
+ * @param	input		The string to process.
+ * @param	character	The character to add.
+ * @param	search		( Optional ) A custom search expression. Default `character`.
+ * 
+ * @returns	The given string with trailing character.
+ */
+export const addTrailingCharacter = ( input: string, character: string, search: string | RegExp = character ) => {
+	if ( typeof input !== 'string' ) throw new TypeError( 'Input must be a string.' )
+	
+	const regEx = (
+		search instanceof RegExp
+			? search
+			: new RegExp( `[${ escapeRegExpCharSet( search ) }]?$` )
+	)
+
+	return input.replace( regEx, character )
+}
+
+
+/**
+ * Remove trailing character from a string.
+ * 
+ * @param	input		The string to process.
+ * @param	character	The character to remove.
+ * 
+ * @returns	The given string with trailing character removed.
+ */
+export const removeTrailingCharacter = ( input: string, character: string | RegExp ) => {
+	if ( typeof input !== 'string' ) throw new TypeError( 'Input must be a string.' )
+	
+	const regEx = (
+		character instanceof RegExp
+			? character
+			: new RegExp( `[${ escapeRegExpCharSet( character ) }]?$` )
+	)
+	return input.replace( regEx, '' )
 }

@@ -98,6 +98,11 @@
 			"import": "./dist/promises.mjs",
 			"require": "./dist/promises.js"
 		},
+		"./regex": {
+			"types": "./dist/regex.d.ts",
+			"import": "./dist/regex.mjs",
+			"require": "./dist/regex.js"
+		},
 		"./strings": {
 			"types": "./dist/strings.d.ts",
 			"import": "./dist/strings.mjs",
@@ -143,6 +148,7 @@
 		"test:map": "pnpm test:watch map.test.ts",
 		"test:blob": "pnpm test:watch blob.test.ts",
 		"test:generators": "pnpm test:watch generators.test.ts",
+		"test:regex": "pnpm test:watch regex.test.ts",
 		"test:strings": "pnpm test:watch strings.test.ts",
 		"test:types": "pnpm test:watch types.test.ts",
 		"test:validation": "pnpm test:watch validation.test.ts",
