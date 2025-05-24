@@ -3,6 +3,7 @@ import { isNumeric } from '@alessiofrittoli/math-utils'
 
 import { isPromise, isString } from './types'
 import { isEmpty } from './validation'
+import { escapeRegExpCharSet } from './regex'
 
 
 /**
@@ -134,7 +135,11 @@ export const parseValue = <T>( input?: string ): T | undefined => {
 export const addLeadingCharacter = ( input: string, character: string, search: string | RegExp = character ) => {
 	if ( typeof input !== 'string' ) throw new TypeError( 'Input must be a string.' )
 	
-	const regEx = search instanceof RegExp ? search : new RegExp( `^[${ search }]?` )
+	const regEx = (
+		search instanceof RegExp
+			? search
+			: new RegExp( `^[${ escapeRegExpCharSet( search ) }]?` )
+	)
 	
 	return input.replace( regEx, character )
 }
@@ -151,7 +156,12 @@ export const addLeadingCharacter = ( input: string, character: string, search: s
 export const removeLeadingCharacter = ( input: string, character: string | RegExp ) => {
 	if ( typeof input !== 'string' ) throw new TypeError( 'Input must be a string.' )
 	
-	const regEx = character instanceof RegExp ? character : new RegExp( `^[${ character }]+` )
+	const regEx = (
+		character instanceof RegExp
+			? character
+			: new RegExp( `^[${ escapeRegExpCharSet( character ) }]+` )
+	)
+
 	return input.replace( regEx, '' )
 }
 
@@ -170,7 +180,12 @@ export const removeLeadingCharacter = ( input: string, character: string | RegEx
 export const addTrailingCharacter = ( input: string, character: string, search: string | RegExp = character ) => {
 	if ( typeof input !== 'string' ) throw new TypeError( 'Input must be a string.' )
 	
-	const regEx = search instanceof RegExp ? search : new RegExp( `[${ search }]?$` )
+	const regEx = (
+		search instanceof RegExp
+			? search
+			: new RegExp( `[${ escapeRegExpCharSet( search ) }]?$` )
+	)
+
 	return input.replace( regEx, character )
 }
 
@@ -186,6 +201,10 @@ export const addTrailingCharacter = ( input: string, character: string, search: 
 export const removeTrailingCharacter = ( input: string, character: string | RegExp ) => {
 	if ( typeof input !== 'string' ) throw new TypeError( 'Input must be a string.' )
 	
-	const regEx = character instanceof RegExp ? character : new RegExp( `[${ character }]?$` )
+	const regEx = (
+		character instanceof RegExp
+			? character
+			: new RegExp( `[${ escapeRegExpCharSet( character ) }]?$` )
+	)
 	return input.replace( regEx, '' )
 }
