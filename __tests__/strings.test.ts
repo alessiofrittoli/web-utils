@@ -1,4 +1,6 @@
 import { lcFirst, parseValue, stringifyValue, toCamelCase, toKebabCase, ucFirst } from '@/strings'
+import { addLeadingCharacter, addTrailingCharacter, removeLeadingCharacter, removeTrailingCharacter } from '@/strings'
+
 
 describe( 'ucFirst', () => {
 
@@ -273,6 +275,163 @@ describe( 'parseValue', () => {
 	it( 'returns value as is if JSON.parse() fails', () => {
 
 		expect( parseValue( 'String value' ) ).toBe( 'String value' )
+
+	} )
+	
+} )
+
+
+describe( 'addLeadingCharacter', () => {
+
+	it( 'adds the leading character if not present', () => {
+
+		expect( addLeadingCharacter( 'test', '/' ) ).toBe( '/test' )
+		expect( addLeadingCharacter( 'abc', '0' ) ).toBe( '0abc' )
+
+	} )
+
+
+	it( 'does not add the character if already present', () => {
+
+		expect( addLeadingCharacter( '/test', '/' ) ).toBe( '/test' )
+		expect( addLeadingCharacter( '0abc', '0' ) ).toBe( '0abc' )
+
+	} )
+
+
+	it( 'uses custom search regex if provided', () => {
+		
+		expect( addLeadingCharacter( 'test', '/', /^\/?/ ) ).toBe('/test')
+		expect( addLeadingCharacter( '///test', '/', /^\/+/ ) ).toBe('/test')
+
+	} )
+
+
+	it( 'throws TypeError if input is not a string', () => {
+
+		// @ts-expect-error negative testing
+		expect( () => addLeadingCharacter( null, '/' ) ).toThrow( 'Input must be a string.' )
+		// @ts-expect-error negative testing
+		expect( () => addLeadingCharacter( undefined, '/' ) ).toThrow( 'Input must be a string.' )
+		// @ts-expect-error negative testing
+		expect( () => addLeadingCharacter( 123, '/' ) ).toThrow( 'Input must be a string.' )
+
+	} )
+
+} )
+
+
+describe( 'removeLeadingCharacter', () => {
+
+	it( 'removes the leading character if present', () => {
+
+		expect( removeLeadingCharacter( '/test', '/' ) ).toBe( 'test' )
+		expect( removeLeadingCharacter( '000abc', '0' ) ).toBe( 'abc' )
+
+	} )
+
+
+	it( 'does nothing if the character is not present', () => {
+
+		expect( removeLeadingCharacter( 'test', '/' ) ).toBe( 'test' )
+		expect( removeLeadingCharacter( 'abc', '0' ) ).toBe( 'abc' )
+
+	} )
+
+
+	it( 'uses custom regex if provided', () => {
+
+		expect( removeLeadingCharacter( '///test', /^\/+/) ).toBe( 'test' )
+		expect( removeLeadingCharacter( '...abc', /^\.+/) ).toBe( 'abc' )
+
+	} )
+
+
+	it( 'throws TypeError if input is not a string', () => {
+
+		// @ts-expect-error negative testing
+		expect( () => removeLeadingCharacter( null, '/' ) ).toThrow( 'Input must be a string.' )
+		// @ts-expect-error negative testing
+		expect( () => removeLeadingCharacter( undefined, '/' ) ).toThrow( 'Input must be a string.' )
+		// @ts-expect-error negative testing
+		expect( () => removeLeadingCharacter( 123, '/' ) ).toThrow( 'Input must be a string.' )
+
+	} )
+
+} )
+
+
+describe( 'addTrailingCharacter', () => {
+	
+	it( 'adds the trailing character if not present', () => {
+
+		expect( addTrailingCharacter( 'test', '/' ) ).toBe( 'test/' )
+		expect( addTrailingCharacter( 'abc', '0' ) ).toBe( 'abc0' )
+
+	} )
+
+
+	it( 'does not add the character if already present', () => {
+		
+		expect( addTrailingCharacter( 'test/', '/' ) ).toBe( 'test/' )
+		expect( addTrailingCharacter( 'abc0', '0' ) ).toBe( 'abc0' )
+
+	} )
+
+
+	it( 'uses custom search regex if provided', () => {
+
+		expect( addTrailingCharacter( 'test', '/', /\/?$/) ).toBe( 'test/' )
+		expect( addTrailingCharacter( 'test///', '/', /\/+$/) ).toBe( 'test/' )
+	} )
+
+
+	it( 'throws TypeError if input is not a string', () => {
+		
+		// @ts-expect-error negative testing
+		expect( () => addTrailingCharacter( null, '/' ) ).toThrow( 'Input must be a string.' )
+		// @ts-expect-error negative testing
+		expect( () => addTrailingCharacter( undefined, '/' ) ).toThrow( 'Input must be a string.' )
+		// @ts-expect-error negative testing
+		expect( () => addTrailingCharacter( 123, '/' ) ).toThrow( 'Input must be a string.' )
+
+	} )
+
+} )
+
+
+describe( 'removeTrailingCharacter', () => {
+
+	it( 'removes the trailing character if present', () => {
+
+		expect( removeTrailingCharacter( 'test/', '/' ) ).toBe( 'test' )
+		expect( removeTrailingCharacter( 'abc000', '0' ) ).toBe( 'abc00' )
+
+	} )
+
+
+	it( 'does nothing if the character is not present', () => {
+
+		expect( removeTrailingCharacter( 'test', '/' ) ).toBe( 'test' )
+		expect( removeTrailingCharacter( 'abc', '0' ) ).toBe( 'abc' )
+
+	} )
+
+
+	it( 'uses custom regex if provided', () => {
+		expect(removeTrailingCharacter('test///', /\/+$/)).toBe('test')
+		expect(removeTrailingCharacter('abc...', /\.+$/)).toBe('abc')
+	})
+
+
+	it( 'throws TypeError if input is not a string', () => {
+
+		// @ts-expect-error negative testing
+		expect( () => removeTrailingCharacter( null, '/' ) ).toThrow( 'Input must be a string.' )
+		// @ts-expect-error negative testing
+		expect( () => removeTrailingCharacter( undefined, '/' ) ).toThrow( 'Input must be a string.' )
+		// @ts-expect-error negative testing
+		expect( () => removeTrailingCharacter( 123, '/' ) ).toThrow( 'Input must be a string.' )
 
 	} )
 
