@@ -1,6 +1,6 @@
 {
 	"name": "@alessiofrittoli/web-utils",
-	"version": "1.11.0",
+	"version": "1.12.0",
 	"description": "Common TypeScript web utilities",
 	"author": {
 		"name": "Alessio Frittoli",
@@ -160,11 +160,11 @@
 		"test:promises": "pnpm test:watch promises.test.ts"
 	},
 	"devDependencies": {
-		"@alessiofrittoli/node-scripts": "^2.5.0",
+		"@alessiofrittoli/node-scripts": "^2.6.0",
 		"@eslint/js": "^9.27.0",
 		"@jest/globals": "^29.7.0",
 		"@types/jest": "^29.5.14",
-		"@types/node": "^22.15.19",
+		"@types/node": "^22.15.21",
 		"concurrently": "^9.1.2",
 		"dotenv": "^16.5.0",
 		"eslint": "^9.27.0",
