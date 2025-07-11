@@ -153,7 +153,7 @@ export const isTouchEvent = ( event: Event ): event is TouchEvent => window.Touc
  * @returns	True if device is a Touch device, false otherwise.
  */
 export const isTouchDevice = () => (
-	( typeof window !== 'undefined' && 'ontouchstart' in window && window.ontouchstart !== undefined ) ||
+	( typeof window !== 'undefined' && 'ontouchstart' in window && typeof window.ontouchstart === 'function' ) ||
 	( typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0 ) ||
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	( typeof navigator !== 'undefined' && 'msMaxTouchPoints' in navigator && ( navigator.msMaxTouchPoints as any ) > 0 )
