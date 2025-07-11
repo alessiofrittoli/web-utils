@@ -32,6 +32,7 @@
   - [Strings utilities](#strings-utilities)
   - [Types utilities](#types-utilities)
   - [Validation utilities](#validation-utilities)
+  - [Objects utilities](#objects-utilities)
   - [Browser API utilities](#browser-api-utilities)
   - [Device utilities](#device-utilities)
   - [Storage utilities](#storage-utilities)
@@ -1165,6 +1166,10 @@ console.log( parseValue( 'String value' ) ) // Outputs: 'String value'
 ---
 
 #### Validation utilities
+
+⚠️ Docs coming soon
+
+#### Objects utilities
 
 ⚠️ Docs coming soon
 
