@@ -109,6 +109,14 @@ describe( 'Cookie', () => {
 			).toBe( true )
 		} )
 
+		it( 'sets a custom path', () => {
+			Cookie.set( { name: 'testcookie', path: '/path' } )
+
+			expect(
+				Cookie.fromListString( document.cookie ).get( 'testcookie' )?.get( 'path' )
+			).toBe( '/path' )
+		} )
+
 	} )
 
 
