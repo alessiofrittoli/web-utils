@@ -93,6 +93,11 @@
 			"import": "./dist/map.mjs",
 			"require": "./dist/map.js"
 		},
+		"./objects": {
+			"types": "./dist/objects.d.ts",
+			"import": "./dist/objects.mjs",
+			"require": "./dist/objects.js"
+		},
 		"./promises": {
 			"types": "./dist/promises.d.ts",
 			"import": "./dist/promises.mjs",
