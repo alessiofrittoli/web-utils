@@ -9,7 +9,10 @@ export const sleep = ( time: number ) => new Promise<void>( resolve => setTimeou
 
 /**
  * Defer task so main-thread is not blocked in order to quickly paint and respond to user interaction.
- *
+ * 
+ * It can decrease INP process timing up to 400x than long blocking tasks.
+ * 
+ * @template T The task compatible function.
  * @param task The task callable function.
  * 
  * @returns A new Promise which returns the `task` result once fulfilled.

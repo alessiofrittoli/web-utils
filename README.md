@@ -829,6 +829,64 @@ const fn = async () => {
 
 ---
 
+##### `deferTask`
+
+Defer task so main-thread is not blocked in order to quickly paint and respond to user interaction.
+
+<details>
+
+<summary style="cursor:pointer">Type Parameters</summary>
+
+| Parameter | Description                  |
+|-----------|------------------------------|
+| `T`       | The task compatible function. It must be compatible with `() => unknown\|Promise<unknown>`. `unknown` types will be inherited by your function type. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Description                  |
+|-----------|----------|------------------------------|
+| `task`    | `T`      | The task callable function.  |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `Promise<Awaited<ReturnType<T>>>`
+
+A new Promise which returns the `task` result once fulfilled.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+const myLongTask = () => {
+  ...
+}
+
+button.addEventListener( 'click', () => {
+  deferTask( myLongTask )
+} )
+```
+
+</details>
+
+---
+
 #### Strings utilities
 
 ###### Importing the utilitites
