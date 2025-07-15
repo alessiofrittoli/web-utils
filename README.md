@@ -839,7 +839,8 @@ Defer task so main-thread is not blocked in order to quickly paint and respond t
 
 | Parameter | Description                  |
 |-----------|------------------------------|
-| `T`       | The task compatible function. It must be compatible with `() => unknown\|Promise<unknown>`. `unknown` types will be inherited by your function type. |
+| `T`       | The task function definition. `unknown` types will be inherited by your function type definition. |
+| `U`       | The task function arguments. `unknown` types will be inherited by your function type. |
 
 </details>
 
@@ -849,9 +850,10 @@ Defer task so main-thread is not blocked in order to quickly paint and respond t
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type     | Description                  |
-|-----------|----------|------------------------------|
-| `task`    | `T`      | The task callable function.  |
+| Parameter | Type     | Description                                      |
+|-----------|----------|--------------------------------------------------|
+| `task`    | `T`      | The task callable function.                      |
+| `...args` | `U`      | Arguments required by the given `task` function. |
 
 </details>
 
@@ -873,6 +875,8 @@ A new Promise which returns the `task` result once fulfilled.
 
 <summary style="cursor:pointer">Usage</summary>
 
+###### Basic usage
+
 ```ts
 const myLongTask = () => {
   ...
@@ -880,6 +884,21 @@ const myLongTask = () => {
 
 button.addEventListener( 'click', () => {
   deferTask( myLongTask )
+} )
+```
+
+---
+
+###### With custom arguments
+
+```ts
+const myLongTask = ( target: HTMLButtonElement ) => {
+  ...
+}
+
+button.addEventListener( 'click', event => {
+  const target = event.target as HTMLButtonElement
+  deferTask( myLongTask, target )
 } )
 ```
 

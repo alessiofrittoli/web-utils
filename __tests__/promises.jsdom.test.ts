@@ -102,4 +102,17 @@ describe( 'deferTask', () => {
 
 	} )
 
+
+	it( 'proxies given arguments to the given task function', async () => {
+
+		const task = jest.fn( ( arg_0: number ) => arg_0 + 1 )
+
+		const result = deferTask( task, 10 )
+
+		jest.runAllTimers()
+
+		await expect( result ).resolves.toBe( 11 )
+
+	} )
+
 } )
