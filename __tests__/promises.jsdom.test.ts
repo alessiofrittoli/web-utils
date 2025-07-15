@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { deferTask } from '@/promises'
+import { deferCallback, deferTask } from '@/promises'
 
 
 describe( 'deferTask', () => {
@@ -105,7 +105,7 @@ describe( 'deferTask', () => {
 
 	it( 'proxies given arguments to the given task function', async () => {
 
-		const task = jest.fn( ( arg_0: number ) => arg_0 + 1 )
+		const task = jest.fn( ( input: number ) => input + 1 )
 
 		const result = deferTask( task, 10 )
 
@@ -115,4 +115,23 @@ describe( 'deferTask', () => {
 
 	} )
 
+
+	describe( 'deferCallback', () => {
+		
+		it( 'returns a callback which proxies task arguments', async () => {
+
+			type Handler	= ( input: number ) => number
+			const task		= ( input: number ) => input + 1
+			const result	= deferCallback<Handler, Parameters<Handler>>( task )( 10 )
+
+			jest.runAllTimers()
+
+			await expect( result ).resolves.toBe( 11 )
+
+		} )
+	
+	} )
+
+
 } )
+
