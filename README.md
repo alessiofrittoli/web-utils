@@ -906,6 +906,64 @@ button.addEventListener( 'click', event => {
 
 ---
 
+##### `deferCallback`
+
+Defer task handler so main-thread is not blocked in order to quickly paint and respond to user interaction.
+
+<details>
+
+<summary style="cursor:pointer">Type Parameters</summary>
+
+| Parameter | Description                  |
+|-----------|------------------------------|
+| `T`       | The task function definition. `unknown` types will be inherited by your function type definition. |
+| `U`       | The task function arguments. `unknown` types will be inherited by your function type. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Description                                      |
+|-----------|----------|--------------------------------------------------|
+| `task`    | `T`      | The task callable function.                      |
+| `...args` | `U`      | Arguments required by the given `task` function. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `( ...args: U ) => Promise<Awaited<ReturnType<T>>>`
+
+A new handler which returns a new Promise that returns the `task` result once fulfilled.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Usage</summary>
+
+```ts
+const myLongTask = ( event: Event ) => {
+  ...
+}
+
+button.addEventListener( 'click', deferCallback( myLongTask ) )
+```
+
+</details>
+
+---
+
 #### Strings utilities
 
 ###### Importing the utilitites
