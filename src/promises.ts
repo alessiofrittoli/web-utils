@@ -8,6 +8,14 @@ export const sleep = ( time: number ) => new Promise<void>( resolve => setTimeou
 
 
 /**
+ * The deffered task function definition.
+ * 
+ * @template T The task function arguments.
+ */
+export type DeferredTask<T extends unknown[]> = ( ...args: T ) => unknown | Promise<unknown>
+
+
+/**
  * Defer task so main-thread is not blocked in order to quickly paint and respond to user interaction.
  * 
  * It esponentially decrease INP process timings.
@@ -33,8 +41,8 @@ export const sleep = ( time: number ) => new Promise<void>( resolve => setTimeou
  * ```
  */
 export const deferTask = <
-	T extends ( ...args: U ) => unknown | Promise<unknown>,
-	U extends unknown[]
+	T extends DeferredTask<U>,
+	U extends unknown[],
 >( task: T, ...args: U ): Promise<Awaited<ReturnType<T>>> => (
 	new Promise<Awaited<ReturnType<T>>>( ( resolve, reject ) => {
 
@@ -82,7 +90,7 @@ export const deferTask = <
  * ```
  */
 export const deferCallback = <
-	T extends ( ...args: U ) => unknown | Promise<unknown>,
+	T extends DeferredTask<U>,
 	U extends unknown[],
 >( task: T ): ( ...args: U ) => Promise<Awaited<ReturnType<T>>> => (
 	( ...args: U ) => deferTask( task, ...args )
