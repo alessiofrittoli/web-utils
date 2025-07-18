@@ -133,7 +133,7 @@
 		"build:prod": "NODE_ENV=production tsup",
 		"build": "pnpm lint && pnpm test:ci && pnpm build:prod",
 		"lint": "eslint",
-		"release": "node scripts/publish.js --verbose --npm",
+		"release": "node scripts/release.js --verbose --npm",
 		"//2a": "*********************************************************************",
 		"//2b": "***************************** UNIT TESTS ****************************",
 		"//2c": "*********************************************************************",
@@ -165,7 +165,7 @@
 		"test:promises": "pnpm test:watch promises.test.ts"
 	},
 	"devDependencies": {
-		"@alessiofrittoli/node-scripts": "^2.7.0",
+		"@alessiofrittoli/node-scripts": "^3.0.0",
 		"@eslint/js": "^9.31.0",
 		"@jest/globals": "^30.0.4",
 		"@types/jest": "^30.0.0",

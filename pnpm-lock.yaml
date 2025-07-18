@@ -22,8 +22,8 @@ importers:
         version: 3.5.0
     devDependencies:
       '@alessiofrittoli/node-scripts':
-        specifier: ^2.7.0
-        version: 2.7.0
+        specifier: ^3.0.0
+        version: 3.0.0
       '@eslint/js':
         specifier: ^9.31.0
         version: 9.31.0
@@ -75,11 +75,20 @@ importers:
 
 packages:
 
+  '@alessiofrittoli/abort-controller@0.1.0':
+    resolution: {integrity: sha512-bVx5XvRT33AOqFI7yvelOEsIVrs6myMzQYQujCjAX5DDRYOA0P9YuR/dVSZmxDLOs5ZKzD4z/6+zKJt1imvtEw==}
+
   '@alessiofrittoli/chain-functions@2.3.0':
     resolution: {integrity: sha512-kbOhe6q9jlNLpe93KDSFxh0atsw3fa9Hi6VlA2OnzA28Te6iBw7ZkwFT5FTwBx2vtlBHY9fa8t5UtTMkBR8Flg==}
 
   '@alessiofrittoli/date-utils@3.2.0':
     resolution: {integrity: sha512-ZF12qeAtxG6akKZjFT3tVIKZOuBO4XRaYYWhibL7IDSotTgM0KlfPUs8ROk1QdiStknfaQCptv7zmGpJFPFvZQ==}
+
+  '@alessiofrittoli/event-emitter@1.5.0':
+    resolution: {integrity: sha512-BZmfvyLc/ip+CgNRwvND9EBWEvCyEqvhf2bQ6xlQkRlNxmkylauJf7SuVYHjOwoo/kttGmaZdCCLmIZSXfEJ0A==}
+
+  '@alessiofrittoli/exception@3.2.0':
+    resolution: {integrity: sha512-YwkeQTXrIo1Iy1yA0htonNmiTC1CUL324dlC3GIKhulmWzTDjqZVXT8tBsBjhvdGLkCxj4MMvkdg/Oa9ucOspg==}
 
   '@alessiofrittoli/math-utils@1.14.0':
     resolution: {integrity: sha512-5cTcc7mVgA6zIuJbKnJ3BuOEUz6uiRp8gSNoOmx25Nk0Wp3lKd6eeVFhp1xYQwWVNZnDU7xGYZp2sT0pMaSwCA==}
@@ -87,8 +96,8 @@ packages:
   '@alessiofrittoli/node-scripts@2.5.0':
     resolution: {integrity: sha512-K6o0ZJgWb8HAbiBU7ajdlNY8UsrAlcLHO2WAx9pPoxjLKC/QR/PnNE+zLgc+z1q4TefS2UsS1VsUAUjQI/Ro4g==}
 
-  '@alessiofrittoli/node-scripts@2.7.0':
-    resolution: {integrity: sha512-pMwynydf27SAKVicegdPr7PKyOirNRazXwO5LC6l9OYDxgUedUFwzNSzVaecNrywdUkcPNTbXQXZydMdQlJOGQ==}
+  '@alessiofrittoli/node-scripts@3.0.0':
+    resolution: {integrity: sha512-VCgEMoydorLmJVXHNoeC75nwFPgk+fQ4b2su4lLcLw3byMmAWH1g8X8EC0SDS/3S5trMpJ9ndVNjizfTZlYLyw==}
 
   '@alessiofrittoli/type-utils@1.8.0':
     resolution: {integrity: sha512-/lRf++D3VclldSv4AuGqlX9M1Ir7WAWJHqojVHwwjIZWwwZ2ZXpN1xtzv4f7CQdXWKgl/SMUS6aH8N5Ss5pvqQ==}
@@ -2588,6 +2597,10 @@ packages:
 
 snapshots:
 
+  '@alessiofrittoli/abort-controller@0.1.0':
+    dependencies:
+      '@alessiofrittoli/exception': 3.2.0
+
   '@alessiofrittoli/chain-functions@2.3.0': {}
 
   '@alessiofrittoli/date-utils@3.2.0':
@@ -2595,13 +2608,22 @@ snapshots:
       '@alessiofrittoli/math-utils': 1.14.0
       '@alessiofrittoli/type-utils': 1.8.0
 
+  '@alessiofrittoli/event-emitter@1.5.0': {}
+
+  '@alessiofrittoli/exception@3.2.0': {}
+
   '@alessiofrittoli/math-utils@1.14.0':
     dependencies:
       '@alessiofrittoli/web-utils': 1.12.0
 
   '@alessiofrittoli/node-scripts@2.5.0': {}
 
-  '@alessiofrittoli/node-scripts@2.7.0': {}
+  '@alessiofrittoli/node-scripts@3.0.0':
+    dependencies:
+      '@alessiofrittoli/abort-controller': 0.1.0
+      '@alessiofrittoli/event-emitter': 1.5.0
+      '@alessiofrittoli/exception': 3.2.0
+      '@alessiofrittoli/type-utils': 1.8.0
 
   '@alessiofrittoli/type-utils@1.8.0':
     dependencies:
