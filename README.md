@@ -22,6 +22,7 @@
 ### Table of Contents
 
 - [Getting started](#getting-started)
+- [What's Changed](#whats-changed)
 - [API Reference](#api-reference)
   - [Blob utilities](#blob-utilities)
   - [Array utilities](#array-utilities)
@@ -63,6 +64,15 @@ or using `pnpm`
 ```bash
 pnpm i @alessiofrittoli/web-utils
 ```
+
+---
+
+### What's Changed
+
+#### Updates in the latest release
+
+- Add `deferTask`. See [API Reference](#defertask) for more info.
+- Add `deferCallback`. See [API Reference](#defercallback) for more info.
 
 ---
 
@@ -927,10 +937,9 @@ Defer task handler so main-thread is not blocked in order to quickly paint and r
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type     | Description                                      |
-|-----------|----------|--------------------------------------------------|
-| `task`    | `T`      | The task callable function.                      |
-| `...args` | `U`      | Arguments required by the given `task` function. |
+| Parameter | Type     | Description                 |
+|-----------|----------|-----------------------------|
+| `task`    | `T`      | The task callable function. |
 
 </details>
 
