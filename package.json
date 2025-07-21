@@ -39,89 +39,174 @@
 	],
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.mjs",
-			"require": "./dist/index.js"
+			"import": {
+				"types": "./dist/index.d.mts",
+				"default": "./dist/index.mjs"
+			},
+			"require": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
 		},
 		"./browser-api": {
-			"types": "./dist/browser-api/index.d.ts",
-			"import": "./dist/browser-api/index.mjs",
-			"require": "./dist/browser-api/index.js"
+			"import": {
+				"types": "./dist/browser-api/index.d.mts",
+				"default": "./dist/browser-api/index.mjs"
+			},
+			"require": {
+				"types": "./dist/browser-api/index.d.ts",
+				"default": "./dist/browser-api/index.js"
+			}
 		},
 		"./device": {
-			"types": "./dist/device/index.d.ts",
-			"import": "./dist/device/index.mjs",
-			"require": "./dist/device/index.js"
+			"import": {
+				"types": "./dist/device/index.d.mts",
+				"default": "./dist/device/index.mjs"
+			},
+			"require": {
+				"types": "./dist/device/index.d.ts",
+				"default": "./dist/device/index.js"
+			}
 		},
 		"./storage/Cookie": {
-			"types": "./dist/storage/Cookie.d.ts",
-			"import": "./dist/storage/Cookie.mjs",
-			"require": "./dist/storage/Cookie.js"
+			"import": {
+				"types": "./dist/storage/Cookie.d.mts",
+				"default": "./dist/storage/Cookie.mjs"
+			},
+			"require": {
+				"types": "./dist/storage/Cookie.d.ts",
+				"default": "./dist/storage/Cookie.js"
+			}
 		},
 		"./storage/LocalStorage": {
-			"types": "./dist/storage/LocalStorage.d.ts",
-			"import": "./dist/storage/LocalStorage.mjs",
-			"require": "./dist/storage/LocalStorage.js"
+			"import": {
+				"types": "./dist/storage/LocalStorage.d.mts",
+				"default": "./dist/storage/LocalStorage.mjs"
+			},
+			"require": {
+				"types": "./dist/storage/LocalStorage.d.ts",
+				"default": "./dist/storage/LocalStorage.js"
+			}
 		},
 		"./storage/SessionStorage": {
-			"types": "./dist/storage/SessionStorage.d.ts",
-			"import": "./dist/storage/SessionStorage.mjs",
-			"require": "./dist/storage/SessionStorage.js"
+			"import": {
+				"types": "./dist/storage/SessionStorage.d.mts",
+				"default": "./dist/storage/SessionStorage.mjs"
+			},
+			"require": {
+				"types": "./dist/storage/SessionStorage.d.ts",
+				"default": "./dist/storage/SessionStorage.js"
+			}
 		},
 		"./arrays": {
-			"types": "./dist/arrays.d.ts",
-			"import": "./dist/arrays.mjs",
-			"require": "./dist/arrays.js"
+			"import": {
+				"types": "./dist/arrays.d.mts",
+				"default": "./dist/arrays.mjs"
+			},
+			"require": {
+				"types": "./dist/arrays.d.ts",
+				"default": "./dist/arrays.js"
+			}
 		},
 		"./blob": {
-			"types": "./dist/blob.d.ts",
-			"import": "./dist/blob.mjs",
-			"require": "./dist/blob.js"
+			"import": {
+				"types": "./dist/blob.d.mts",
+				"default": "./dist/blob.mjs"
+			},
+			"require": {
+				"types": "./dist/blob.d.ts",
+				"default": "./dist/blob.js"
+			}
 		},
 		"./dom": {
-			"types": "./dist/dom.d.ts",
-			"import": "./dist/dom.mjs",
-			"require": "./dist/dom.js"
+			"import": {
+				"types": "./dist/dom.d.mts",
+				"default": "./dist/dom.mjs"
+			},
+			"require": {
+				"types": "./dist/dom.d.ts",
+				"default": "./dist/dom.js"
+			}
 		},
 		"./generators": {
-			"types": "./dist/generators.d.ts",
-			"import": "./dist/generators.mjs",
-			"require": "./dist/generators.js"
+			"import": {
+				"types": "./dist/generators.d.mts",
+				"default": "./dist/generators.mjs"
+			},
+			"require": {
+				"types": "./dist/generators.d.ts",
+				"default": "./dist/generators.js"
+			}
 		},
 		"./map": {
-			"types": "./dist/map.d.ts",
-			"import": "./dist/map.mjs",
-			"require": "./dist/map.js"
+			"import": {
+				"types": "./dist/map.d.mts",
+				"default": "./dist/map.mjs"
+			},
+			"require": {
+				"types": "./dist/map.d.ts",
+				"default": "./dist/map.js"
+			}
 		},
 		"./objects": {
-			"types": "./dist/objects.d.ts",
-			"import": "./dist/objects.mjs",
-			"require": "./dist/objects.js"
+			"import": {
+				"types": "./dist/objects.d.mts",
+				"default": "./dist/objects.mjs"
+			},
+			"require": {
+				"types": "./dist/objects.d.ts",
+				"default": "./dist/objects.js"
+			}
 		},
 		"./promises": {
-			"types": "./dist/promises.d.ts",
-			"import": "./dist/promises.mjs",
-			"require": "./dist/promises.js"
+			"import": {
+				"types": "./dist/promises.d.mts",
+				"default": "./dist/promises.mjs"
+			},
+			"require": {
+				"types": "./dist/promises.d.ts",
+				"default": "./dist/promises.js"
+			}
 		},
 		"./regex": {
-			"types": "./dist/regex.d.ts",
-			"import": "./dist/regex.mjs",
-			"require": "./dist/regex.js"
+			"import": {
+				"types": "./dist/regex.d.mts",
+				"default": "./dist/regex.mjs"
+			},
+			"require": {
+				"types": "./dist/regex.d.ts",
+				"default": "./dist/regex.js"
+			}
 		},
 		"./strings": {
-			"types": "./dist/strings.d.ts",
-			"import": "./dist/strings.mjs",
-			"require": "./dist/strings.js"
+			"import": {
+				"types": "./dist/strings.d.mts",
+				"default": "./dist/strings.mjs"
+			},
+			"require": {
+				"types": "./dist/strings.d.ts",
+				"default": "./dist/strings.js"
+			}
 		},
 		"./types": {
-			"types": "./dist/types.d.ts",
-			"import": "./dist/types.mjs",
-			"require": "./dist/types.js"
+			"import": {
+				"types": "./dist/types.d.mts",
+				"default": "./dist/types.mjs"
+			},
+			"require": {
+				"types": "./dist/types.d.ts",
+				"default": "./dist/types.js"
+			}
 		},
 		"./validation": {
-			"types": "./dist/validation.d.ts",
-			"import": "./dist/validation.mjs",
-			"require": "./dist/validation.js"
+			"import": {
+				"types": "./dist/validation.d.mts",
+				"default": "./dist/validation.mjs"
+			},
+			"require": {
+				"types": "./dist/validation.d.ts",
+				"default": "./dist/validation.js"
+			}
 		}
 	},
 	"sideEffects": false,
@@ -129,8 +214,8 @@
 		"//1a": "*********************************************************************",
 		"//1b": "******************** DEV - BUILD - LINT - RELEASE *******************",
 		"//1c": "*********************************************************************",
-		"dev": "NODE_ENV=development tsup --watch",
-		"build:prod": "NODE_ENV=production tsup",
+		"dev": "cross-env NODE_ENV=development tsup --watch",
+		"build:prod": "cross-env NODE_ENV=production tsup",
 		"build": "pnpm lint && pnpm test:ci && pnpm build:prod",
 		"lint": "eslint",
 		"release": "node scripts/release.js --verbose --npm",
@@ -165,12 +250,13 @@
 		"test:promises": "pnpm test:watch promises.test.ts"
 	},
 	"devDependencies": {
-		"@alessiofrittoli/node-scripts": "^3.0.0",
+		"@alessiofrittoli/node-scripts": "^3.1.0",
 		"@eslint/js": "^9.31.0",
 		"@jest/globals": "^30.0.4",
 		"@types/jest": "^30.0.0",
-		"@types/node": "^24.0.14",
+		"@types/node": "^24.0.15",
 		"concurrently": "^9.2.0",
+		"cross-env": "^7.0.3",
 		"dotenv": "^17.2.0",
 		"eslint": "^9.31.0",
 		"globals": "^16.3.0",
@@ -184,7 +270,7 @@
 		"typescript-eslint": "^8.37.0"
 	},
 	"dependencies": {
-		"@alessiofrittoli/date-utils": "^3.2.0",
+		"@alessiofrittoli/date-utils": "^4.0.0",
 		"@alessiofrittoli/math-utils": "^1.14.0",
 		"@alessiofrittoli/type-utils": "^1.8.0",
 		"@alessiofrittoli/url-utils": "^3.5.0"
