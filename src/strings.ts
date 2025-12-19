@@ -208,3 +208,137 @@ export const removeTrailingCharacter = ( input: string, character: string | RegE
 	)
 	return input.replace( regEx, '' )
 }
+
+
+export type Recipient = string | {
+	/**
+	 * The recipient name.
+	 * 
+	 */
+	name?: string
+	/**
+	 * The recipient email address.
+	 * 
+	 */
+	email: string
+}
+
+export type Recipients = Recipient | Recipient[]
+
+
+/**
+ * Converts a single recipient or an array of recipients into a comma-separated string.
+ *
+ * Each recipient can be either a string (email address) or an object with at least an `email` property,
+ * and optionally a `name` property. If the recipient is an object and has a `name`, the output will be
+ * formatted as `"Name<email>"`. If the `name` is missing, only the email will be used.
+ *
+ * @param recipients A single `Recipient` or an array of `Recipient`. Each recipient can be a string or an object with `email` and optional `name`.
+ * @returns A comma-separated string of recipients formatted as `"Name<email>"` or just `"email"`.
+ */
+export const recipientsToString = ( recipients: Recipients ): string => {
+
+	if ( ! Array.isArray( recipients ) ) {
+		return recipientsToString( [ recipients ] )
+	}
+
+	return (
+		recipients
+			.filter( Boolean )
+			.map( recipient => {
+				if ( typeof recipient !== 'string' ) {
+
+					if ( ! recipient.email ) return null
+
+					const name	= recipient.name?.trim()
+					const email	= recipient.email.trim()
+
+					if ( ! name ) return email
+					
+					return `${ name }<${ email }>`
+
+				}
+				return recipient.trim()
+			} )
+			.filter( Boolean ).join( ',' )
+	)
+
+}
+
+
+export interface EmailData
+{
+	/**
+	 * The email recipients.
+	 * 
+	 */
+	to?: Recipients
+	/**
+	 * The email carbon copy recipients.
+	 * 
+	 */
+	cc?: Recipients
+	/**
+	 * The email blind carbon copy recipients.
+	 * 
+	 */
+	bcc?: Recipients
+	/**
+	 * The email subject.
+	 * 
+	 */
+	subject?: string
+	/**
+	 * The email body.
+	 * 
+	 */
+	body?: string
+}
+
+
+/**
+ * Converts an `EmailData` object into a properly formatted mailto URL string.
+ *
+ * This function constructs a mailto link using the provided email data, including
+ * recipients, subject, body, CC, and BCC fields. It encodes the parameters as URL
+ * search parameters and concatenates them to form a valid mailto URI.
+ *
+ * @param data The email data to convert. If omitted, defaults to an empty object.
+ * @returns A string representing the mailto URL.
+ */
+export const emailDataToString = (
+	data: EmailData = {},
+) => {
+	const { to, body, subject, cc, bcc } = data
+
+	const searchParams = new URLSearchParams()
+
+	if ( body ) {
+		searchParams.append( 'body', body )
+	}
+
+	if ( subject ) {
+		searchParams.append( 'subject', subject )
+	}
+
+	if ( cc ) {
+		const ccString = recipientsToString( cc )
+		if ( ccString ) {
+			searchParams.append( 'cc', ccString )
+		}
+	}
+
+	if ( bcc ) {
+		const bccString = recipientsToString( bcc )
+		if ( bccString ) {
+			searchParams.append( 'bcc', bccString )
+		}
+	}
+
+	return [
+		'mailto:',
+		to && recipientsToString( to ),
+		searchParams.size > 0 && `?${ searchParams.toString().replace( /\+/g, ' ' ) }`,
+	].filter( Boolean ).join( '' )
+
+}
