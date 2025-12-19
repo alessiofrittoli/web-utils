@@ -209,13 +209,12 @@ describe( 'Cookie', () => {
 
 
 		it( 'skips values with a falsey `key`', () => {
-			console.log( 'skips values with a falsey', Cookie.toString( {
+			expect( Cookie.toString( {
 				name: 'testcookie',
 				value: 'value',
-				// @ts-expect-error fdfs
+				// @ts-expect-error negative testing
 				[null]: '2024-10-24',
-			} ) )
-			
+			} ) ).toBe( 'testcookie=value' )
 		} )
 
 	} )

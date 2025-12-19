@@ -1,5 +1,6 @@
 import { lcFirst, parseValue, stringifyValue, toCamelCase, toKebabCase, ucFirst } from '@/strings'
 import { addLeadingCharacter, addTrailingCharacter, removeLeadingCharacter, removeTrailingCharacter } from '@/strings'
+import { recipientsToString, emailDataToString } from '@/strings'
 
 
 describe( 'ucFirst', () => {
@@ -433,6 +434,177 @@ describe( 'removeTrailingCharacter', () => {
 		// @ts-expect-error negative testing
 		expect( () => removeTrailingCharacter( 123, '/' ) ).toThrow( 'Input must be a string.' )
 
+	} )
+
+	
+} )
+
+
+describe( 'recipientsToString', () => {
+
+	it( 'returns a single email string as is', () => {
+		expect( recipientsToString( 'test@example.com' ) ).toBe( 'test@example.com' )
+	} )
+
+
+	it( 'returns a single recipient object with name as "Name<email>"', () => {
+		expect( recipientsToString( { name: 'John Doe', email: 'john@example.com' } ) )
+			.toBe( 'John Doe<john@example.com>' )
+	} )
+
+
+	it( 'returns a single recipient object without name as just the email', () => {
+		expect( recipientsToString( { email: 'john@example.com' } ) )
+			.toBe( 'john@example.com' )
+	} )
+
+
+	it( 'returns a comma-separated string for an array of email strings', () => {
+		expect( recipientsToString( [ 'a@example.com', 'b@example.com' ] ) )
+			.toBe( 'a@example.com,b@example.com' )
+	} )
+
+
+	it( 'returns a comma-separated string for an array of recipient objects', () => {
+		expect(
+			recipientsToString( [
+				{ name: 'Alice', email: 'alice@example.com' },
+				{ name: 'Bob', email: 'bob@example.com' },
+			] )
+		).toBe( 'Alice<alice@example.com>,Bob<bob@example.com>' )
+	} )
+
+
+	it( 'handles a mix of strings and objects', () => {
+		expect(
+			recipientsToString( [
+				'test@example.com',
+				{ name: 'John', email: 'john@example.com' },
+				{ email: 'jane@example.com' },
+			] )
+		).toBe( 'test@example.com,John<john@example.com>,jane@example.com' )
+	} )
+
+
+	it( 'trims names and emails', () => {
+		expect(
+			recipientsToString( [
+				{ name: '  John Doe  ', email: '  john@example.com  ' }
+			] )
+		).toBe( 'John Doe<john@example.com>' )
+	} )
+
+
+	it( 'skips recipients without email', () => {
+		expect(
+			recipientsToString( [
+				//@ts-expect-error negative testing
+				{ name: 'No Email' },
+				{ email: 'valid@example.com' }
+			] )
+		).toBe( 'valid@example.com' )
+	} )
+
+
+	it( 'filters out any wrong recipient', () => {
+		expect(
+			recipientsToString( [
+				'',
+				// @ts-expect-error negative testing
+				null,
+				// @ts-expect-error negative testing
+				undefined,
+				// @ts-expect-error negative testing
+				true,
+				// @ts-expect-error negative testing
+				() => {},
+				{ email: 'a@example.com' },
+			] )
+		).toBe( 'a@example.com' )
+	} )
+
+} )
+
+
+describe( 'emailDataToString', () => {
+
+	it( 'returns mailto: with only to', () => {
+		expect( emailDataToString( { to: 'a@example.com' } ) ).toBe( 'mailto:a@example.com' )
+	} )
+
+	it( 'returns mailto: with to and subject', () => {
+		expect( emailDataToString( { to: 'a@example.com', subject: 'Hello' } ) )
+			.toBe( 'mailto:a@example.com?subject=Hello' )
+	} )
+
+	it( 'returns mailto: with to, subject, and body', () => {
+		expect( emailDataToString( { to: 'a@example.com', subject: 'Hello', body: 'World' } ) )
+			.toBe( 'mailto:a@example.com?body=World&subject=Hello' )
+	} )
+
+
+	it( 'returns mailto: with cc and bcc', () => {
+		expect(
+			emailDataToString( {
+				to: 'a@example.com',
+				cc: [ 'b@example.com', { name: 'C', email: 'c@example.com' } ],
+				bcc: 'd@example.com',
+			} )
+		).toBe( 'mailto:a@example.com?cc=b%40example.com%2CC%3Cc%40example.com%3E&bcc=d%40example.com' )
+	} )
+
+
+	it( 'correclty handles empty recipients', () => {
+		expect(
+			emailDataToString( {
+				to	: 'a@example.com',
+				cc	: [ '' ], // cc URL Search Param will not be added.
+				bcc	: [ '' ], // bcc URL Search Param will not be added.
+			} )
+		).toBe( 'mailto:a@example.com' )
+	} )
+
+
+	it( 'returns mailto: with all fields', () => {
+		expect(
+			emailDataToString( {
+				to		: [ { name: 'A', email: 'a@example.com' }, 'b@example.com' ],
+				cc		: { email: 'c@example.com' },
+				bcc		: [ { name: 'D', email: 'd@example.com' } ],
+				subject	: 'Test Subject',
+				body	: 'Test Body',
+			} )
+		).toBe(
+			'mailto:A<a@example.com>,b@example.com?body=Test Body&subject=Test Subject&cc=c%40example.com&bcc=D%3Cd%40example.com%3E'
+		)
+	} )
+
+
+	it( 'returns mailto: with no to and only params', () => {
+		expect(
+			emailDataToString( {
+				subject	: 'Recipient is at your choice',
+				body	: 'Just body',
+			} )
+		).toBe( 'mailto:?body=Just body&subject=Recipient is at your choice' )
+	} )
+
+
+	it( 'returns mailto: for empty input', () => {
+		expect( emailDataToString() ).toBe( 'mailto:' )
+	} )
+
+
+	it( 'encodes special characters in params', () => {
+		expect(
+			emailDataToString( {
+				to		: 'a@example.com',
+				subject	: 'Hello & Welcome',
+				body	: 'Line1\nLine2',
+			} )
+		).toBe(
+			'mailto:a@example.com?body=Line1%0ALine2&subject=Hello %26 Welcome'
+		)
 	} )
 
 } )

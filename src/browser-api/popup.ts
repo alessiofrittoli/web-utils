@@ -1,7 +1,8 @@
 import { getTypedMap } from '@/map'
 import { Url, type UrlInput } from '@alessiofrittoli/url-utils'
 
-type Truthy = 'yes' | '1' | 'true'
+export type Truthy = 'yes' | '1' | 'true'
+export type Falsey = 'no' | '0' | 'false'
 
 export interface WindowFeatures
 {
@@ -16,7 +17,7 @@ export interface WindowFeatures
 	 * 
 	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/Window/open#popup)
 	 */
-	popup?: Truthy
+	popup?: Truthy | Falsey
 	/**
 	 * Specifies the width of the content area, including scrollbars. The minimum required value is 100.
 	 * 
@@ -52,7 +53,7 @@ export interface WindowFeatures
 	 * 
 	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/Window/open#noreferrer)
 	 */
-	noreferrer?: Truthy
+	noreferrer?: Truthy | Falsey
 }
 
 
@@ -92,6 +93,9 @@ export interface OpenBrowserPopUpOptions
  * 			with the same-origin policy security requirements.
  * 			`null` is returned if the browser fails to open the new browsing context, for example because it was blocked
  * 			by a browser popup blocker.
+ * 
+ * 
+ * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/Window/open)
  */
 export const openBrowserPopUp = ( options: OpenBrowserPopUpOptions = {} ): WindowProxy | null => {
 
