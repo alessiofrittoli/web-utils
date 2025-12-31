@@ -13,7 +13,6 @@
 [downloads-badge]: https://img.shields.io/npm/dm/%40alessiofrittoli%2Fweb-utils.svg
 [deps-badge]: https://img.shields.io/librariesio/release/npm/%40alessiofrittoli%2Fweb-utils
 [deps-url]: https://libraries.io/npm/%40alessiofrittoli%2Fweb-utils
-
 [sponsor-badge]: https://img.shields.io/static/v1?label=Fund%20this%20package&message=%E2%9D%A4&logo=GitHub&color=%23DB61A2
 [sponsor-url]: https://github.com/sponsors/alessiofrittoli
 
@@ -98,9 +97,9 @@ Removes duplicate values from an array.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter  | Type  | Description |
-|------------|-------|-------------|
-| `array`    | `T[]` | The input array. |
+| Parameter | Type  | Description      |
+| --------- | ----- | ---------------- |
+| `array`   | `T[]` | The input array. |
 
 </details>
 
@@ -125,8 +124,8 @@ The filtered array.
 ###### Removes duplicates from array
 
 ```ts
-const pointer = {}
-console.log( arrayUnique( [ pointer, 'b', pointer, 'c', 'b' ] ) )
+const pointer = {};
+console.log(arrayUnique([pointer, "b", pointer, "c", "b"]));
 // Outputs: [ {}, 'b', 'c' ]
 ```
 
@@ -142,10 +141,10 @@ Removes duplicate entries from an array referencing an object key.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter  | Type  | Description |
-|------------|-------|-------------|
-| `array`    | `T[]` | An array of objects. |
-| `property` |  `keyof T` | The Object property to refer to. |
+| Parameter  | Type      | Description                      |
+| ---------- | --------- | -------------------------------- |
+| `array`    | `T[]`     | An array of objects.             |
+| `property` | `keyof T` | The Object property to refer to. |
 
 </details>
 
@@ -171,14 +170,14 @@ The filtered array.
 
 ```ts
 const arr = [
-  { id: 1, name: 'a' },
-  { id: 2, name: 'b' },
-  { id: 1, name: 'c' }, // duplicate `id`
-  { id: 3, name: 'd' },
-  { id: 4, name: 'a' }, // duplicate `name`
-]
+  { id: 1, name: "a" },
+  { id: 2, name: "b" },
+  { id: 1, name: "c" }, // duplicate `id`
+  { id: 3, name: "d" },
+  { id: 4, name: "a" }, // duplicate `name`
+];
 
-console.log( arrayObjectUnique( arr, 'id' ) )
+console.log(arrayObjectUnique(arr, "id"));
 // Outputs: [
 //     { id: 1, name: 'a' },
 //     { id: 2, name: 'b' },
@@ -186,8 +185,7 @@ console.log( arrayObjectUnique( arr, 'id' ) )
 //     { id: 4, name: 'a' },
 // ]
 
-
-console.log( arrayObjectUnique( arr, 'name' ) )
+console.log(arrayObjectUnique(arr, "name"));
 // Outputs: [
 //     { id: 1, name: 'a' },
 //     { id: 2, name: 'b' },
@@ -208,9 +206,9 @@ Convert a stringified Array to Array object.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter  | Type     | Description |
-|------------|----------|-------------|
-| `string`   | `string` | An array of objects. |
+| Parameter | Type     | Description          |
+| --------- | -------- | -------------------- |
+| `string`  | `string` | An array of objects. |
 
 </details>
 
@@ -235,7 +233,7 @@ The converted stringified Array to Array object.
 ###### Basic usage
 
 ```ts
-console.log( listToArray( '1,2, 3, 4' ).map( Number ) )
+console.log(listToArray("1,2, 3, 4").map(Number));
 // Outputs: [ 1, 2, 3, 4 ]
 ```
 
@@ -251,8 +249,8 @@ Split Array into chunks.
 
 <summary style="cursor:pointer">Type Parameters</summary>
 
-| Parameter | Default     | Description |
-|-----------|-------------|-------------|
+| Parameter | Default     | Description             |
+| --------- | ----------- | ----------------------- |
 | `T`       | `unknown[]` | The input `array` type. |
 
 </details>
@@ -263,12 +261,12 @@ Split Array into chunks.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter  | Type        | Description |
-|------------|-------------|-------------|
-| `array`    | `T[]` | The original Array. |
-| `options`  | `ChunkIntoOptions` | An object defining split criteria. |
-| `options.size` | `number` | Will split the given Array in a way to ensure each chunk length is, whenever possible, equal to the given value. |
-| `options.count` | `number` | Will split the given Array in a way to ensure n chunks as the given value. |
+| Parameter       | Type               | Description                                                                                                      |
+| --------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| `array`         | `T[]`              | The original Array.                                                                                              |
+| `options`       | `ChunkIntoOptions` | An object defining split criteria.                                                                               |
+| `options.size`  | `number`           | Will split the given Array in a way to ensure each chunk length is, whenever possible, equal to the given value. |
+| `options.count` | `number`           | Will split the given Array in a way to ensure n chunks as the given value.                                       |
 
 </details>
 
@@ -293,14 +291,80 @@ An Array of chunks.
 ###### Basic usage
 
 ```ts
-console.log( chunkInto( [ 1, 2, 3, 4, 5 ], { count: 2 } ) )
+console.log(chunkInto([1, 2, 3, 4, 5], { count: 2 }));
 // Output: [ [ 1, 2, 3 ], [ 4, 5 ] ]
 
-console.log( chunkInto( [ 1, 2, 3, 4, 5 ], { size: 2 } ) )
+console.log(chunkInto([1, 2, 3, 4, 5], { size: 2 }));
 // Output: [ [ 1, 2 ], [ 3, 4 ], [ 5 ] ]
 ```
 
 </details>
+
+---
+
+##### `shuffle`
+
+Shuffle the elements of an array in place using the [Fisher-Yates algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle).
+
+Please note that this function modify the original given `array`.
+
+<details>
+
+<summary style="cursor:pointer">Type parameters</summary>
+
+| Parameter | Description                                               |
+| --------- | --------------------------------------------------------- |
+| `T`       | The automatically inferred type of elements in the array. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type       | Description           |
+| --------- | ---------- | --------------------- |
+| `array`   | `Array<T>` | The array to shuffle. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `Array<T>`
+
+The modified shuffled array.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Example</summary>
+
+```ts
+import { shuffle } from "@alessiofrittoli/web-utils";
+// or
+import { shuffle } from "@alessiofrittoli/web-utils/arrays";
+
+console.log(shuffle([1, 2, 3, 4, 5]));
+```
+
+</details>
+
+---
+
+##### `shuffleCopy`
+
+Copy and shuffle the elements of an array in place using the [Fisher-Yates algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle).
+
+Same API of [`shuffle`](#shuffle) is applied, but this function **does not modify** the original given `array`.
 
 ---
 
@@ -324,10 +388,10 @@ Create and download a blob object.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter  | Type           | Description |
-|------------|----------------|-------------|
-| `filename` | `string`       | The download file name. |
-| `data`     | `BodyInit`     | The download file data. |
+| Parameter  | Type           | Description                         |
+| ---------- | -------------- | ----------------------------------- |
+| `filename` | `string`       | The download file name.             |
+| `data`     | `BodyInit`     | The download file data.             |
 | `init`     | `ResponseInit` | (Optional) The ResponseInit object. |
 
 </details>
@@ -385,8 +449,8 @@ It also applies the `--scrollbar-size` CSS variable that can be used to apply a 
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type          | Default | Description |
-|-----------|---------------|---------|-------------|
+| Parameter | Type          | Default                    | Description                    |
+| --------- | ------------- | -------------------------- | ------------------------------ |
 | `target`  | `HTMLElement` | `Document.documentElement` | (Optional) The target Element. |
 
 </details>
@@ -401,16 +465,16 @@ It also applies the `--scrollbar-size` CSS variable that can be used to apply a 
 
 ```ts
 const openPopUpHandler = () => {
-  blockScroll()
+  blockScroll();
   // ... handle popup
-}
+};
 ```
 
 ```css
 .modal-wrapper {
-  position      : fixed;
-  inset         : 0;
-  padding-right : var( --scrollbar-size, 0 );
+  position: fixed;
+  inset: 0;
+  padding-right: var(--scrollbar-size, 0);
 }
 ```
 
@@ -419,10 +483,10 @@ const openPopUpHandler = () => {
 ###### Block scroll of a specific HTMLElement
 
 ```ts
-const element = document.querySelector( '.css-selector' )
+const element = document.querySelector(".css-selector");
 
-if ( element ) {
-  blockScroll( element )
+if (element) {
+  blockScroll(element);
 }
 ```
 
@@ -438,8 +502,8 @@ Restore Element Overflow.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type          | Default | Description |
-|-----------|---------------|---------|-------------|
+| Parameter | Type          | Default                    | Description                    |
+| --------- | ------------- | -------------------------- | ------------------------------ |
 | `target`  | `HTMLElement` | `Document.documentElement` | (Optional) The target Element. |
 
 </details>
@@ -455,8 +519,8 @@ Restore Element Overflow.
 ```ts
 const closePopUpHandler = () => {
   // ... handle close
-  restoreScroll()
-}
+  restoreScroll();
+};
 ```
 
 ---
@@ -464,10 +528,10 @@ const closePopUpHandler = () => {
 ###### Restore scroll of a specific HTMLElement
 
 ```ts
-const element = document.querySelector( '.css-selector' )
+const element = document.querySelector(".css-selector");
 
-if ( element ) {
-  restoreScroll( element )
+if (element) {
+  restoreScroll(element);
 }
 ```
 
@@ -496,7 +560,7 @@ Check if a function is a `GeneratorFunction` or `AsyncGeneratorFunction`.
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter   | Type      | Description            |
-|-------------|-----------|------------------------|
+| ----------- | --------- | ---------------------- |
 | `reference` | `unknown` | The function to check. |
 
 </details>
@@ -525,7 +589,7 @@ Check if a function is a `GeneratorFunction`.
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter   | Type      | Description            |
-|-------------|-----------|------------------------|
+| ----------- | --------- | ---------------------- |
 | `reference` | `unknown` | The function to check. |
 
 </details>
@@ -554,7 +618,7 @@ Check if a function is an `AsyncGeneratorFunction`.
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter   | Type      | Description            |
-|-------------|-----------|------------------------|
+| ----------- | --------- | ---------------------- |
 | `reference` | `unknown` | The function to check. |
 
 </details>
@@ -583,7 +647,7 @@ Check if reference is a `Generator` or `AsyncGenerator`.
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter   | Type      | Description             |
-|-------------|-----------|-------------------------|
+| ----------- | --------- | ----------------------- |
 | `reference` | `unknown` | The reference to check. |
 
 </details>
@@ -612,7 +676,7 @@ Check if reference is a `Generator`.
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter   | Type      | Description             |
-|-------------|-----------|-------------------------|
+| ----------- | --------- | ----------------------- |
 | `reference` | `unknown` | The reference to check. |
 
 </details>
@@ -641,7 +705,7 @@ Check if reference is an `AsyncGenerator`.
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter   | Type      | Description             |
-|-------------|-----------|-------------------------|
+| ----------- | --------- | ----------------------- |
 | `reference` | `unknown` | The reference to check. |
 
 </details>
@@ -681,11 +745,11 @@ A type-safe extension of the Map class that enforces key-value relationships bas
 
 <summary style="cursor:pointer">Type parameters</summary>
 
-| Parameter | Type      | Default | Description   |
-|-----------|-----------|---------|---------------|
-| `T`       | `Record<string, unknown>` | `unknown` | The object type defining the key-value relationships. |
-| `P`       | `boolean` | `true`    | Defines whether the `Map.get()` method should return a possibily `undefined` value. |
-| `K`       | `keyof T` | `keyof T` | Internal - The subset of keys in T that are allowed in the Map. |
+| Parameter | Type                      | Default   | Description                                                                         |
+| --------- | ------------------------- | --------- | ----------------------------------------------------------------------------------- |
+| `T`       | `Record<string, unknown>` | `unknown` | The object type defining the key-value relationships.                               |
+| `P`       | `boolean`                 | `true`    | Defines whether the `Map.get()` method should return a possibily `undefined` value. |
+| `K`       | `keyof T`                 | `keyof T` | Internal - The subset of keys in T that are allowed in the Map.                     |
 
 </details>
 
@@ -710,7 +774,7 @@ Creates a new instance of a type-safe `Map` with the given type.
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter  | Type                                       | Description                                |
-|------------|--------------------------------------------|--------------------------------------------|
+| ---------- | ------------------------------------------ | ------------------------------------------ |
 | `iterable` | `Iterable<readonly [ K, T[ K ] ]> \| null` | Initial `Map` constructor iterable object. |
 
 </details>
@@ -736,22 +800,21 @@ A new instance of a type-safe `Map`.
 ###### Basic usage
 
 ```ts
-interface User
-{
-  name      : string
-  age       : number
-  isActive  : boolean
+interface User {
+  name: string;
+  age: number;
+  isActive: boolean;
 }
 
-const user = getTypedMap<User>( [
-  [ 'name',     'Foo' ],
-  [ 'age',      27 ],
-  [ 'isActive', true ],
-] )
+const user = getTypedMap<User>([
+  ["name", "Foo"],
+  ["age", 27],
+  ["isActive", true],
+]);
 
-console.log( user.get( 'name' ) ) // type: `string | undefined`
-console.log( user.get( 'age' ) ) // type: `number | undefined`
-console.log( user.get( 'isActive' ) ) // type: `boolean | undefined`
+console.log(user.get("name")); // type: `string | undefined`
+console.log(user.get("age")); // type: `number | undefined`
+console.log(user.get("isActive")); // type: `boolean | undefined`
 ```
 
 ---
@@ -759,24 +822,23 @@ console.log( user.get( 'isActive' ) ) // type: `boolean | undefined`
 ###### Respect the given type
 
 ```ts
-interface User
-{
-  name      : string
-  age       : number
-  isActive  : boolean
-  banned?   : boolean
+interface User {
+  name: string;
+  age: number;
+  isActive: boolean;
+  banned?: boolean;
 }
 
-const user = getTypedMap<User, false>( [
-  [ 'name',     'Foo' ],
-  [ 'age',      27 ],
-  [ 'isActive', true ],
-] )
+const user = getTypedMap<User, false>([
+  ["name", "Foo"],
+  ["age", 27],
+  ["isActive", true],
+]);
 
-console.log( user.get( 'name' ) ) // type: `string`
-console.log( user.get( 'age' ) ) // type: `number`
-console.log( user.get( 'isActive' ) ) // type: `boolean`
-console.log( user.get( 'banned' ) ) // type: `boolean | undefined`
+console.log(user.get("name")); // type: `string`
+console.log(user.get("age")); // type: `number`
+console.log(user.get("isActive")); // type: `boolean`
+console.log(user.get("banned")); // type: `boolean | undefined`
 ```
 
 </details>
@@ -803,8 +865,8 @@ Await a void Promise that resolves after the given time.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type     | Description                  |
-|-----------|----------|------------------------------|
+| Parameter | Type     | Description                                                    |
+| --------- | -------- | -------------------------------------------------------------- |
 | `time`    | `number` | The sleep time in milliseconds after the Promise get resolved. |
 
 </details>
@@ -830,9 +892,9 @@ A new Promise which get resolved after the specified time.
 ```ts
 const fn = async () => {
   // ...
-  await sleep( 2000 )
+  await sleep(2000);
   // ...
-}
+};
 ```
 
 </details>
@@ -847,10 +909,10 @@ Defer task so main-thread is not blocked in order to quickly paint and respond t
 
 <summary style="cursor:pointer">Type Parameters</summary>
 
-| Parameter | Description                  |
-|-----------|------------------------------|
+| Parameter | Description                                                                                       |
+| --------- | ------------------------------------------------------------------------------------------------- |
 | `T`       | The task function definition. `unknown` types will be inherited by your function type definition. |
-| `U`       | The task function arguments. `unknown` types will be inherited by your function type. |
+| `U`       | The task function arguments. `unknown` types will be inherited by your function type.             |
 
 </details>
 
@@ -860,10 +922,10 @@ Defer task so main-thread is not blocked in order to quickly paint and respond t
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type     | Description                                      |
-|-----------|----------|--------------------------------------------------|
-| `task`    | `T`      | The task callable function.                      |
-| `...args` | `U`      | Arguments required by the given `task` function. |
+| Parameter | Type | Description                                      |
+| --------- | ---- | ------------------------------------------------ |
+| `task`    | `T`  | The task callable function.                      |
+| `...args` | `U`  | Arguments required by the given `task` function. |
 
 </details>
 
@@ -924,10 +986,10 @@ Defer task handler so main-thread is not blocked in order to quickly paint and r
 
 <summary style="cursor:pointer">Type Parameters</summary>
 
-| Parameter | Description                  |
-|-----------|------------------------------|
+| Parameter | Description                                                                                       |
+| --------- | ------------------------------------------------------------------------------------------------- |
 | `T`       | The task function definition. `unknown` types will be inherited by your function type definition. |
-| `U`       | The task function arguments. `unknown` types will be inherited by your function type. |
+| `U`       | The task function arguments. `unknown` types will be inherited by your function type.             |
 
 </details>
 
@@ -937,9 +999,9 @@ Defer task handler so main-thread is not blocked in order to quickly paint and r
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type     | Description                 |
-|-----------|----------|-----------------------------|
-| `task`    | `T`      | The task callable function. |
+| Parameter | Type | Description                 |
+| --------- | ---- | --------------------------- |
+| `task`    | `T`  | The task callable function. |
 
 </details>
 
@@ -994,7 +1056,7 @@ Make first letter uppercase.
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter | Type     | Description                  |
-|-----------|----------|------------------------------|
+| --------- | -------- | ---------------------------- |
 | `input`   | `string` | The input string to convert. |
 
 </details>
@@ -1018,8 +1080,8 @@ The processed string.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-console.log( ucFirst( 'String value' ) ) // Outputs: 'String value'
-console.log( ucFirst( 'string value' ) ) // Outputs: 'String value'
+console.log(ucFirst("String value")); // Outputs: 'String value'
+console.log(ucFirst("string value")); // Outputs: 'String value'
 ```
 
 </details>
@@ -1035,7 +1097,7 @@ Make first letter lowercase.
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter | Type     | Description                  |
-|-----------|----------|------------------------------|
+| --------- | -------- | ---------------------------- |
 | `input`   | `string` | The input string to convert. |
 
 </details>
@@ -1059,8 +1121,8 @@ The processed string.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-console.log( lcFirst( 'String value' ) ) // Outputs: 'string value'
-console.log( lcFirst( 'string value' ) ) // Outputs: 'string value'
+console.log(lcFirst("String value")); // Outputs: 'string value'
+console.log(lcFirst("string value")); // Outputs: 'string value'
 ```
 
 </details>
@@ -1076,7 +1138,7 @@ Convert string to camelCase.
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter | Type     | Description                  |
-|-----------|----------|------------------------------|
+| --------- | -------- | ---------------------------- |
 | `input`   | `string` | The input string to convert. |
 
 </details>
@@ -1100,13 +1162,13 @@ The converted string to camelCase.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-console.log( toCamelCase( 'font-family' ) ) // Outputs: 'fontFamily'
-console.log( toCamelCase( 'background-color' ) ) // Outputs: 'backgroundColor'
-console.log( toCamelCase( '-webkit-align-content' ) ) // Outputs: 'WebkitAlignContent'
-console.log( toCamelCase( 'some value' ) ) // Outputs: 'someValue'
-console.log( toCamelCase( 'some_value' ) ) // Outputs: 'someValue'
-console.log( toCamelCase( 'some value_with mixed_Cases' ) ) // Outputs: 'someValueWithMixedCases'
-console.log( toCamelCase( '-string@with#special$characters' ) ) // Outputs: 'StringWithSpecialCharacters'
+console.log(toCamelCase("font-family")); // Outputs: 'fontFamily'
+console.log(toCamelCase("background-color")); // Outputs: 'backgroundColor'
+console.log(toCamelCase("-webkit-align-content")); // Outputs: 'WebkitAlignContent'
+console.log(toCamelCase("some value")); // Outputs: 'someValue'
+console.log(toCamelCase("some_value")); // Outputs: 'someValue'
+console.log(toCamelCase("some value_with mixed_Cases")); // Outputs: 'someValueWithMixedCases'
+console.log(toCamelCase("-string@with#special$characters")); // Outputs: 'StringWithSpecialCharacters'
 ```
 
 </details>
@@ -1122,7 +1184,7 @@ Convert string to kebab-case string.
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter | Type     | Description                  |
-|-----------|----------|------------------------------|
+| --------- | -------- | ---------------------------- |
 | `input`   | `string` | The input string to convert. |
 
 </details>
@@ -1146,13 +1208,13 @@ The converted string to kebab-case.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-console.log( toKebabCase( 'fontFamily' ) ) // Outputs: 'font-family'
-console.log( toKebabCase( 'backgroundColor' ) ) // Outputs: 'background-color'
-console.log( toKebabCase( 'string with spaces' ) ) // Outputs: 'string-with-spaces'
-console.log( toKebabCase( 'string_with_underscores' ) ) // Outputs: 'string-with-underscores'
-console.log( toKebabCase( 'WebkitAlignContent' ) ) // Outputs: '-webkit-align-content'
-console.log( toKebabCase( 'some value_with mixed_Cases' ) ) // Outputs: 'some-value-with-mixed-cases'
-console.log( toKebabCase( '-string@with#special$characters' ) ) // Outputs: '-string-with-special-characters
+console.log(toKebabCase("fontFamily")); // Outputs: 'font-family'
+console.log(toKebabCase("backgroundColor")); // Outputs: 'background-color'
+console.log(toKebabCase("string with spaces")); // Outputs: 'string-with-spaces'
+console.log(toKebabCase("string_with_underscores")); // Outputs: 'string-with-underscores'
+console.log(toKebabCase("WebkitAlignContent")); // Outputs: '-webkit-align-content'
+console.log(toKebabCase("some value_with mixed_Cases")); // Outputs: 'some-value-with-mixed-cases'
+console.log(toKebabCase("-string@with#special$characters")); // Outputs: '-string-with-special-characters
 ```
 
 </details>
@@ -1168,7 +1230,7 @@ Stringify value.
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter | Type  | Description             |
-|-----------|-------|-------------------------|
+| --------- | ----- | ----------------------- |
 | `input`   | `any` | The value to stringify. |
 
 </details>
@@ -1192,42 +1254,46 @@ The stringified `input`.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-console.log( stringifyValue( new Date( 'Sat, 20 Apr 2025 16:20:00 GMT' ) ) )
+console.log(stringifyValue(new Date("Sat, 20 Apr 2025 16:20:00 GMT")));
 // Outputs: '2025-04-20T16:20:00.000Z'
 
-console.log( stringifyValue( null ) )
+console.log(stringifyValue(null));
 // Outputs: 'null'
 
-console.log( stringifyValue( { prop: 'value', prop2: true } ) )
+console.log(stringifyValue({ prop: "value", prop2: true }));
 // Outputs: '{"prop":"value","prop2":true}'
 
-console.log( stringifyValue( [ 1, 2, true, null, () => {} ] ) )
+console.log(stringifyValue([1, 2, true, null, () => {}]));
 // Outputs: '[1,2,true,null,null]'
 
-console.log( stringifyValue(
-  new Map( [
-    [ 'key', 'value' ],
-    [ 'key2', 'value' ],
-  ] )
-) )
+console.log(
+  stringifyValue(
+    new Map([
+      ["key", "value"],
+      ["key2", "value"],
+    ])
+  )
+);
 // Outputs: '[["key","value"],["key2","value"]]'
 
-console.log( stringifyValue(
-  new Headers( {
-    key   : 'value',
-    key2  : 'value',
-  } )
-) )
+console.log(
+  stringifyValue(
+    new Headers({
+      key: "value",
+      key2: "value",
+    })
+  )
+);
 // Outputs: '[["key","value"],["key2","value"]]'
 
-console.log( stringifyValue( true ) ) // Outputs: 'true'
-console.log( stringifyValue( false ) ) // Outputs: 'false'
-console.log( stringifyValue( 0 ) ) // Outputs: '0'
-console.log( stringifyValue( 420 ) ) // Outputs: '420'
+console.log(stringifyValue(true)); // Outputs: 'true'
+console.log(stringifyValue(false)); // Outputs: 'false'
+console.log(stringifyValue(0)); // Outputs: '0'
+console.log(stringifyValue(420)); // Outputs: '420'
 
-console.log( stringifyValue( undefined ) ) // Outputs: ''
-console.log( stringifyValue( () => {} ) ) // Outputs: ''
-console.log( stringifyValue( new Promise<void>( resolve => resolve() ) ) ) // Outputs: ''
+console.log(stringifyValue(undefined)); // Outputs: ''
+console.log(stringifyValue(() => {})); // Outputs: ''
+console.log(stringifyValue(new Promise<void>((resolve) => resolve()))); // Outputs: ''
 ```
 
 </details>
@@ -1243,7 +1309,7 @@ Parse stringified value.
 <summary style="cursor:pointer">Type parameters</summary>
 
 | Parameter | Description                       |
-|-----------|-----------------------------------|
+| --------- | --------------------------------- |
 | `T`       | The expected returned value type. |
 
 </details>
@@ -1255,7 +1321,7 @@ Parse stringified value.
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter | Type     | Description         |
-|-----------|----------|---------------------|
+| --------- | -------- | ------------------- |
 | `input`   | `string` | The value to parse. |
 
 </details>
@@ -1280,23 +1346,23 @@ Type: `T | undefined`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-console.log( parseValue<Date>( stringifyValue( new Date() ) ) )
+console.log(parseValue<Date>(stringifyValue(new Date())));
 // Outputs: current Date object.
 
-console.log( parseValue<number>( '12345' ) ) // Outputs: 12345
-console.log( parseValue() ) // Outputs: undefined
-console.log( parseValue( ' ' ) ) // Outputs: undefined
+console.log(parseValue<number>("12345")); // Outputs: 12345
+console.log(parseValue()); // Outputs: undefined
+console.log(parseValue(" ")); // Outputs: undefined
 
-console.log( parseValue<true>( stringifyValue( true ) ) )
+console.log(parseValue<true>(stringifyValue(true)));
 // Outputs: true
 
-console.log( parseValue( stringifyValue( { key: 'value' } ) ) )
+console.log(parseValue(stringifyValue({ key: "value" })));
 // Outputs: { key: 'value' }
 
-console.log( parseValue( stringifyValue( [ 1, 2, 3, 4, 5 ] ) ) )
+console.log(parseValue(stringifyValue([1, 2, 3, 4, 5])));
 // Outputs: [ 1, 2, 3, 4, 5 ]
 
-console.log( parseValue( 'String value' ) ) // Outputs: 'String value'
+console.log(parseValue("String value")); // Outputs: 'String value'
 ```
 
 </details>
@@ -1337,8 +1403,8 @@ Safely executes `window.matchMedia()` in server and browser environments.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type     | Description |
-|-----------|----------|-------------|
+| Parameter | Type     | Description                      |
+| --------- | -------- | -------------------------------- |
 | `query`   | `string` | The Media Query string to check. |
 
 </details>
@@ -1365,7 +1431,7 @@ Type: `boolean`
 ###### Check if current device is landscape oriented
 
 ```ts
-console.log( ! getMediaMatches( '(orientation:portrait)' ) )
+console.log(!getMediaMatches("(orientation:portrait)"));
 ```
 
 </details>
@@ -1382,14 +1448,14 @@ The `openBrowserPopUp` uses [`Window.open()`](https://developer.mozilla.org/en-U
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter          | Type | Default | Description |
-|--------------------|------|---------|-------------|
-| `options`          | `OpenBrowserPopUpOptions` | - | An object defining custom PopUp options. |
-| `options.url`      | `UrlInput` | - | The URL or path of the resource to be loaded. See [UrlInput](https://github.com/alessiofrittoli/url-utils?tab=readme-ov-file#urlinput) for more info about accepted formats. |
-| `options.width`    | `number` | `600` | The PopUp width. |
-| `options.height`   | `number` | `800` | The PopUp height. |
-| `options.context`  | `string` | - | A string, without whitespace, specifying the name of the browsing context the resource is being loaded into. |
-| `options.features` | `OptionsFeatures` | - | Additional custom PopUp features. |
+| Parameter          | Type                      | Default | Description                                                                                                                                                                  |
+| ------------------ | ------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `options`          | `OpenBrowserPopUpOptions` | -       | An object defining custom PopUp options.                                                                                                                                     |
+| `options.url`      | `UrlInput`                | -       | The URL or path of the resource to be loaded. See [UrlInput](https://github.com/alessiofrittoli/url-utils?tab=readme-ov-file#urlinput) for more info about accepted formats. |
+| `options.width`    | `number`                  | `600`   | The PopUp width.                                                                                                                                                             |
+| `options.height`   | `number`                  | `800`   | The PopUp height.                                                                                                                                                            |
+| `options.context`  | `string`                  | -       | A string, without whitespace, specifying the name of the browsing context the resource is being loaded into.                                                                 |
+| `options.features` | `OptionsFeatures`         | -       | Additional custom PopUp features.                                                                                                                                            |
 
 </details>
 
@@ -1415,20 +1481,20 @@ Type: `WindowProxy | null`
 ###### Re-focus a previously opened popup
 
 ```ts
-let windowProxy: WindowProxy | null = null
+let windowProxy: WindowProxy | null = null;
 
 const clickHandler = () => {
-  if ( windowProxy && ! windowProxy.closed ) {
-    return windowProxy.focus()
+  if (windowProxy && !windowProxy.closed) {
+    return windowProxy.focus();
   }
 
-  windowProxy = openBrowserPopUp( {
-    url     : {
-      pathname  : '/',
-      query     : { key: 'value' }
+  windowProxy = openBrowserPopUp({
+    url: {
+      pathname: "/",
+      query: { key: "value" },
     },
-  } )
-}
+  });
+};
 ```
 
 ---
@@ -1437,22 +1503,21 @@ const clickHandler = () => {
 
 ```ts
 const clickHandler = () => {
-  openBrowserPopUp( {
-    context : 'some-context-name',
-    url     : {
-      pathname  : '/',
-      query     : { key: 'value' }
+  openBrowserPopUp({
+    context: "some-context-name",
+    url: {
+      pathname: "/",
+      query: { key: "value" },
     },
-  } )
-}
-
+  });
+};
 
 const clickHandler2 = () => {
-  openBrowserPopUp( {
-    context : 'some-context-name',
-    url     : '/other-path',
-  } )
-}
+  openBrowserPopUp({
+    context: "some-context-name",
+    url: "/other-path",
+  });
+};
 ```
 
 </details>
@@ -1493,7 +1558,7 @@ Type: `boolean`
 ###### Check if current device is landscape oriented
 
 ```ts
-console.log( ! isPortrait() )
+console.log(!isPortrait());
 ```
 
 </details>
@@ -1509,9 +1574,9 @@ console.log( ! isPortrait() )
 <summary style="cursor:pointer">Importing the class</summary>
 
 ```ts
-import { Cookie } from '@alessiofrittoli/web-utils'
+import { Cookie } from "@alessiofrittoli/web-utils";
 // or
-import { Cookie } from '@alessiofrittoli/web-utils/storage/Cookie'
+import { Cookie } from "@alessiofrittoli/web-utils/storage/Cookie";
 ```
 
 </details>
@@ -1523,13 +1588,21 @@ import { Cookie } from '@alessiofrittoli/web-utils/storage/Cookie'
 <summary style="cursor:pointer">Importing enum and types</summary>
 
 ```ts
-import { Priority, SameSite } from '@alessiofrittoli/web-utils'
+import { Priority, SameSite } from "@alessiofrittoli/web-utils";
 // or
-import { Priority, SameSite } from '@alessiofrittoli/web-utils/storage/Cookie'
+import { Priority, SameSite } from "@alessiofrittoli/web-utils/storage/Cookie";
 
-import type { RawCookie, ParsedCookie, ParsedCookieMap } from '@alessiofrittoli/web-utils'
+import type {
+  RawCookie,
+  ParsedCookie,
+  ParsedCookieMap,
+} from "@alessiofrittoli/web-utils";
 // or
-import type { RawCookie, ParsedCookie, ParsedCookieMap } from '@alessiofrittoli/web-utils/storage/Cookie'
+import type {
+  RawCookie,
+  ParsedCookie,
+  ParsedCookieMap,
+} from "@alessiofrittoli/web-utils/storage/Cookie";
 ```
 
 </details>
@@ -1545,7 +1618,7 @@ import type { RawCookie, ParsedCookie, ParsedCookieMap } from '@alessiofrittoli/
 The Cookie Priority.
 
 | Constant | Value  | Description                |
-|----------|--------|----------------------------|
+| -------- | ------ | -------------------------- |
 | `Low`    | Low    | Low priority.              |
 | `Medium` | Medium | Medium priority (default). |
 | `High`   | High   | High priority.             |
@@ -1556,11 +1629,11 @@ The Cookie Priority.
 
 Controls whether or not a cookie is sent with cross-site requests, providing some protection against cross-site request forgery attacks ([CSRF](https://developer.mozilla.org/en-US/docs/Glossary/CSRF)).
 
-| Constant | Value  | Description                |
-|----------|--------|----------------------------|
-| `Strict` | Strict | The browser sends the cookie only for same-site requests. |
+| Constant | Value  | Description                                                                                                                                                                  |
+| -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Strict` | Strict | The browser sends the cookie only for same-site requests.                                                                                                                    |
 | `Lax`    | Lax    | The cookie is not sent on cross-site requests, such as on requests to load images or frames, but is sent when a user is navigating to the origin site from an external site. |
-| `None`   | None   | The browser sends the cookie with both cross-site and same-site requests. |
+| `None`   | None   | The browser sends the cookie with both cross-site and same-site requests.                                                                                                    |
 
 </details>
 
@@ -1578,19 +1651,19 @@ Interface representing Cookie properties before it get parsed.
 
 <summary style="cursor:pointer">Properties</summary>
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `name` | `K` | The Cookie name. |
-| `value` | `V` | The Cookie value. |
-| `domain` | `string` | Defines the host to which the cookie will be sent. |
-| `expires` | `string \| number \| Date` | Indicates the maximum lifetime of the cookie. |
-| `httpOnly` | `boolean` | Forbids JavaScript from accessing the cookie, for example, through the [`Document.cookie`](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie) property. |
-| `maxAge` | `number` | Indicates the number of seconds until the cookie expires. If set, `expires` is ignored. |
-| `partitioned` | `boolean` | Indicates that the cookie should be stored using partitioned storage. |
-| `path` | `string` | Indicates the path that must exist in the requested URL for the browser to send the `Cookie` header. |
-| `sameSite` | `SameSite` | Controls whether or not a cookie is sent with cross-site requests, providing some protection against cross-site request forgery attacks ([CSRF](https://developer.mozilla.org/en-US/docs/Glossary/CSRF)). |
-| `secure` | `boolean` | Indicates that the cookie is sent to the server only when a request is made with the https: scheme. |
-| `priority` | `Priority` | Defines the Cookie priority. |
+| Property      | Type                       | Description                                                                                                                                                                                               |
+| ------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`        | `K`                        | The Cookie name.                                                                                                                                                                                          |
+| `value`       | `V`                        | The Cookie value.                                                                                                                                                                                         |
+| `domain`      | `string`                   | Defines the host to which the cookie will be sent.                                                                                                                                                        |
+| `expires`     | `string \| number \| Date` | Indicates the maximum lifetime of the cookie.                                                                                                                                                             |
+| `httpOnly`    | `boolean`                  | Forbids JavaScript from accessing the cookie, for example, through the [`Document.cookie`](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie) property.                                    |
+| `maxAge`      | `number`                   | Indicates the number of seconds until the cookie expires. If set, `expires` is ignored.                                                                                                                   |
+| `partitioned` | `boolean`                  | Indicates that the cookie should be stored using partitioned storage.                                                                                                                                     |
+| `path`        | `string`                   | Indicates the path that must exist in the requested URL for the browser to send the `Cookie` header.                                                                                                      |
+| `sameSite`    | `SameSite`                 | Controls whether or not a cookie is sent with cross-site requests, providing some protection against cross-site request forgery attacks ([CSRF](https://developer.mozilla.org/en-US/docs/Glossary/CSRF)). |
+| `secure`      | `boolean`                  | Indicates that the cookie is sent to the server only when a request is made with the https: scheme.                                                                                                       |
+| `priority`    | `Priority`                 | Defines the Cookie priority.                                                                                                                                                                              |
 
 </details>
 
@@ -1606,8 +1679,8 @@ Interface representing Cookie properties after it get parsed.
 
 - Extends and overrides - [`RawCookie<K, V>`](#rawcookiek-v)
 
-| Property  | Type   | Description |
-|-----------|--------|-------------|
+| Property  | Type   | Description                                   |
+| --------- | ------ | --------------------------------------------- |
 | `expires` | `Date` | Indicates the maximum lifetime of the cookie. |
 
 </details>
@@ -1635,7 +1708,7 @@ Parse the given cookie parameters to a Cookie Map.
 <summary style="cursor:pointer">Type parameters</summary>
 
 | Parameter | Description                   |
-|-----------|-------------------------------|
+| --------- | ----------------------------- |
 | `K`       | The typed cookie name.        |
 | `V`       | The type of the cookie value. |
 
@@ -1647,8 +1720,8 @@ Parse the given cookie parameters to a Cookie Map.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter | Type                                       | Description                                |
+| --------- | ------------------------------------------ | ------------------------------------------ |
 | `options` | `RawCookie<K, V> \| ParsedCookieMap<K, V>` | The cookie options or a parsed Cookie Map. |
 
 </details>
@@ -1672,19 +1745,19 @@ The parsed Cookie Map.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-const cookie = Cookie.parse( {
-  name        : 'cookiename',
-  value       : { test: 'value' },
-  path        : '/specific-path',
-  priority    : Priority.High,
-  expires     : Date.now() + 20 * 60 * 1000,
-  domain      : 'example.com',
-  secure      : true,
-  httpOnly    : true,
-  sameSite    : SameSite.Lax,
-  maxAge      : Date.now() + 30 * 60 * 1000,
-  partitioned : true,
-} )
+const cookie = Cookie.parse({
+  name: "cookiename",
+  value: { test: "value" },
+  path: "/specific-path",
+  priority: Priority.High,
+  expires: Date.now() + 20 * 60 * 1000,
+  domain: "example.com",
+  secure: true,
+  httpOnly: true,
+  sameSite: SameSite.Lax,
+  maxAge: Date.now() + 30 * 60 * 1000,
+  partitioned: true,
+});
 ```
 
 </details>
@@ -1700,7 +1773,7 @@ Stringify a Cookie ready to be stored.
 <summary style="cursor:pointer">Type parameters</summary>
 
 | Parameter | Description                   |
-|-----------|-------------------------------|
+| --------- | ----------------------------- |
 | `K`       | The typed cookie name.        |
 | `V`       | The type of the cookie value. |
 
@@ -1712,9 +1785,9 @@ Stringify a Cookie ready to be stored.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `options`  | `RawCookie<K, V> \| ParsedCookieMap<K, V>` | The cookie options or a parsed Cookie Map. |
+| Parameter | Type                                       | Description                                |
+| --------- | ------------------------------------------ | ------------------------------------------ |
+| `options` | `RawCookie<K, V> \| ParsedCookieMap<K, V>` | The cookie options or a parsed Cookie Map. |
 
 </details>
 
@@ -1737,21 +1810,19 @@ The stringified Cookie ready to be stored.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-document.cookie = (
-  Cookie.toString( {
-    name        : 'cookiename',
-    value       : { test: 'value' },
-    path        : '/specific-path',
-    priority    : Priority.High,
-    expires     : Date.now() + 20 * 60 * 1000,
-    domain      : 'example.com',
-    secure      : true,
-    httpOnly    : false,
-    sameSite    : SameSite.Lax,
-    maxAge      : Date.now() + 30 * 60 * 1000,
-    partitioned : true,
-  } )
-)
+document.cookie = Cookie.toString({
+  name: "cookiename",
+  value: { test: "value" },
+  path: "/specific-path",
+  priority: Priority.High,
+  expires: Date.now() + 20 * 60 * 1000,
+  domain: "example.com",
+  secure: true,
+  httpOnly: false,
+  sameSite: SameSite.Lax,
+  maxAge: Date.now() + 30 * 60 * 1000,
+  partitioned: true,
+});
 ```
 
 </details>
@@ -1767,7 +1838,7 @@ Parse a cookie string to a Cookie Map.
 <summary style="cursor:pointer">Type parameters</summary>
 
 | Parameter | Description                     |
-|-----------|---------------------------------|
+| --------- | ------------------------------- |
 | `K`       | The typed cookie name.          |
 | `V`       | The expected cookie value type. |
 
@@ -1779,8 +1850,8 @@ Parse a cookie string to a Cookie Map.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type     | Description |
-|-----------|----------|-------------|
+| Parameter | Type     | Description        |
+| --------- | -------- | ------------------ |
 | `cookie`  | `string` | The cookie string. |
 
 </details>
@@ -1804,11 +1875,10 @@ The parsed Cookie Map or `null` if parsing fails.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-const cookies = (
-  document.cookie.split( '; ' )
-    .map( Cookie.fromString )
-    .filter( Boolean )
-)
+const cookies = document.cookie
+  .split("; ")
+  .map(Cookie.fromString)
+  .filter(Boolean);
 ```
 
 </details>
@@ -1823,10 +1893,10 @@ Parse a cookie list string to a Map of cookies.
 
 <summary style="cursor:pointer">Type parameters</summary>
 
-| Parameter | Description                     |
-|-----------|---------------------------------|
+| Parameter | Description                                                                         |
+| --------- | ----------------------------------------------------------------------------------- |
 | `T`       | A `Record` o key-value pairs (key: cookie name, value: expected cookie value type). |
-| `K`       | Internal. |
+| `K`       | Internal.                                                                           |
 
 </details>
 
@@ -1836,8 +1906,8 @@ Parse a cookie list string to a Map of cookies.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type     | Description |
-|-----------|----------|-------------|
+| Parameter | Type     | Description             |
+| --------- | -------- | ----------------------- |
 | `list`    | `string` | The cookie list string. |
 
 </details>
@@ -1864,26 +1934,23 @@ The Map of parsed cookies indexed by the Cookie name.
 
 ```ts
 /** On-site stubbed cookie names. */
-enum CookieName
-{
-  COOKIE_1 = 'cookie-1',
-  COOKIE_2 = 'cookie-2',
+enum CookieName {
+  COOKIE_1 = "cookie-1",
+  COOKIE_2 = "cookie-2",
 }
 
-interface Cookie1
-{
-  test: 'value'
+interface Cookie1 {
+  test: "value";
 }
 
-interface Cookie2
-{
-  test: boolean
+interface Cookie2 {
+  test: boolean;
 }
 
 type CookiesMap = {
-  [ CookieName.COOKIE_1 ]: Cookie1
-  [ CookieName.COOKIE_2 ]: Cookie2
-}
+  [CookieName.COOKIE_1]: Cookie1;
+  [CookieName.COOKIE_2]: Cookie2;
+};
 ```
 
 ---
@@ -1891,9 +1958,9 @@ type CookiesMap = {
 ###### Get parsed cookies from `Document.cookie`
 
 ```ts
-const cookies     = Cookie.fromListString<CookiesMap>( document.cookie )
-const cookie      = cookies.get( CookieName.COOKIE_1 ) // `ParsedCookieMap<CookieName.COOKIE_1, Cookie1> | undefined`
-const cookieValue = cookie?.get( 'value' ) // `Cookie1 | undefined`
+const cookies = Cookie.fromListString<CookiesMap>(document.cookie);
+const cookie = cookies.get(CookieName.COOKIE_1); // `ParsedCookieMap<CookieName.COOKIE_1, Cookie1> | undefined`
+const cookieValue = cookie?.get("value"); // `Cookie1 | undefined`
 ```
 
 ---
@@ -1901,13 +1968,13 @@ const cookieValue = cookie?.get( 'value' ) // `Cookie1 | undefined`
 ###### Get parsed cookies from a request `Cookie` header
 
 ```ts
-const { headers } = request
-const cookielist  = headers.get( 'Cookie' )
+const { headers } = request;
+const cookielist = headers.get("Cookie");
 
-if ( cookielist ) {
-  const cookies     = Cookie.fromListString<CookiesMap>( cookielist )
-  const cookie      = cookies.get( CookieName.COOKIE_2 ) // `ParsedCookieMap<CookieName.COOKIE_2, Cookie2> | undefined`
-  const cookieValue = cookie?.get( 'value' ) // `Cookie2 | undefined`
+if (cookielist) {
+  const cookies = Cookie.fromListString<CookiesMap>(cookielist);
+  const cookie = cookies.get(CookieName.COOKIE_2); // `ParsedCookieMap<CookieName.COOKIE_2, Cookie2> | undefined`
+  const cookieValue = cookie?.get("value"); // `Cookie2 | undefined`
 }
 ```
 
@@ -1923,8 +1990,8 @@ Get a cookie by cookie name from `Document.cookie`.
 
 <summary style="cursor:pointer">Type parameters</summary>
 
-| Parameter | Description |
-|-----------|-------------|
+| Parameter | Description                             |
+| --------- | --------------------------------------- |
 | `T`       | The expected type for the Cookie value. |
 
 </details>
@@ -1935,8 +2002,8 @@ Get a cookie by cookie name from `Document.cookie`.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type     | Description |
-|-----------|----------|-------------|
+| Parameter | Type     | Description             |
+| --------- | -------- | ----------------------- |
 | `name`    | `string` | The name of the cookie. |
 
 </details>
@@ -1961,8 +2028,8 @@ Type: `ParsedCookieMap<typeof name, T> | undefined`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-const cookie  = Cookie.get<string>( 'access_token' )
-const value   = cookie?.get( 'value' ) // `string | undefined`
+const cookie = Cookie.get<string>("access_token");
+const value = cookie?.get("value"); // `string | undefined`
 ```
 
 </details>
@@ -1977,8 +2044,8 @@ Get a `Map` of all cookies found in `Document.cookie`.
 
 <summary style="cursor:pointer">Type parameters</summary>
 
-| Parameter | Description                     |
-|-----------|---------------------------------|
+| Parameter | Description                                                                         |
+| --------- | ----------------------------------------------------------------------------------- |
 | `T`       | A `Record` o key-value pairs (key: cookie name, value: expected cookie value type). |
 
 </details>
@@ -2002,8 +2069,8 @@ The Map of parsed cookies indexed by the Cookie name.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-const cookies = Cookie.getAll()
-const cookie  = cookies.get( 'somecookie' )
+const cookies = Cookie.getAll();
+const cookie = cookies.get("somecookie");
 ```
 
 </details>
@@ -2017,7 +2084,7 @@ Set a cookie to `Document.cookie`.
 <summary style="cursor:pointer">Type parameters</summary>
 
 | Parameter | Description            |
-|-----------|------------------------|
+| --------- | ---------------------- |
 | `K`       | The typed cookie name. |
 | `V`       | The cookie value type. |
 
@@ -2029,9 +2096,9 @@ Set a cookie to `Document.cookie`.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `options`  | `RawCookie<K, V> \| ParsedCookieMap<K, V>` | The cookie options or a parsed Cookie Map. |
+| Parameter | Type                                       | Description                                |
+| --------- | ------------------------------------------ | ------------------------------------------ |
+| `options` | `RawCookie<K, V> \| ParsedCookieMap<K, V>` | The cookie options or a parsed Cookie Map. |
 
 </details>
 
@@ -2056,22 +2123,22 @@ Type: `ParsedCookieMap<K, V> | false`
 
 ```ts
 const cookieOptions: RawCookie = {
-  name        : 'cookiename',
-  value       : { test: 'value' },
-  path        : '/specific-path',
-  priority    : Priority.High,
-  expires     : Date.now() + 20 * 60 * 1000,
-  domain      : 'example.com',
-  secure      : true,
-  httpOnly    : false,
-  sameSite    : SameSite.Lax,
-  maxAge      : Date.now() + 30 * 60 * 1000,
-  partitioned : true,
-}
+  name: "cookiename",
+  value: { test: "value" },
+  path: "/specific-path",
+  priority: Priority.High,
+  expires: Date.now() + 20 * 60 * 1000,
+  domain: "example.com",
+  secure: true,
+  httpOnly: false,
+  sameSite: SameSite.Lax,
+  maxAge: Date.now() + 30 * 60 * 1000,
+  partitioned: true,
+};
 
-Cookie.set( cookieOptions )
+Cookie.set(cookieOptions);
 // or
-Cookie.set( Coookie.parse( cookieOptions ) )
+Cookie.set(Coookie.parse(cookieOptions));
 ```
 
 </details>
@@ -2086,8 +2153,8 @@ Delete a cookie by cookie name from `Document.cookie`.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type     | Description |
-|-----------|----------|-------------|
+| Parameter | Type     | Description                |
+| --------- | -------- | -------------------------- |
 | `name`    | `string` | The cookie name to delete. |
 
 </details>
@@ -2112,7 +2179,7 @@ Type: `boolean`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-Cookie.delete( 'some_cookie' )
+Cookie.delete("some_cookie");
 ```
 
 </details>
@@ -2130,9 +2197,9 @@ A browser-compatible implementation of [`localStorage`](https://developer.mozill
 <summary style="cursor:pointer">Importing the class</summary>
 
 ```ts
-import { LocalStorage } from '@alessiofrittoli/web-utils'
+import { LocalStorage } from "@alessiofrittoli/web-utils";
 // or
-import { LocalStorage } from '@alessiofrittoli/web-utils/storage/LocalStorage'
+import { LocalStorage } from "@alessiofrittoli/web-utils/storage/LocalStorage";
 ```
 
 </details>
@@ -2151,8 +2218,8 @@ Get storage item name by item numeric index.
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter | Type     | Description |
-|-----------|----------|-------------|
+| Parameter | Type     | Description                    |
+| --------- | -------- | ------------------------------ |
 | `index`   | `number` | The item index in the storage. |
 
 </details>
@@ -2177,7 +2244,7 @@ Type: `string | null`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-console.log( LocalStorage.key( 0 ) ) // Outputs: first item name if any.
+console.log(LocalStorage.key(0)); // Outputs: first item name if any.
 ```
 
 </details>
@@ -2205,7 +2272,7 @@ The number of key/value pairs.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-console.log( LocalStorage.getLength() )
+console.log(LocalStorage.getLength());
 ```
 
 </details>
@@ -2221,7 +2288,7 @@ Get the current value associated with the given `key`, or `undefined` if the giv
 <summary style="cursor:pointer">Type parameters</summary>
 
 | Parameter | Description                   |
-|-----------|-------------------------------|
+| --------- | ----------------------------- |
 | `T`       | The expected item value type. |
 
 </details>
@@ -2233,7 +2300,7 @@ Get the current value associated with the given `key`, or `undefined` if the giv
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter | Type     | Description    |
-|-----------|----------|----------------|
+| --------- | -------- | -------------- |
 | `key`     | `string` | The item name. |
 
 </details>
@@ -2258,7 +2325,7 @@ Type: `T | undefined`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-LocalStorage.get<Date>( 'expiration' )
+LocalStorage.get<Date>("expiration");
 ```
 
 </details>
@@ -2278,7 +2345,7 @@ If a nullish or empty string value is provided, the `LocalStorage.delete()` meth
 <summary style="cursor:pointer">Type parameters</summary>
 
 | Parameter | Description          |
-|-----------|----------------------|
+| --------- | -------------------- |
 | `T`       | The item value type. |
 
 </details>
@@ -2290,7 +2357,7 @@ If a nullish or empty string value is provided, the `LocalStorage.delete()` meth
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter | Type     | Description     |
-|-----------|----------|-----------------|
+| --------- | -------- | --------------- |
 | `key`     | `string` | The item name.  |
 | `value`   | `T`      | The item value. |
 
@@ -2315,7 +2382,7 @@ A "QuotaExceededError" DOMException exception if the new value couldn't be set. 
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-LocalStorage.set<Date>( 'expiration', new Date() )
+LocalStorage.set<Date>("expiration", new Date());
 ```
 
 </details>
@@ -2333,7 +2400,7 @@ Dispatches a storage event on Window objects holding an equivalent Storage objec
 <summary style="cursor:pointer">Parameters</summary>
 
 | Parameter | Type     | Description    |
-|-----------|----------|----------------|
+| --------- | -------- | -------------- |
 | `key`     | `string` | The item name. |
 
 </details>
@@ -2345,7 +2412,7 @@ Dispatches a storage event on Window objects holding an equivalent Storage objec
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-LocalStorage.delete( 'expiration' )
+LocalStorage.delete("expiration");
 ```
 
 </details>
@@ -2363,7 +2430,7 @@ Dispatches a storage event on Window objects holding an equivalent Storage objec
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-LocalStorage.clear()
+LocalStorage.clear();
 ```
 
 </details>
@@ -2385,9 +2452,9 @@ Please, refer to [`LocalStorage` Class](#localstorage-class) static methods API 
 <summary style="cursor:pointer">Importing the class</summary>
 
 ```ts
-import { SessionStorage } from '@alessiofrittoli/web-utils'
+import { SessionStorage } from "@alessiofrittoli/web-utils";
 // or
-import { SessionStorage } from '@alessiofrittoli/web-utils/storage/SessionStorage'
+import { SessionStorage } from "@alessiofrittoli/web-utils/storage/SessionStorage";
 ```
 
 </details>
