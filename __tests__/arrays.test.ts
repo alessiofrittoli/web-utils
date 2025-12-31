@@ -1,4 +1,5 @@
 import { arrayUnique, arrayObjectUnique, listToArray, chunkInto } from '@/arrays'
+import { shuffle, shuffleCopy } from '@/arrays'
 
 
 describe( 'arrayUnique', () => {
@@ -189,6 +190,83 @@ describe( 'chunkInto', () => {
 		expect( chunkInto( [ 1, 2, 3 ], { count: 0 } ) )
 			.toEqual( [ [ 1 ], [ 2 ], [ 3 ] ] )
 		
+	} )
+	
+} )
+
+
+describe( 'shuffle', () => {
+
+	it( 'shuffles the array in place and returns the same array instance', () => {
+		
+		const arr		= [ 1, 2, 3, 4, 5 ]
+		const original	= [ ...arr ]
+		const result	= shuffle( arr )
+
+		expect( result ).toBe( arr )
+		expect( result.sort() ).toEqual( original.sort() )
+
+	} )
+
+
+	it( 'does not lose or duplicate elements', () => {
+
+		const arr		= [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+		const original	= [ ...arr ]
+
+		shuffle( arr )
+
+		expect( arr.sort() ).toEqual( original.sort() )
+
+	} )
+
+
+	it( 'returns empty array when input is empty', () => {
+
+		expect( shuffle( [] ) ).toEqual( [] )
+
+	} )
+
+
+	it( 'returns same array for single element', () => {
+		
+		const arr = [ 42 ]
+		expect( shuffle( arr ) ).toEqual( [ 42 ] )
+
+	} )
+
+
+	it( 'can actually shuffle (statistical, not deterministic)', () => {
+
+		const arr		= [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+		const results	= new Set<string>()
+
+		for ( let i = 0; i < 20; i++ ) {
+			const copy = [ ...arr ]
+			shuffle( copy )
+			results.add( copy.join( ',' ) )
+		}
+
+		// Should have more than 1 unique permutation
+		expect( results.size ).toBeGreaterThan( 1 )
+
+	} )
+
+} )
+
+
+describe( 'shuffleCopy', () => {
+
+	it( 'returns a shuffled copy, leaving original array unchanged', () => {
+
+		const arr		= [ 1, 2, 3, 4, 5 ]
+		const original	= [ ...arr ]
+		const shuffled	= shuffleCopy( arr )
+		
+		expect( shuffled ).not.toBe( arr )
+		expect( shuffled.sort() ).toEqual( original.sort() )
+		expect( arr ).toEqual( original )
+
 	} )
 
 } )
