@@ -1,6 +1,6 @@
 {
 	"name": "@alessiofrittoli/web-utils",
-	"version": "1.20.0",
+	"version": "2.0.0-alpha.1",
 	"description": "Common TypeScript web utilities",
 	"author": {
 		"name": "Alessio Frittoli",
@@ -121,6 +121,7 @@
 	},
 	"dependencies": {
 		"@alessiofrittoli/date-utils": "^4.1.0",
+		"@alessiofrittoli/fetcher": "^1.1.0",
 		"@alessiofrittoli/math-utils": "^1.18.0",
 		"@alessiofrittoli/type-utils": "^1.9.0",
 		"@alessiofrittoli/url-utils": "^3.7.1"

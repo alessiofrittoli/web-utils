@@ -1,4 +1,5 @@
 onlyBuiltDependencies:
+  - '@alessiofrittoli/fetcher'
   - '@alessiofrittoli/type-utils'
   - esbuild
   - unrs-resolver
