@@ -31,16 +31,35 @@ export const restoreScroll = ( target: HTMLElement = document.documentElement ) 
 
 }
 
+
+/**
+ * Represents a URL stylesheet as a simple URL input, URL object or as an object
+ * with URL and fetch configuration options.
+ */
+export type UrlStylesheet = UrlInput | {
+	/**
+	 * The URL string or a URL object of the stylesheet to load.
+	 * 
+	 */
+	url: UrlInput
+	/**
+	 * Indicates whether to fetch the given URL.
+	 * 
+	 * @default false
+	 */
+	fetch?: boolean
+}
+
+
 /**
  * Represents a style input.
  * 
- * 
- * @property {UrlInput} - A URL string or input pointing to an external stylesheet
- * @property {HTMLStyleElement} - An HTML style element containing CSS rules
- * @property {CSSStyleSheet} - A CSS stylesheet object
- * @property {StyleSheetList} - A collection of CSS stylesheets
+ * @property {UrlStylesheet}	- A URL string or input pointing to a stylesheet file URL.
+ * @property {HTMLStyleElement}	- An HTML style element containing CSS rules.
+ * @property {CSSStyleSheet}	- A CSS stylesheet object.
+ * @property {StyleSheetList}	- A collection of CSS stylesheets.
  */
-export type Style = UrlInput | HTMLStyleElement | CSSStyleSheet | StyleSheetList
+export type Style = UrlStylesheet | HTMLStyleElement | CSSStyleSheet | StyleSheetList
 
 
 /**
@@ -49,6 +68,8 @@ export type Style = UrlInput | HTMLStyleElement | CSSStyleSheet | StyleSheetList
  * @typeParam Style The style object type. See {@link Style}.
  */
 export type Styles = Style | Style[]
+
+export type CloneStyleSheetsReturn = ( HTMLStyleElement | HTMLLinkElement )[]
 
 
 /**
@@ -70,8 +91,8 @@ export type Styles = Style | Style[]
  * styles.forEach( style => shadowRoot.appendChild( style ) )
  * ```
  */
-export const cloneStyleSheetList = ( styles: StyleSheetList | CSSStyleSheet[] ) => (
-	[ ...styles ].map( ( { cssRules } ) => {
+const cloneStyleSheetList = ( styleSheets: StyleSheetList | CSSStyleSheet[] ) => (
+	[ ...styleSheets ].map( ( { cssRules } ) => {
 		try {
 
 			const style = document.createElement( 'style' )
@@ -91,35 +112,43 @@ export const cloneStyleSheetList = ( styles: StyleSheetList | CSSStyleSheet[] ) 
 		} catch ( error ) {
 
 			console.error( 'Error while cloning styles.', error )
-		
+
 		}
 	} ).filter( Boolean ) as HTMLStyleElement[]
 )
 
 
 /**
- * Clones style sheets from various sources into new `HTMLStyleElement` instances.
+ * Clones style sheets from various sources into new HTMLStyleElement nodes.
  * 
- * @param styles A single style source or array of style sources. Can be:
- *   - `StyleSheetList`: A list of stylesheets
- *   - `CSSStyleSheet`: A single stylesheet object
- *   - `HTMLStyleElement`: A style DOM element
- *   - `UrlInput`: A URL string or object pointing to a stylesheet
+ * @param styles A style source or array of style sources. Style source an be:
+ *   - `StyleSheetList`: A list of stylesheets.
+ *   - `CSSStyleSheet` A single stylesheet object.
+ *   - `HTMLStyleElement`: A style DOM element.
+ *   - `UrlStylesheet`: A URL stylesheet as a simple URL input, URL object or as an object with URL and fetch configuration options.
  * 
- * @returns A promise that resolves to an array of cloned `HTMLStyleElement` nodes.
- *   Each element is a new style element containing the CSS rules from the source.
+ * @returns A promise that resolves to an array of cloned HTMLStyleElement and HTMLLinkElement nodes.
+ *   For inline styles and StyleSheetLists, returns HTMLStyleElement nodes.
+ *   For URL-based stylesheets, returns HTMLLinkElement nodes (or HTMLStyleElement if fetch is true).
+ *   Failed operations are silently ignored.
+ * 
+ * @remarks
+ * - When a URL stylesheet has `fetch: true`, the stylesheet content is fetched and embedded as inline CSS.
+ * - When `fetch: false` (default), a link element is created instead.
+ * - URL parsing is handled through the Url utility with support for both string and `UrlInput` object formats.
  */
-export const cloneStyleSheets = async ( styles: Styles ): Promise<HTMLStyleElement[]> => {
+export const cloneStyleSheets = async ( styles: Styles ): Promise<CloneStyleSheetsReturn> => {
 
 	if ( ! Array.isArray( styles ) ) {
 		return cloneStyleSheets( [ styles ] )
 	}
 
-	const styleNodes: HTMLStyleElement[]	= []
+	const styleNodes: CloneStyleSheetsReturn = []
+	
 	const styleSheetList: StyleSheetList[]	= []
 	const styleSheets: CSSStyleSheet[]		= []
 	const styleElements: HTMLStyleElement[]	= []
-	const styleUrls: UrlInput[]				= []
+	const styleUrls: UrlStylesheet[]		= []
 
 	styles.forEach( style => {
 		if ( style instanceof StyleSheetList ) {
@@ -161,7 +190,28 @@ export const cloneStyleSheets = async ( styles: Styles ): Promise<HTMLStyleEleme
 	await Promise.allSettled(
 		styleUrls.map( async urlInput => {
 
-			const { data, error } = await fetch<string>( Url.format( urlInput ) )
+			const isUrlString = typeof urlInput === 'string'
+
+			const url = (
+				! isUrlString && 'url' in urlInput && Url.format( urlInput.url )
+			) || Url.format( urlInput as UrlInput )
+			
+			const fetchUrl = (
+				! isUrlString && 'fetch' in urlInput && urlInput.fetch
+			) ?? false
+
+			if ( ! fetchUrl ) {
+				const link	= document.createElement( 'link' )
+				link.rel	= 'stylesheet'
+				link.href	= url
+
+				styleNodes.push( link )
+
+				return link
+			}
+
+			
+			const { data, error } = await fetch<string>( url )
 
 			if ( error ) throw error
 
