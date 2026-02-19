@@ -87,6 +87,7 @@
 		"//4c": "*********************************************************************",
 		"test:map": "pnpm test:watch map.test.ts",
 		"test:blob": "pnpm test:watch blob.test.ts",
+		"test:dom": "pnpm test:watch __tests__/dom.test.ts",
 		"test:generators": "pnpm test:watch generators.test.ts",
 		"test:regex": "pnpm test:watch regex.test.ts",
 		"test:strings": "pnpm test:watch strings.test.ts",
