@@ -91,21 +91,19 @@ export type CloneStyleSheetsReturn = ( HTMLStyleElement | HTMLLinkElement )[]
  * styles.forEach( style => shadowRoot.appendChild( style ) )
  * ```
  */
-const cloneStyleSheetList = ( styleSheets: StyleSheetList | CSSStyleSheet[] ) => (
+export const cloneStyleSheetList = ( styleSheets: StyleSheetList | CSSStyleSheet[] ) => (
 	[ ...styleSheets ].map( ( { cssRules } ) => {
 		try {
+			
+			if ( cssRules.length <= 0 ) return
 
 			const style = document.createElement( 'style' )
 
-			for ( let i = 0; i < cssRules.length; i++ ) {
-				const rule = cssRules[ i ]
-				
-				if ( ! rule ) continue
-
+			Array.from( cssRules ).forEach( rule => {
 				style.appendChild(
 					document.createTextNode( rule.cssText )
 				)
-			}
+			} )
 
 			return style
 
@@ -181,7 +179,9 @@ export const cloneStyleSheets = async ( styles: Styles ): Promise<CloneStyleShee
 		styleNodes.push( ...styleElements.map( style => {
 			const target = document.createElement( 'style' )
 			target.appendChild(
-				document.createTextNode( style.innerText )
+				document.createTextNode(
+					style.textContent || style.innerText || style.innerHTML
+				)
 			)
 			return target
 		} ) )
@@ -213,7 +213,10 @@ export const cloneStyleSheets = async ( styles: Styles ): Promise<CloneStyleShee
 			
 			const { data, error } = await fetch<string>( url )
 
-			if ( error ) throw error
+			if ( error ) {
+				console.error( 'Error while fetching the given style URL.', error )
+				throw error
+			}
 
 			const style = document.createElement( 'style' )
 
