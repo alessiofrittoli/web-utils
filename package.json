@@ -1,6 +1,6 @@
 {
 	"name": "@alessiofrittoli/web-utils",
-	"version": "2.0.0-alpha.1",
+	"version": "2.0.0-alpha.2",
 	"description": "Common TypeScript web utilities",
 	"author": {
 		"name": "Alessio Frittoli",
