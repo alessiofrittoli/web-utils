@@ -1,4 +1,4 @@
-import { getMediaMatches } from '@/browser-api'
+import { getMediaMatches } from '@/browser-api/media-queries'
 
 /**
  * Use this media query to check if document currently matches the portrait device orientation.

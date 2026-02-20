@@ -1,4 +1,4 @@
-import { getTypedMap, type TypedMap } from '@/map' // Replace with the actual file name
+import { getTypedMap, type TypedMap } from '@/map'
 
 describe( 'getTypedMap', () => {
 	

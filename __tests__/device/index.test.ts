@@ -1,8 +1,8 @@
-import { getMediaMatches as WindowGetMediaMatches } from '@/browser-api'
+import { getMediaMatches as WindowGetMediaMatches } from '@/browser-api/media-queries'
 import { isPortrait, portraitMediaQuery } from '@/device'
 
 
-jest.mock( '@/browser-api', () => ( {
+jest.mock( '@/browser-api/media-queries', () => ( {
 	getMediaMatches: jest.fn(),
 } ) )
 

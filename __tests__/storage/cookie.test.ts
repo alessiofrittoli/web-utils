@@ -1,4 +1,4 @@
-import { Cookie, Priority, RawCookie, SameSite } from '@/storage/Cookie'
+import { Cookie, Priority, SameSite, type RawCookie } from '@/storage/Cookie'
 
 
 describe( 'Cookie', () => {
