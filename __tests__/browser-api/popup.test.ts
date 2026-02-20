@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { openBrowserPopUp, type OpenBrowserPopUpOptions } from '@/browser-api'
+import { openBrowserPopUp, type OpenBrowserPopUpOptions } from '@/browser-api/popup'
 
 describe( 'openBrowserPopUp', () => {
 
