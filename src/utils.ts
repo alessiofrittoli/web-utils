@@ -1,13 +1,6 @@
 import { getNumbersFromString } from "@alessiofrittoli/math-utils"
 
 /**
- * Represents a tuple of two optional numeric values, typically used for width and height dimensions.
- * 
- */
-export type Dimensions = [ x: number | undefined, y: number | undefined ]
-
-
-/**
  * Represents valid input types for specifying dimensions.
  *
  * Can be provided as:
@@ -19,11 +12,18 @@ export type InputDimensions = string | number | [ xy: Dimensions[ number ] ] | D
 
 
 /**
+ * Represents a tuple of two optional numeric values.
+ * 
+ */
+export type Dimensions = [ x: number | undefined, y: number | undefined ]
+
+
+/**
  * Extracts and normalizes dimensions from various input formats.
  * 
  * @param dimensions The input dimensions.
  * 
- * @returns A tuple containing `[number, number]` where either value can be `undefined`.
+ * @returns A tuple containing `[ number, number ]` where either value can be `undefined`.
  * 
  * @example
  * ```ts
@@ -31,6 +31,7 @@ export type InputDimensions = string | number | [ xy: Dimensions[ number ] ] | D
  * const [ width, height ] = getDimensions( 100 )           // [ 100, 100 ]
  * const [ width, height ] = getDimensions( [ 200, 300 ] )  // [ 200, 300 ]
  * const [ width, height ] = getDimensions( [ 200 ] )       // [ 200, 200 ]
+ * const [ width, height ] = getDimensions( '200x300' )     // [ 200, 300 ]
  * ```
  */
 export const getDimensions = ( dimensions?: InputDimensions ): Dimensions => {
