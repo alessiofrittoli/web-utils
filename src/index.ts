@@ -1,4 +1,5 @@
 export * from '@/browser-api/media-queries'
+export * from '@/browser-api/picture-in-picture'
 export * from '@/browser-api/popup'
 export * from '@/browser-api/sharer'
 
@@ -10,6 +11,7 @@ export * from '@/arrays'
 export * from '@/blob'
 export * from '@/device'
 export * from '@/dom'
+export * from '@/errors'
 export * from '@/generators'
 export * from '@/map'
 export * from '@/objects'

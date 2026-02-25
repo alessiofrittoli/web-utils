@@ -122,9 +122,10 @@
 	},
 	"dependencies": {
 		"@alessiofrittoli/date-utils": "^4.1.0",
+		"@alessiofrittoli/exception": "^3.5.0",
 		"@alessiofrittoli/fetcher": "^1.1.0",
 		"@alessiofrittoli/math-utils": "^2.0.0",
 		"@alessiofrittoli/type-utils": "^1.9.0",
-		"@alessiofrittoli/url-utils": "^3.7.1"
+		"@alessiofrittoli/url-utils": "^4.0.0"
 	}
 }

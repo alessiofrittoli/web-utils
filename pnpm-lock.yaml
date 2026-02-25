@@ -11,6 +11,9 @@ importers:
       '@alessiofrittoli/date-utils':
         specifier: ^4.1.0
         version: 4.1.0
+      '@alessiofrittoli/exception':
+        specifier: ^3.5.0
+        version: 3.5.0
       '@alessiofrittoli/fetcher':
         specifier: ^1.1.0
         version: 1.1.0
@@ -21,8 +24,8 @@ importers:
         specifier: ^1.9.0
         version: 1.9.0
       '@alessiofrittoli/url-utils':
-        specifier: ^3.7.1
-        version: 3.7.1
+        specifier: ^4.0.0
+        version: 4.0.0
     devDependencies:
       '@alessiofrittoli/node-scripts':
         specifier: ^3.3.0
@@ -119,6 +122,9 @@ packages:
 
   '@alessiofrittoli/url-utils@3.7.1':
     resolution: {integrity: sha512-d4IY0H2lQoXt8Iq3riD7nYvfa+VEAnkBh2R9mvZNxbqQo0TmGc32+mf0w+FKviZ/xth2JhusVoSG804dHXHIdg==}
+
+  '@alessiofrittoli/url-utils@4.0.0':
+    resolution: {integrity: sha512-MFtsYYNH2HnwasxkdTZ/Emgjzu1vwoI0bGeC6RXpX4Vv3W3AQDUdaEcFtD+r0nFXwt0tDbg4b+5ynUCZ+/oyiA==}
 
   '@alessiofrittoli/web-utils@1.17.0':
     resolution: {integrity: sha512-YvCz0bRlpgmjbwheuW8PYzP+9Alqe7hWmWjB5txmXNZ5584joCqiMrLTEleN/E+HI85gUXb4hX/SyqE4imodJA==}
@@ -2732,6 +2738,10 @@ snapshots:
   '@alessiofrittoli/url-utils@3.7.1':
     dependencies:
       '@alessiofrittoli/web-utils': 1.17.0
+
+  '@alessiofrittoli/url-utils@4.0.0':
+    dependencies:
+      '@alessiofrittoli/web-utils': 1.20.0
 
   '@alessiofrittoli/web-utils@1.17.0':
     dependencies:
