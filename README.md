@@ -39,6 +39,7 @@
     - [`Cookie` Class](#cookie-class)
     - [`LocalStorage` Class](#localstorage-class)
     - [`SessionStorage` Class](#sessionstorage-class)
+  - [Utils](#utils)
 - [Development](#development)
   - [Install depenendencies](#install-depenendencies)
   - [Build the source code](#build-the-source-code)
@@ -1271,8 +1272,8 @@ console.log(
     new Map([
       ["key", "value"],
       ["key2", "value"],
-    ])
-  )
+    ]),
+  ),
 );
 // Outputs: '[["key","value"],["key2","value"]]'
 
@@ -1281,8 +1282,8 @@ console.log(
     new Headers({
       key: "value",
       key2: "value",
-    })
-  )
+    }),
+  ),
 );
 // Outputs: '[["key","value"],["key2","value"]]'
 
@@ -2455,6 +2456,80 @@ Please, refer to [`LocalStorage` Class](#localstorage-class) static methods API 
 import { SessionStorage } from "@alessiofrittoli/web-utils";
 // or
 import { SessionStorage } from "@alessiofrittoli/web-utils/storage/SessionStorage";
+```
+
+</details>
+
+---
+
+#### Utils
+
+##### `getDimensions`
+
+Extracts and normalizes dimensions from various input formats.
+
+<details>
+
+<summary style="cursor:pointer">Types</summary>
+
+###### `InputDimensions`
+
+Represents valid input types for specifying dimensions.
+
+```ts
+type InputDimensions = string | number | [xy: Dimensions[number]] | Dimensions;
+```
+
+---
+
+###### `Dimensions`
+
+Represents a tuple of two optional numeric values.
+
+```ts
+type Dimensions = [x: number | undefined, y: number | undefined];
+```
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter    | Type              | Description           |
+| ------------ | ----------------- | --------------------- |
+| `dimensions` | `InputDimensions` | The input dimensions. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `Dimensions`
+
+A tuple containing `[ number, number ]` where either value can be `undefined`.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Examples</summary>
+
+```ts
+import { getDimensions } from "@alessiofrittoli/web-utils";
+
+const [width, height] = getDimensions(); // [ undefined, undefined ]
+const [width, height] = getDimensions(100); // [ 100, 100 ]
+const [width, height] = getDimensions([200, 300]); // [ 200, 300 ]
+const [width, height] = getDimensions([200]); // [ 200, 200 ]
+const [width, height] = getDimensions("200x300"); // [ 200, 300 ]
 ```
 
 </details>
