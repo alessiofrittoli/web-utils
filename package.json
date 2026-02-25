@@ -105,11 +105,11 @@
 		"@eslint/js": "^10.0.1",
 		"@jest/globals": "^30.2.0",
 		"@types/jest": "^30.0.0",
-		"@types/node": "^25.2.3",
+		"@types/node": "^25.3.0",
 		"concurrently": "^9.2.1",
 		"cross-env": "^10.1.0",
 		"dotenv": "^17.3.1",
-		"eslint": "^10.0.0",
+		"eslint": "^10.0.2",
 		"globals": "^17.3.0",
 		"http-server": "^14.1.1",
 		"jest": "^30.2.0",
@@ -118,12 +118,12 @@
 		"ts-node": "^10.9.2",
 		"tsup": "^8.5.1",
 		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.56.0"
+		"typescript-eslint": "^8.56.1"
 	},
 	"dependencies": {
 		"@alessiofrittoli/date-utils": "^4.1.0",
 		"@alessiofrittoli/fetcher": "^1.1.0",
-		"@alessiofrittoli/math-utils": "^1.18.0",
+		"@alessiofrittoli/math-utils": "^2.0.0",
 		"@alessiofrittoli/type-utils": "^1.9.0",
 		"@alessiofrittoli/url-utils": "^3.7.1"
 	}
