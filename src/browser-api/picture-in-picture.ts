@@ -76,6 +76,7 @@ export interface OpenDocumentPictureInPictureOptions
 	onQuit?: () => void
 }
 
+
 /**
  * Defines the returned result of opening a Document Picture-in-Picture window.
  * 
