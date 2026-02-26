@@ -1,4 +1,4 @@
-import { lcFirst, parseValue, stringifyValue, toCamelCase, toKebabCase, ucFirst } from '@/strings'
+import { lcFirst, parameterized, parseValue, stringifyValue, toCamelCase, toKebabCase, ucFirst } from '@/strings'
 import { addLeadingCharacter, addTrailingCharacter, removeLeadingCharacter, removeTrailingCharacter } from '@/strings'
 import { recipientsToString, emailDataToString } from '@/strings'
 
@@ -605,6 +605,156 @@ describe( 'emailDataToString', () => {
 		).toBe(
 			'mailto:a@example.com?body=Line1%0ALine2&subject=Hello %26 Welcome'
 		)
+	} )
+
+} )
+
+
+describe( 'parameterized', () => {
+
+	it( 'creates a parameterized string with a single value', () => {
+
+		const [ string, params ] = parameterized`SELECT * FROM users WHERE id = ${ 1 }`
+		
+		expect( string ).toBe( 'SELECT * FROM users WHERE id = ?' )
+		expect( params ).toEqual( [ 1 ] )
+
+	} )
+
+
+	it( 'creates a parameterized string with multiple single values', () => {
+
+		const [ string, params ] = parameterized`SELECT * FROM users WHERE id = ${ 1 } AND name = ${ 'John' }`
+
+		expect( string ).toBe( 'SELECT * FROM users WHERE id = ? AND name = ?' )
+		expect( params ).toEqual( [ 1, 'John' ] )
+
+	} )
+
+
+	it( 'expands array values into multiple placeholders', () => {
+
+		const [ string, params ] = parameterized`SELECT * FROM users WHERE status IN ( ${ [ 'active', 'pending' ] } )`
+
+		expect( string ).toBe( 'SELECT * FROM users WHERE status IN ( ?, ? )' )
+		expect( params ).toEqual( [ 'active', 'pending' ] )
+
+	} )
+
+
+	it( 'handles mixed single and array values', () => {
+
+		const [ string, params ] = parameterized`SELECT * FROM users WHERE id = ${ 1 } AND status IN ( ${ [ 'active', 'pending' ] } )`
+
+		expect( string ).toBe( 'SELECT * FROM users WHERE id = ? AND status IN ( ?, ? )' )
+		expect( params ).toEqual( [ 1, 'active', 'pending' ] )
+
+	} )
+
+
+	it( 'normalizes whitespace in the string string', () => {
+
+		const [ string, params ] = parameterized`SELECT  *  FROM   users   WHERE   id = ${ 1 }`
+
+		expect( string ).toBe( 'SELECT * FROM users WHERE id = ?' )
+		expect( params ).toEqual( [ 1 ] )
+
+	} )
+
+
+	it( 'trims leading and trailing whitespace', () => {
+
+		const [ string, params ] = parameterized`  SELECT * FROM users WHERE id = ${ 1 }  `
+
+		expect( string ).toBe( 'SELECT * FROM users WHERE id = ?' )
+		expect( params ).toEqual( [ 1 ] )
+
+	} )
+
+
+	it( 'skips undefined values', () => {
+
+		// @ts-expect-error negative testing
+		const [ string, params ] = parameterized`SELECT * FROM users WHERE id = ${ undefined } AND name = ${ 'John' }`
+
+		expect( string ).toBe( 'SELECT * FROM users WHERE id = AND name = ?' )
+		expect( params ).toEqual( [ 'John' ] )
+
+	} )
+
+
+	it( 'handles boolean values', () => {
+
+		const [ string, params ] = parameterized`SELECT * FROM users WHERE active = ${ true }`
+
+		expect( string ).toBe( 'SELECT * FROM users WHERE active = ?' )
+		expect( params ).toEqual( [ true ] )
+
+	} )
+
+
+	it( 'handles numeric values including bigint', () => {
+
+		const [ string, params ] = parameterized`SELECT * FROM users WHERE id = ${ 42 } OR count = ${ BigInt( 999999999999 ) }`
+
+		expect( string ).toBe( 'SELECT * FROM users WHERE id = ? OR count = ?' )
+		expect( params ).toEqual( [ 42, BigInt( 999999999999 ) ] )
+
+	} )
+
+
+	it( 'handles empty array values', () => {
+
+		const [ string, params ] = parameterized`SELECT * FROM users WHERE id IN (${ [] })`
+
+		expect( string ).toBe( 'SELECT * FROM users WHERE id IN ()' )
+		expect( params ).toEqual( [] )
+
+	} )
+
+
+	it( 'handles array with single value', () => {
+
+		const [ string, params ] = parameterized`SELECT * FROM users WHERE status IN (${ [ 'active' ] })`
+
+		expect( string ).toBe( 'SELECT * FROM users WHERE status IN (?)' )
+		expect( params ).toEqual( [ 'active' ] )
+
+	} )
+
+
+	it( 'handles multiple arrays in a string', () => {
+
+		const [ string, params ] = parameterized`SELECT * FROM users WHERE status IN (${ [ 'active', 'pending' ] }) AND id IN (${ [ 1, 2, 3 ] })`
+
+		expect( string ).toBe( 'SELECT * FROM users WHERE status IN (?, ?) AND id IN (?, ?, ?)' )
+		expect( params ).toEqual( [ 'active', 'pending', 1, 2, 3 ] )
+
+	} )
+
+
+	it( 'returns correct tuple structure', () => {
+
+		const result = parameterized`SELECT * FROM users WHERE id = ${ 1 }`
+
+		expect( Array.isArray( result ) ).toBe( true )
+		expect( result.length ).toBe( 2 )
+		expect( typeof result[ 0 ] ).toBe( 'string' )
+		expect( Array.isArray( result[ 1 ] ) ).toBe( true )
+
+	} )
+
+
+	it( 'handles newlines and tabs in template', () => {
+
+		const [ string, params ] = parameterized`
+			SELECT * FROM users
+			WHERE id = ${ 1 }
+		`
+
+		expect( string ).toBe( 'SELECT * FROM users WHERE id = ?' )
+		expect( params ).toEqual( [ 1 ] )
+
 	} )
 
 } )
