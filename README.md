@@ -1,22 +1,43 @@
-# Web Utils 🛠️
-
-[![NPM Latest Version][version-badge]][npm-url] [![Coverage Status][coverage-badge]][coverage-url] [![Socket Status][socket-badge]][socket-url] [![NPM Monthly Downloads][downloads-badge]][npm-url] [![Dependencies][deps-badge]][deps-url]
-
-[![GitHub Sponsor][sponsor-badge]][sponsor-url]
-
-[version-badge]: https://img.shields.io/npm/v/%40alessiofrittoli%2Fweb-utils
-[npm-url]: https://npmjs.org/package/%40alessiofrittoli%2Fweb-utils
-[coverage-badge]: https://coveralls.io/repos/github/alessiofrittoli/web-utils/badge.svg
-[coverage-url]: https://coveralls.io/github/alessiofrittoli/web-utils
-[socket-badge]: https://socket.dev/api/badge/npm/package/@alessiofrittoli/web-utils
-[socket-url]: https://socket.dev/npm/package/@alessiofrittoli/web-utils/overview
-[downloads-badge]: https://img.shields.io/npm/dm/%40alessiofrittoli%2Fweb-utils.svg
-[deps-badge]: https://img.shields.io/librariesio/release/npm/%40alessiofrittoli%2Fweb-utils
-[deps-url]: https://libraries.io/npm/%40alessiofrittoli%2Fweb-utils
-[sponsor-badge]: https://img.shields.io/static/v1?label=Fund%20this%20package&message=%E2%9D%A4&logo=GitHub&color=%23DB61A2
-[sponsor-url]: https://github.com/sponsors/alessiofrittoli
-
-## Common TypeScript web utilities
+<h1 align="center">Web Utils 🛠️</h1>
+<p align="center">
+  Common TypeScript web utilities
+</p>
+<p align="center">
+  <a href="https://npmjs.org/package/@alessiofrittoli/web-utils">
+    <img src="https://img.shields.io/npm/v/@alessiofrittoli/web-utils" alt="Latest version"/>
+  </a>
+  <a href="https://coveralls.io/github/alessiofrittoli/web-utils">
+    <img src="https://coveralls.io/repos/github/alessiofrittoli/web-utils/badge.svg" alt="Test coverage"/>
+  </a>
+  <a href="https://socket.dev/npm/package/@alessiofrittoli/web-utils/overview">
+    <img src="https://socket.dev/api/badge/npm/package/@alessiofrittoli/web-utils" alt="Socket Security score"/>
+  </a>
+  <a href="https://npmjs.org/package/@alessiofrittoli/web-utils">
+    <img src="https://img.shields.io/npm/dm/@alessiofrittoli/web-utils.svg" alt="npm downloads"/>
+  </a>
+  <a href="https://bundlephobia.com/package/@alessiofrittoli/web-utils">
+    <img src="https://badgen.net/bundlephobia/dependency-count/@alessiofrittoli/web-utils" alt="Dependencies"/>
+  </a>
+  <a href="https://libraries.io/npm/%40alessiofrittoli%2Fweb-utils">
+    <img src="https://img.shields.io/librariesio/release/npm/@alessiofrittoli/web-utils" alt="Dependencies status"/>
+  </a>
+</p>
+<p align="center">
+  <a href="https://bundlephobia.com/package/@alessiofrittoli/web-utils">
+    <img src="https://badgen.net/bundlephobia/min/@alessiofrittoli/web-utils" alt="minified"/>
+  </a>
+  <a href="https://bundlephobia.com/package/@alessiofrittoli/web-utils">
+    <img src="https://badgen.net/bundlephobia/minzip/@alessiofrittoli/web-utils" alt="minizipped"/>
+  </a>
+  <a href="https://bundlephobia.com/package/@alessiofrittoli/web-utils">
+    <img src="https://badgen.net/bundlephobia/tree-shaking/@alessiofrittoli/web-utils" alt="Tree shakable"/>
+  </a>
+</p>
+<p align="center">
+  <a href="https://github.com/sponsors/alessiofrittoli">
+    <img src="https://img.shields.io/static/v1?label=Fund%20this%20package&message=%E2%9D%A4&logo=GitHub&color=%23DB61A2" alt="Fund this package"/>
+  </a>
+</p>
 
 ### Table of Contents
 
