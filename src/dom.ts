@@ -91,8 +91,8 @@ export type CloneStyleSheetsReturn = ( HTMLStyleElement | HTMLLinkElement )[]
  * styles.forEach( style => shadowRoot.appendChild( style ) )
  * ```
  */
-export const cloneStyleSheetList = ( styleSheets: StyleSheetList | CSSStyleSheet[] ) => (
-	[ ...styleSheets ].map( ( { cssRules } ) => {
+export const cloneStyleSheetList = ( styles: StyleSheetList | CSSStyleSheet[] ): HTMLStyleElement[] => (
+	[ ...styles ].map( ( { cssRules } ) => {
 		try {
 			
 			if ( cssRules.length <= 0 ) return

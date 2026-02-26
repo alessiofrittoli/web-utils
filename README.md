@@ -26,6 +26,8 @@
   - [Blob utilities](#blob-utilities)
   - [Array utilities](#array-utilities)
   - [Dom utilities](#dom-utilities)
+    - [Scroll utilities](#scroll-utilities)
+    - [Stylesheet utilities](#stylesheet-utilities)
   - [Generators utilities](#generators-utilities)
   - [Map utilities](#map-utilities)
   - [Promises utilities](#promises-utilities)
@@ -34,6 +36,7 @@
   - [Validation utilities](#validation-utilities)
   - [Objects utilities](#objects-utilities)
   - [Browser API utilities](#browser-api-utilities)
+    - [Document Picture-in-Picture](#document-picture-in-picture)
   - [Device utilities](#device-utilities)
   - [Storage utilities](#storage-utilities)
     - [`Cookie` Class](#cookie-class)
@@ -80,16 +83,6 @@ pnpm i @alessiofrittoli/web-utils
 
 #### Array utilities
 
-###### Importing the utilitites
-
-```ts
-import { ... } from '@alessiofrittoli/web-utils'
-// or
-import { ... } from '@alessiofrittoli/web-utils/arrays'
-```
-
----
-
 ##### `arrayUnique`
 
 Removes duplicate values from an array.
@@ -125,6 +118,8 @@ The filtered array.
 ###### Removes duplicates from array
 
 ```ts
+import { arrayUnique } from "@alessiofrittoli/web-utils";
+
 const pointer = {};
 console.log(arrayUnique([pointer, "b", pointer, "c", "b"]));
 // Outputs: [ {}, 'b', 'c' ]
@@ -170,6 +165,8 @@ The filtered array.
 ###### Removes duplicates from array with the same propery value
 
 ```ts
+import { arrayObjectUnique } from "@alessiofrittoli/web-utils";
+
 const arr = [
   { id: 1, name: "a" },
   { id: 2, name: "b" },
@@ -234,6 +231,8 @@ The converted stringified Array to Array object.
 ###### Basic usage
 
 ```ts
+import { listToArray } from "@alessiofrittoli/web-utils";
+
 console.log(listToArray("1,2, 3, 4").map(Number));
 // Outputs: [ 1, 2, 3, 4 ]
 ```
@@ -292,6 +291,8 @@ An Array of chunks.
 ###### Basic usage
 
 ```ts
+import { chunkInto } from "@alessiofrittoli/web-utils";
+
 console.log(chunkInto([1, 2, 3, 4, 5], { count: 2 }));
 // Output: [ [ 1, 2, 3 ], [ 4, 5 ] ]
 
@@ -351,8 +352,6 @@ The modified shuffled array.
 
 ```ts
 import { shuffle } from "@alessiofrittoli/web-utils";
-// or
-import { shuffle } from "@alessiofrittoli/web-utils/arrays";
 
 console.log(shuffle([1, 2, 3, 4, 5]));
 ```
@@ -370,16 +369,6 @@ Same API of [`shuffle`](#shuffle) is applied, but this function **does not modif
 ---
 
 #### Blob utilities
-
-###### Importing the utilitites
-
-```ts
-import { ... } from '@alessiofrittoli/web-utils'
-// or
-import { ... } from '@alessiofrittoli/web-utils/blob'
-```
-
----
 
 ##### `downloadBlob`
 
@@ -406,6 +395,8 @@ Create and download a blob object.
 ###### Download file from HTTP Response
 
 ```ts
+import { downloadBlob } from '@alessiofrittoli/web-utils'
+
 fetch( ... )
   .then( response => response.formData() )
   .then( async data => {
@@ -428,17 +419,9 @@ fetch( ... )
 
 #### Dom utilities
 
-###### Importing the utilitites
+##### Scroll utilities
 
-```ts
-import { ... } from '@alessiofrittoli/web-utils'
-// or
-import { ... } from '@alessiofrittoli/web-utils/dom'
-```
-
----
-
-##### `blockScroll`
+###### `blockScroll`
 
 Prevent Element Overflow.
 
@@ -465,6 +448,8 @@ It also applies the `--scrollbar-size` CSS variable that can be used to apply a 
 ###### Block Document HTML scroll when a popup is opened
 
 ```ts
+import { blockScroll } from "@alessiofrittoli/web-utils";
+
 const openPopUpHandler = () => {
   blockScroll();
   // ... handle popup
@@ -484,6 +469,8 @@ const openPopUpHandler = () => {
 ###### Block scroll of a specific HTMLElement
 
 ```ts
+import { blockScroll } from "@alessiofrittoli/web-utils";
+
 const element = document.querySelector(".css-selector");
 
 if (element) {
@@ -495,7 +482,7 @@ if (element) {
 
 ---
 
-##### `restoreScroll`
+###### `restoreScroll`
 
 Restore Element Overflow.
 
@@ -518,6 +505,8 @@ Restore Element Overflow.
 ###### Restore Document HTML scroll when a popup is closed
 
 ```ts
+import { restoreScroll } from "@alessiofrittoli/web-utils";
+
 const closePopUpHandler = () => {
   // ... handle close
   restoreScroll();
@@ -529,6 +518,8 @@ const closePopUpHandler = () => {
 ###### Restore scroll of a specific HTMLElement
 
 ```ts
+import { restoreScroll } from "@alessiofrittoli/web-utils";
+
 const element = document.querySelector(".css-selector");
 
 if (element) {
@@ -540,17 +531,178 @@ if (element) {
 
 ---
 
-#### Generators utilities
+##### Stylesheet utilities
 
-###### Importing the utilitites
+###### Types
+
+###### UrlStylesheet
+
+Represents a URL stylesheet as a simple URL input, URL object or as an object with URL and fetch configuration options.
 
 ```ts
-import { ... } from '@alessiofrittoli/web-utils'
-// or
-import { ... } from '@alessiofrittoli/web-utils/generators'
+type UrlStylesheet =
+  | UrlInput
+  | {
+      /**
+       * The URL string or a URL object of the stylesheet to load.
+       *
+       */
+      url: UrlInput;
+      /**
+       * Indicates whether to fetch the given URL.
+       *
+       * @default false
+       */
+      fetch?: boolean;
+    };
 ```
 
 ---
+
+###### Style
+
+Represents a style input.
+
+```ts
+type Style = UrlStylesheet | HTMLStyleElement | CSSStyleSheet | StyleSheetList;
+```
+
+---
+
+###### Styles
+
+Represents a single style object or an array of style objects.
+
+```ts
+type Styles = Style | Style[];
+```
+
+---
+
+###### `cloneStyleSheetList`
+
+Clones a StyleSheetList or array of CSSStyleSheets into an array of `HTMLStyleElement` objects.
+
+This function extracts CSS rules from each stylesheet and creates corresponding `<style>`
+elements containing the serialized CSS text. If an error occurs while processing a stylesheet,
+the error is logged and that stylesheet is skipped.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type                              | Description                                                               |
+| --------- | --------------------------------- | ------------------------------------------------------------------------- |
+| `styles`  | `StyleSheetList\|CSSStyleSheet[]` | The source `StyleSheetList` or array of `CSSStyleSheet` objects to clone. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `HTMLStyleElement[]`
+
+- An array of `HTMLStyleElement` objects, each containing the CSS rules from the source stylesheets.
+- Failed stylesheets are filtered out and not included in the result.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Examples</summary>
+
+```ts
+import { cloneStyleSheetList } from "@alessiofrittoli/web-utils";
+
+const styles = cloneStyleSheetList(document.styleSheets);
+// do something with cloned stylesheets
+// styles.forEach( style => shadowRoot.appendChild( style ) )
+```
+
+</details>
+
+---
+
+###### `cloneStyleSheets`
+
+Clones style sheets from various sources into new `HTMLStyleElement` nodes.
+
+- When a URL stylesheet has `fetch: true`, the stylesheet content is fetched and embedded as inline CSS.
+- When `fetch: false` (default), a link element is created instead.
+- URL parsing is handled through the `Url` utility with support for both string and `UrlInput` object formats.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Description                                                   |
+| --------- | -------- | ------------------------------------------------------------- |
+| `styles`  | `Styles` | A style source or array of style sources.                     |
+|           |          | - See [`Styles`](#styles) type for a list of possible values. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `Promise<CloneStyleSheetsReturn>`
+
+- A promise that resolves to an array of cloned `HTMLStyleElement` and `HTMLLinkElement` nodes.
+- For inline styles and StyleSheetLists, returns `HTMLStyleElement` nodes.
+- For URL-based stylesheets, returns `HTMLLinkElement` nodes (or `HTMLStyleElement` if fetch is `true`).
+- Failed operations are silently ignored.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Examples</summary>
+
+###### Cloning `StyleSheetList`
+
+```ts
+import { cloneStyleSheets } from "@alessiofrittoli/web-utils";
+
+const styles = await cloneStyleSheets(document.styleSheets);
+// do something with cloned dcoument stylesheets
+// styles.forEach( style => shadowRoot.appendChild( style ) )
+```
+
+---
+
+###### Cloning stylesheets from URL
+
+```ts
+import { cloneStyleSheets } from "@alessiofrittoli/web-utils";
+
+const styles = await cloneStyleSheets("/path-to-stylesheet-file.css");
+
+const styles = await cloneStyleSheets({
+  url: "/path-to-stylesheet-file-2.css",
+  fetch: true,
+});
+
+const styles = await cloneStyleSheets([
+  "/path-to-stylesheet-file-3.css",
+  { url: "/path-to-stylesheet-file-4.css", fetch: true },
+]);
+```
+
+</details>
+
+---
+
+#### Generators utilities
 
 ##### `isGeneratorFunction`
 
@@ -728,16 +880,6 @@ Type: `reference` is `AsyncGenerator<T>`
 
 #### Map utilities
 
-###### Importing the utilitites
-
-```ts
-import { ... } from '@alessiofrittoli/web-utils'
-// or
-import { ... } from '@alessiofrittoli/web-utils/map'
-```
-
----
-
 ##### Interface `TypedMap<T, P, K>`
 
 A type-safe extension of the Map class that enforces key-value relationships based on a provided type.
@@ -801,6 +943,8 @@ A new instance of a type-safe `Map`.
 ###### Basic usage
 
 ```ts
+import { getTypedMap } from "@alessiofrittoli/web-utils";
+
 interface User {
   name: string;
   age: number;
@@ -823,6 +967,8 @@ console.log(user.get("isActive")); // type: `boolean | undefined`
 ###### Respect the given type
 
 ```ts
+import { getTypedMap } from "@alessiofrittoli/web-utils";
+
 interface User {
   name: string;
   age: number;
@@ -847,16 +993,6 @@ console.log(user.get("banned")); // type: `boolean | undefined`
 ---
 
 #### Promises utilities
-
-###### Importing the utilitites
-
-```ts
-import { ... } from '@alessiofrittoli/web-utils'
-// or
-import { ... } from '@alessiofrittoli/web-utils/promises'
-```
-
----
 
 ##### `sleep`
 
@@ -891,6 +1027,8 @@ A new Promise which get resolved after the specified time.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { sleep } from "@alessiofrittoli/web-utils";
+
 const fn = async () => {
   // ...
   await sleep(2000);
@@ -951,6 +1089,8 @@ A new Promise which returns the `task` result once fulfilled.
 ###### Basic usage
 
 ```ts
+import { deferTask } from '@alessiofrittoli/web-utils'
+
 const myLongTask = () => {
   ...
 }
@@ -965,6 +1105,8 @@ button.addEventListener( 'click', () => {
 ###### With custom arguments
 
 ```ts
+import { deferTask } from '@alessiofrittoli/web-utils'
+
 const myLongTask = ( target: HTMLButtonElement ) => {
   ...
 }
@@ -1025,6 +1167,8 @@ A new handler which returns a new Promise that returns the `task` result once fu
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { deferCallback } from '@alessiofrittoli/web-utils'
+
 const myLongTask = ( event: Event ) => {
   ...
 }
@@ -1037,16 +1181,6 @@ button.addEventListener( 'click', deferCallback( myLongTask ) )
 ---
 
 #### Strings utilities
-
-###### Importing the utilitites
-
-```ts
-import { ... } from '@alessiofrittoli/web-utils'
-// or
-import { ... } from '@alessiofrittoli/web-utils/strings'
-```
-
----
 
 ##### `ucFirst`
 
@@ -1081,6 +1215,8 @@ The processed string.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { ucFirst } from "@alessiofrittoli/web-utils";
+
 console.log(ucFirst("String value")); // Outputs: 'String value'
 console.log(ucFirst("string value")); // Outputs: 'String value'
 ```
@@ -1122,6 +1258,8 @@ The processed string.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { lcFirst } from "@alessiofrittoli/web-utils";
+
 console.log(lcFirst("String value")); // Outputs: 'string value'
 console.log(lcFirst("string value")); // Outputs: 'string value'
 ```
@@ -1163,6 +1301,8 @@ The converted string to camelCase.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { toCamelCase } from "@alessiofrittoli/web-utils";
+
 console.log(toCamelCase("font-family")); // Outputs: 'fontFamily'
 console.log(toCamelCase("background-color")); // Outputs: 'backgroundColor'
 console.log(toCamelCase("-webkit-align-content")); // Outputs: 'WebkitAlignContent'
@@ -1209,6 +1349,8 @@ The converted string to kebab-case.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { toKebabCase } from "@alessiofrittoli/web-utils";
+
 console.log(toKebabCase("fontFamily")); // Outputs: 'font-family'
 console.log(toKebabCase("backgroundColor")); // Outputs: 'background-color'
 console.log(toKebabCase("string with spaces")); // Outputs: 'string-with-spaces'
@@ -1255,6 +1397,8 @@ The stringified `input`.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { stringifyValue } from "@alessiofrittoli/web-utils";
+
 console.log(stringifyValue(new Date("Sat, 20 Apr 2025 16:20:00 GMT")));
 // Outputs: '2025-04-20T16:20:00.000Z'
 
@@ -1347,6 +1491,8 @@ Type: `T | undefined`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { parseValue } from "@alessiofrittoli/web-utils";
+
 console.log(parseValue<Date>(stringifyValue(new Date())));
 // Outputs: current Date object.
 
@@ -1388,15 +1534,7 @@ console.log(parseValue("String value")); // Outputs: 'String value'
 
 #### Browser API utilities
 
-###### Importing the utilitites
-
-```ts
-import { ... } from '@alessiofrittoli/web-utils'
-// or
-import { ... } from '@alessiofrittoli/web-utils/browser-api'
-```
-
-###### `getMediaMatches`
+##### `getMediaMatches`
 
 Safely executes `window.matchMedia()` in server and browser environments.
 
@@ -1432,6 +1570,8 @@ Type: `boolean`
 ###### Check if current device is landscape oriented
 
 ```ts
+import { getMediaMatches } from "@alessiofrittoli/web-utils";
+
 console.log(!getMediaMatches("(orientation:portrait)"));
 ```
 
@@ -1439,7 +1579,7 @@ console.log(!getMediaMatches("(orientation:portrait)"));
 
 ---
 
-###### `openBrowserPopUp`
+##### `openBrowserPopUp`
 
 Opens a webpage in a browser PopUp.
 
@@ -1482,6 +1622,8 @@ Type: `WindowProxy | null`
 ###### Re-focus a previously opened popup
 
 ```ts
+import { openBrowserPopUp } from "@alessiofrittoli/web-utils";
+
 let windowProxy: WindowProxy | null = null;
 
 const clickHandler = () => {
@@ -1503,6 +1645,8 @@ const clickHandler = () => {
 ###### Re-use a popup
 
 ```ts
+import { openBrowserPopUp } from "@alessiofrittoli/web-utils";
+
 const clickHandler = () => {
   openBrowserPopUp({
     context: "some-context-name",
@@ -1525,17 +1669,249 @@ const clickHandler2 = () => {
 
 ---
 
-#### Device utilities
+##### Document Picture-in-Picture
 
-###### Importing the utilitites
+###### Types
+
+###### `OpenDocumentPictureInPictureOptions`
+
+Defines configuration options for opening a Document Picture-in-Picture window.
+
+<details>
+
+<summary style="cursor:pointer">Properties</summary>
+
+| Property                       | Type              | Default        | Description                                                                                |
+| ------------------------------ | ----------------- | -------------- | ------------------------------------------------------------------------------------------ |
+| `sizes`                        | `InputDimensions` | `[ 250, 250 ]` | A tuple defining non-negative numbers representing the width and the height to set         |
+|                                |                   |                | for the Picture-in-Picture window's viewport, in pixels.                                   |
+|                                |                   |                | - See [`InputDimensions`](#inputdimensions) type for a list of possible values.            |
+| `disallowReturnToOpener`       | `boolean`         | `false`        | Hints to the browser that it should not display a UI control that enables the              |
+|                                |                   |                | user to return to the originating tab and close the Picture-in-Picture window.             |
+| `preferInitialWindowPlacement` | `boolean`         | `false`        | Defines whether the Picture-in-Picture window will always appear back at the               |
+|                                |                   |                | position and size it initially opened at, when it is closed and then reopened.             |
+|                                |                   |                | By contrast, if `preferInitialWindowPlacement` is `false` the                              |
+|                                |                   |                | Picture-in-Picture window's size and position will be remembered when closed               |
+|                                |                   |                | and reopened — it will reopen at its previous position and size,                           |
+|                                |                   |                | for example as set by the user.                                                            |
+| `styles`                       | `Styles`          | -              | Custom styles to load inside the Picture-in-Picture window.                                |
+|                                |                   |                | - See [`Styles`](#styles) type for a list of possible values.                              |
+|                                |                   |                | ⚠️ To keep consistent styling with your web-app, document styles are automatically cloned. |
+| `onQuit`                       | `() => void`      | -              | A callback to execute when Picture-in-Picture window is closed.                            |
+
+</details>
+
+---
+
+###### `OpenDocumentPictureInPicture`
+
+Defines the returned result of opening a Document Picture-in-Picture window.
+
+<details>
+
+<summary style="cursor:pointer">Properties</summary>
+
+| Property | Type     | Description                                                         |
+| -------- | -------- | ------------------------------------------------------------------- |
+| `window` | `Window` | The browsing context inside the Document Picture-in-Picture window. |
+
+</details>
+
+---
+
+###### `isDocumentPictureInPictureSupported`
+
+Checks if the Document Picture-in-Picture API is supported by the current browser.
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `boolean`
+
+- `true` if Document Picture-in-Picture is supported.
+- `false` otherwise.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Examples</summary>
 
 ```ts
-import { ... } from '@alessiofrittoli/web-utils'
-// or
-import { ... } from '@alessiofrittoli/web-utils/device'
+import { isDocumentPictureInPictureSupported } from "@alessiofrittoli/web-utils";
+
+if ( isDocumentPictureInPictureSupported() ) {
+  ...
+}
 ```
 
-###### `isPortrait`
+</details>
+
+---
+
+###### `requiresDocumentPictureInPictureAPI`
+
+Validates that the Document Picture-in-Picture API is supported in the current browser.
+
+- Throws a new `Exception` with code `ErrorCode.DOCUMENT_PIP_NOT_SUPPORTED` if the Document Picture-in-Picture API is not supported.
+
+<details>
+
+<summary style="cursor:pointer">Examples</summary>
+
+```ts
+import { Exception } from "@alessiofrittoli/exception";
+import { requiresDocumentPictureInPictureAPI, ErrorCode } from "@alessiofrittoli/web-utils";
+
+const myFunction = () => {
+  requiresDocumentPictureInPictureAPI()
+  ...
+}
+
+try {
+  myFunction()
+} catch ( _err ) {
+  const err = _err as Error
+
+  const error = (
+    Exception.isException<string, ErrorCode>(err)
+      ? err
+      : (
+        new Exception(
+          err.message,
+          {
+            code  : ErrorCode.UNKNOWN,
+            name  : err.name,
+            cause : err,
+          }
+        )
+      )
+  )
+
+  switch ( error.code ) {
+    case ErrorCode.DOCUMENT_PIP_NOT_SUPPORTED:
+      console.warn( 'Document Picture-in-Picture is not supported.' )
+      break
+    default:
+      console.error( 'Unknown error', error )
+  }
+}
+
+```
+
+</details>
+
+###### `openDocumentPictureInPicture`
+
+Opens a Document Picture-in-Picture window.
+
+- Throws a new `Exception` with code `ErrorCode.DOCUMENT_PIP_NOT_SUPPORTED` if the Document Picture-in-Picture API is not supported.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type                                  | Description                                                                 |
+| --------- | ------------------------------------- | --------------------------------------------------------------------------- |
+| `options` | `OpenDocumentPictureInPictureOptions` | Configuration options for opening a new Document Picture-in-Picture window. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `Promise<OpenDocumentPictureInPicture>`
+
+- A new Promise that resolves to the Document Picture-in-Picture result containing the `window` of the new browsing context.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Examples</summary>
+
+###### Simple usage
+
+```ts
+import { Exception } from "@alessiofrittoli/exception";
+import {
+  openDocumentPictureInPicture,
+  ErrorCode,
+} from "@alessiofrittoli/web-utils";
+
+const openPictureInPicture = async () => {
+  try {
+    const content = document.createElement("div");
+
+    const { window } = await openDocumentPictureInPicture();
+
+    window.document.body.appendChild(content);
+  } catch (_err) {
+    const err = _err as Error;
+
+    const error = Exception.isException<string, ErrorCode>(err)
+      ? err
+      : new Exception(err.message, {
+          code: ErrorCode.UNKNOWN,
+          name: err.name,
+          cause: err,
+        });
+
+    switch (error.code) {
+      case ErrorCode.DOCUMENT_PIP_NOT_SUPPORTED:
+        console.warn("Document Picture-in-Picture is not supported.");
+        break;
+      default:
+        console.error("Unknown error", error);
+    }
+  }
+};
+```
+
+---
+
+###### Load render blocking styles
+
+```ts
+import { Exception } from "@alessiofrittoli/exception";
+import {
+  openDocumentPictureInPicture,
+  ErrorCode,
+} from "@alessiofrittoli/web-utils";
+
+const openPictureInPicture = async () => {
+  try {
+    const content = document.createElement("div");
+
+    const { window } = await openDocumentPictureInPicture({
+      styles: {
+        url: "/important-stylesheet-fetched-before-opening.css",
+        fetch: true,
+      },
+    });
+
+    window.document.body.appendChild(content);
+  } catch (error) {
+    // ...
+  }
+};
+```
+
+</details>
+
+---
+
+#### Device utilities
+
+##### `isPortrait`
 
 Check if device is in portrait orientation.
 
@@ -1559,6 +1935,8 @@ Type: `boolean`
 ###### Check if current device is landscape oriented
 
 ```ts
+import { isPortrait } from "@alessiofrittoli/web-utils";
+
 console.log(!isPortrait());
 ```
 
@@ -1572,38 +1950,16 @@ console.log(!isPortrait());
 
 <details>
 
-<summary style="cursor:pointer">Importing the class</summary>
-
-```ts
-import { Cookie } from "@alessiofrittoli/web-utils";
-// or
-import { Cookie } from "@alessiofrittoli/web-utils/storage/Cookie";
-```
-
-</details>
-
----
-
-<details>
-
 <summary style="cursor:pointer">Importing enum and types</summary>
 
 ```ts
 import { Priority, SameSite } from "@alessiofrittoli/web-utils";
-// or
-import { Priority, SameSite } from "@alessiofrittoli/web-utils/storage/Cookie";
 
 import type {
   RawCookie,
   ParsedCookie,
   ParsedCookieMap,
 } from "@alessiofrittoli/web-utils";
-// or
-import type {
-  RawCookie,
-  ParsedCookie,
-  ParsedCookieMap,
-} from "@alessiofrittoli/web-utils/storage/Cookie";
 ```
 
 </details>
@@ -1746,6 +2102,8 @@ The parsed Cookie Map.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { Cookie } from "@alessiofrittoli/web-utils";
+
 const cookie = Cookie.parse({
   name: "cookiename",
   value: { test: "value" },
@@ -1811,6 +2169,8 @@ The stringified Cookie ready to be stored.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { Cookie } from "@alessiofrittoli/web-utils";
+
 document.cookie = Cookie.toString({
   name: "cookiename",
   value: { test: "value" },
@@ -1876,6 +2236,8 @@ The parsed Cookie Map or `null` if parsing fails.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { Cookie } from "@alessiofrittoli/web-utils";
+
 const cookies = document.cookie
   .split("; ")
   .map(Cookie.fromString)
@@ -1934,6 +2296,8 @@ The Map of parsed cookies indexed by the Cookie name.
 ###### Defining custom types
 
 ```ts
+import { Cookie } from "@alessiofrittoli/web-utils";
+
 /** On-site stubbed cookie names. */
 enum CookieName {
   COOKIE_1 = "cookie-1",
@@ -1959,6 +2323,8 @@ type CookiesMap = {
 ###### Get parsed cookies from `Document.cookie`
 
 ```ts
+import { Cookie } from "@alessiofrittoli/web-utils";
+
 const cookies = Cookie.fromListString<CookiesMap>(document.cookie);
 const cookie = cookies.get(CookieName.COOKIE_1); // `ParsedCookieMap<CookieName.COOKIE_1, Cookie1> | undefined`
 const cookieValue = cookie?.get("value"); // `Cookie1 | undefined`
@@ -1969,6 +2335,8 @@ const cookieValue = cookie?.get("value"); // `Cookie1 | undefined`
 ###### Get parsed cookies from a request `Cookie` header
 
 ```ts
+import { Cookie } from "@alessiofrittoli/web-utils";
+
 const { headers } = request;
 const cookielist = headers.get("Cookie");
 
@@ -2029,6 +2397,8 @@ Type: `ParsedCookieMap<typeof name, T> | undefined`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { Cookie } from "@alessiofrittoli/web-utils";
+
 const cookie = Cookie.get<string>("access_token");
 const value = cookie?.get("value"); // `string | undefined`
 ```
@@ -2070,6 +2440,8 @@ The Map of parsed cookies indexed by the Cookie name.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { Cookie } from "@alessiofrittoli/web-utils";
+
 const cookies = Cookie.getAll();
 const cookie = cookies.get("somecookie");
 ```
@@ -2123,6 +2495,8 @@ Type: `ParsedCookieMap<K, V> | false`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { Cookie, type RawCookie } from "@alessiofrittoli/web-utils";
+
 const cookieOptions: RawCookie = {
   name: "cookiename",
   value: { test: "value" },
@@ -2180,6 +2554,8 @@ Type: `boolean`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { Cookie } from "@alessiofrittoli/web-utils";
+
 Cookie.delete("some_cookie");
 ```
 
@@ -2192,20 +2568,6 @@ Cookie.delete("some_cookie");
 ##### `LocalStorage` Class
 
 A browser-compatible implementation of [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
-
-<details>
-
-<summary style="cursor:pointer">Importing the class</summary>
-
-```ts
-import { LocalStorage } from "@alessiofrittoli/web-utils";
-// or
-import { LocalStorage } from "@alessiofrittoli/web-utils/storage/LocalStorage";
-```
-
-</details>
-
----
 
 <details>
 
@@ -2245,6 +2607,8 @@ Type: `string | null`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { LocalStorage } from "@alessiofrittoli/web-utils";
+
 console.log(LocalStorage.key(0)); // Outputs: first item name if any.
 ```
 
@@ -2273,6 +2637,8 @@ The number of key/value pairs.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { LocalStorage } from "@alessiofrittoli/web-utils";
+
 console.log(LocalStorage.getLength());
 ```
 
@@ -2326,6 +2692,8 @@ Type: `T | undefined`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { LocalStorage } from "@alessiofrittoli/web-utils";
+
 LocalStorage.get<Date>("expiration");
 ```
 
@@ -2383,6 +2751,8 @@ A "QuotaExceededError" DOMException exception if the new value couldn't be set. 
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { LocalStorage } from "@alessiofrittoli/web-utils";
+
 LocalStorage.set<Date>("expiration", new Date());
 ```
 
@@ -2413,6 +2783,8 @@ Dispatches a storage event on Window objects holding an equivalent Storage objec
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { LocalStorage } from "@alessiofrittoli/web-utils";
+
 LocalStorage.delete("expiration");
 ```
 
@@ -2431,6 +2803,8 @@ Dispatches a storage event on Window objects holding an equivalent Storage objec
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
+import { LocalStorage } from "@alessiofrittoli/web-utils";
+
 LocalStorage.clear();
 ```
 
@@ -2447,18 +2821,6 @@ A browser-compatible implementation of [`sessionStorage`](https://developer.mozi
 Same API References of [`LocalStorage` Class](#localstorage-class) is applied to the `SessionStorage` Class.
 
 Please, refer to [`LocalStorage` Class](#localstorage-class) static methods API Reference for more informations.
-
-<details>
-
-<summary style="cursor:pointer">Importing the class</summary>
-
-```ts
-import { SessionStorage } from "@alessiofrittoli/web-utils";
-// or
-import { SessionStorage } from "@alessiofrittoli/web-utils/storage/SessionStorage";
-```
-
-</details>
 
 ---
 

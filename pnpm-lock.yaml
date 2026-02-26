@@ -11,6 +11,9 @@ importers:
       '@alessiofrittoli/date-utils':
         specifier: ^4.1.0
         version: 4.1.0
+      '@alessiofrittoli/exception':
+        specifier: ^3.5.0
+        version: 3.5.0
       '@alessiofrittoli/fetcher':
         specifier: ^1.1.0
         version: 1.1.0
