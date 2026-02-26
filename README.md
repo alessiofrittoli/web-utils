@@ -72,10 +72,12 @@ pnpm i @alessiofrittoli/web-utils
 
 ### What's Changed
 
-#### Updates in the latest release
+#### Updates in the latest release 🎉
 
 - Add `deferTask`. See [API Reference](#defertask) for more info.
 - Add `deferCallback`. See [API Reference](#defercallback) for more info.
+- Add `parameterized` function. See [API Reference](#parameterized) for more info.
+- Add Document Picture-in-Picture utilities. See [Document Picture-in-Picture](#document-picture-in-picture) for more info.
 
 ---
 
