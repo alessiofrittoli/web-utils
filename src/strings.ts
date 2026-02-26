@@ -342,3 +342,73 @@ export const emailDataToString = (
 	].filter( Boolean ).join( '' )
 
 }
+
+
+/**
+ * Represents a value that can be used as a parameter in string operations.
+ * 
+ */
+type ParameterizedValue = string | boolean | number | bigint
+
+
+/**
+ * Represents a parameterized string with its corresponding values.
+ * 
+ * @property {string} 0 - The template string
+ * @property {ParameterizedValue[]} 1 - Array of values to be substituted into the template string
+ */
+type Parameterized = [ string, ParameterizedValue[] ]
+
+
+/**
+ * Creates a parameterized query string with placeholder values.
+ * 
+ * @param strings - The template string parts from a template literal.
+ * @param values - One or more parameter values or arrays of values to be substituted into the template.
+ * @returns A tuple containing the normalized query string with `?` placeholders and an array of parameter values.
+ * 
+ * @example
+ * ```ts
+ * const [ query, params ] = parameterized`
+ *  SELECT * FROM users WHERE id = ${ 1 } AND status IN ( ${ [ 'active', 'pending' ] } )
+ * ` )
+ * 
+ * // query: "SELECT * FROM users WHERE id = ? AND status IN ( ?, ? )"
+ * // params: [ 1, 'active', 'pending' ]
+ * ```
+ * 
+ * @remarks
+ * - Whitespace is normalized (multiple spaces reduced to single space, trimmed).
+ * - Undefined values are skipped.
+ * - Array values are expanded into comma-separated placeholders.
+ * - Single values are replaced with a single `?` placeholder.
+ */
+export const parameterized = ( strings: TemplateStringsArray, ...values: ( ParameterizedValue | ParameterizedValue[] )[] ): Parameterized => {
+
+	const params: ParameterizedValue[] = []
+	let text = ''
+
+	strings.forEach( ( string, index ) => {
+		text += string
+
+		if ( index >= values.length ) return
+
+		const value = values[ index ]
+
+		if ( typeof value === 'undefined' ) return
+
+		if ( Array.isArray( value ) ) {
+
+			const placeholders = value.map( () => '?' ).join( ', ' )
+			text += placeholders
+			params.push( ...value )
+			return
+		}
+
+		text += '?'
+		params.push( value )
+
+	} )
+
+	return [ text.replace( /\s+/g, ' ' ).trim(), params ]
+}
