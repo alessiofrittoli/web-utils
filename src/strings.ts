@@ -348,7 +348,7 @@ export const emailDataToString = (
  * Represents a value that can be used as a parameter in string operations.
  * 
  */
-type ParameterizedValue = string | boolean | number | bigint
+export type ParameterizedValue = string | boolean | number | bigint
 
 
 /**
@@ -357,23 +357,23 @@ type ParameterizedValue = string | boolean | number | bigint
  * @property {string} 0 - The template string
  * @property {ParameterizedValue[]} 1 - Array of values to be substituted into the template string
  */
-type Parameterized = [ string, ParameterizedValue[] ]
+export type Parameterized = [ string, ParameterizedValue[] ]
 
 
 /**
- * Creates a parameterized query string with placeholder values.
+ * Creates a parameterized string with placeholder values.
  * 
  * @param strings - The template string parts from a template literal.
  * @param values - One or more parameter values or arrays of values to be substituted into the template.
- * @returns A tuple containing the normalized query string with `?` placeholders and an array of parameter values.
+ * @returns A tuple containing the normalized string with `?` placeholders and an array of parameter values.
  * 
  * @example
  * ```ts
- * const [ query, params ] = parameterized`
+ * const [ string, params ] = parameterized`
  *  SELECT * FROM users WHERE id = ${ 1 } AND status IN ( ${ [ 'active', 'pending' ] } )
  * ` )
  * 
- * // query: "SELECT * FROM users WHERE id = ? AND status IN ( ?, ? )"
+ * // string: "SELECT * FROM users WHERE id = ? AND status IN ( ?, ? )"
  * // params: [ 1, 'active', 'pending' ]
  * ```
  * 

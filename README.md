@@ -1516,6 +1516,46 @@ console.log(parseValue("String value")); // Outputs: 'String value'
 
 ---
 
+##### `parameterized`
+
+Creates a parameterized string with placeholder values.
+
+###### Types
+
+###### `ParameterizedValue`
+
+Represents a value that can be used as a parameter in string operations.
+
+```ts
+type ParameterizedValue = string | boolean | number | bigint;
+```
+
+###### `Parameterized`
+
+Represents a parameterized string with its corresponding values.
+
+```ts
+type Parameterized = [string, ParameterizedValue[]];
+```
+
+<details>
+
+<summary style="cursor:pointer">Examples</summary>
+
+```ts
+import { parameterized } from "@alessiofrittoli/web-utils";
+
+const data = {
+  value: "parameterized",
+};
+
+console.log(parameterized`My string with ${data.value} values.`); // [ 'My string with ? values.', [ 'parameterized' ] ]
+```
+
+</details>
+
+---
+
 #### Types utilities
 
 ⚠️ Docs coming soon
