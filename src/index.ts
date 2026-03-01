@@ -1,3 +1,4 @@
+export * from '@/browser-api/connection'
 export * from '@/browser-api/media-queries'
 export * from '@/browser-api/picture-in-picture'
 export * from '@/browser-api/popup'

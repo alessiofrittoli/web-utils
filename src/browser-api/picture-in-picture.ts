@@ -20,7 +20,7 @@ export const isDocumentPictureInPictureSupported = () => (
 
 
 /**
- * Validates that the Document Picture-in-Picture API is supported in the current browser.
+ * Validates that the Document Picture-in-Picture API is supported by the current browser.
  * 
  * @throws {Exception} Throws a new Exception if the Document Picture-in-Picture API is not supported.
  */

@@ -61,6 +61,7 @@
   - [Objects utilities](#objects-utilities)
   - [Browser API utilities](#browser-api-utilities)
     - [Document Picture-in-Picture](#document-picture-in-picture)
+    - [Network Information](#network-information)
   - [Device utilities](#device-utilities)
   - [Storage utilities](#storage-utilities)
     - [`Cookie` Class](#cookie-class)
@@ -1820,7 +1821,7 @@ if ( isDocumentPictureInPictureSupported() ) {
 
 ###### `requiresDocumentPictureInPictureAPI`
 
-Validates that the Document Picture-in-Picture API is supported in the current browser.
+Validates that the Document Picture-in-Picture API is supported by the current browser.
 
 - Throws a new `Exception` with code `ErrorCode.DOCUMENT_PIP_NOT_SUPPORTED` if the Document Picture-in-Picture API is not supported.
 
@@ -2004,6 +2005,63 @@ Type: `boolean`
 import { isPortrait } from "@alessiofrittoli/web-utils";
 
 console.log(!isPortrait());
+```
+
+</details>
+
+---
+
+##### Network Information
+
+###### Types
+
+###### `Connection` interface
+
+Defiens network status and `NetworkInformation`.
+
+<details>
+
+<summary style="cursor:pointer">Properties</summary>
+
+| Property  | Type                 | Description                                                                                                                                                 |
+| --------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `network` | `NetworkInformation` | The `NetworkInformation` interface of the [Network Information API](https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API)               |
+|           |                      | provides information about the connection a device is using to communicate                                                                                  |
+|           |                      | with the network and provides a means for scripts to be notified if the connection type changes.                                                            |
+|           |                      | ⚠️ Limited availability - [See full compatibility](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation#browser_compatibility)               |
+| `onLine`  | `boolean`            | Indicates whether the device is connected to the network.                                                                                                   |
+|           |                      | - See [Listening for changes in network status](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/onLine#listening_for_changes_in_network_status). |
+
+</details>
+
+---
+
+###### `getConnection`
+
+Get current Network status and information.
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `Connection`
+
+An object defining network status and `NetworkInformation`. See [`Connection`](#connection-interface) interface for more info.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Examples</summary>
+
+```ts
+import { getConnection } from "@alessiofrittoli/web-utils";
+
+const { network } = getConnection();
+
+console.log(network?.effectiveType);
 ```
 
 </details>
