@@ -119,3 +119,70 @@ export const shuffle = <T>( array: Array<T> ) => {
  * @returns The shuffled array.
  */
 export const shuffleCopy = <T>( array: Array<T> ) => shuffle( [ ...array ] )
+
+
+/**
+ * Normalize negative indexes to a positive value.
+ * 
+ * @param	index	The index.
+ * @param	length	The array length.
+ * 
+ * @returns	The normalized index.
+ */
+export const normalizeIndex = ( index: number, length: number ) => (
+	Math.abs( ( ( index % length ) + length ) % length )
+)
+
+
+/**
+ * Get the previous index.
+ * 
+ * @param	length	The array length.
+ * @param	index	The index.
+ * 
+ * @returns	The previous index.
+ */
+export const getPreviousIndex = ( length: number, index: number = 0 ) => (
+	normalizeIndex( index - 1, length )
+)
+
+
+/**
+ * Get the next index.
+ * 
+ * @param	length	The array length.
+ * @param	index	The index.
+ * 
+ * @returns	The next index.
+ */
+export const getNextIndex = ( length: number, index: number = 0 ) => (
+	normalizeIndex( index + 1, length )
+)
+
+
+/**
+ * Inserts one or more items into an array at the specified index position.
+ *
+ * @template T The type of elements in the array.
+ * 
+ * @param array	The original array to insert items into.
+ * @param item	A single item or an array of items to insert.
+ * @param index	The index after which to insert the item(s). Default: `-1`.
+ * 
+ * @returns A new array with the item(s) inserted at the specified position.
+ *
+ * @example
+ * ```ts
+ * insertAfter( [ 1, 2, 4 ], 3, 1 )     // [ 1, 2, 3, 4 ]
+ * insertAfter( [ 1, 2 ], [ 3, 4 ], 1 ) // [ 1, 2, 3, 4 ]
+ * ```
+ */
+export const insertAfter = <T>(
+	array	: T[],
+	item	: T | T[],
+	index	: number = -1,
+): T[] => [
+	...array.slice( 0, normalizeIndex( index, array.length ) + 1 ),
+	...( Array.isArray( item ) ? item : [ item ] ),
+	...array.slice( normalizeIndex( index, array.length ) + 1 ),
+]
