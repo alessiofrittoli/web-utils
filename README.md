@@ -99,6 +99,13 @@ pnpm i @alessiofrittoli/web-utils
 
 #### Updates in the latest release 🎉
 
+- Add `normalizeIndex` utility function. See [API Reference](#normalizeindex) for more info.
+- Add `getPreviousIndex` utility function. See [API Reference](#getpreviousindex) for more info.
+- Add `getNextIndex` utility function. See [API Reference](#getnextindex) for more info.
+- Add `insertAfter` utility function. See [API Reference](#insertafter) for more info.
+
+Old updates:
+
 - Add `deferTask`. See [API Reference](#defertask) for more info.
 - Add `deferCallback`. See [API Reference](#defercallback) for more info.
 - Add `parameterized` function. See [API Reference](#parameterized) for more info.
@@ -392,6 +399,203 @@ console.log(shuffle([1, 2, 3, 4, 5]));
 Copy and shuffle the elements of an array in place using the [Fisher-Yates algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle).
 
 Same API of [`shuffle`](#shuffle) is applied, but this function **does not modify** the original given `array`.
+
+---
+
+##### `normalizeIndex`
+
+Normalize negative indexes to a positive value.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Description       |
+| --------- | -------- | ----------------- |
+| `index`   | `number` | The index.        |
+| `length`  | `number` | The array length. |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `number`
+
+The normalized index.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Examples</summary>
+
+```ts
+import { normalizeIndex } from "@alessiofrittoli/web-utils";
+
+const array = [0, 1, 2, 3];
+
+console.log(normalizeIndex(2, array.length)); // Outputs: 2
+console.log(normalizeIndex(-1, array.length)); // Outputs: 3
+console.log(normalizeIndex(-3, array.length)); // Outputs: 1
+```
+
+</details>
+
+---
+
+##### `getPreviousIndex`
+
+Get the previous index.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Default | Description       |
+| --------- | -------- | ------- | ----------------- |
+| `length`  | `number` | -       | The array length. |
+| `index`   | `number` | `0`     | The index.        |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `number`
+
+The previous index.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Examples</summary>
+
+```ts
+import { getPreviousIndex } from "@alessiofrittoli/web-utils";
+
+const array = [0, 1, 2, 3];
+
+console.log(getPreviousIndex(array.length, 2)); // Outputs: 1
+console.log(getPreviousIndex(array.length, -1)); // Outputs: 2
+console.log(getPreviousIndex(array.length, -3)); // Outputs: 0
+```
+
+</details>
+
+---
+
+##### `getNextIndex`
+
+Get the next index.
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Default | Description       |
+| --------- | -------- | ------- | ----------------- |
+| `length`  | `number` | -       | The array length. |
+| `index`   | `number` | `0`     | The index.        |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `number`
+
+The next index.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Examples</summary>
+
+```ts
+import { getNextIndex } from "@alessiofrittoli/web-utils";
+
+const array = [0, 1, 2, 3];
+
+console.log(getNextIndex(array.length, 2)); // Outputs: 3
+console.log(getNextIndex(array.length, -1)); // Outputs: 0
+console.log(getNextIndex(array.length, -3)); // Outputs: 2
+```
+
+</details>
+
+---
+
+##### `insertAfter`
+
+Inserts one or more items into an array at the specified index position.
+
+<details>
+
+<summary style="cursor:pointer">Type Parameters</summary>
+
+- `T` The type of elements in the array.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter | Type     | Default | Description                                   |
+| --------- | -------- | ------- | --------------------------------------------- |
+| `array`   | `T[]`    | -       | The original array to insert items into.      |
+| `item`    | `T\|T[]` | 0       | A single item or an array of items to insert. |
+| `index`   | `number` | `-1`    | The index after which to insert the item(s).  |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `T[]`
+
+A new array with the item(s) inserted at the specified position.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Examples</summary>
+
+```ts
+import { insertAfter } from "@alessiofrittoli/web-utils";
+
+console.log(insertAfter([1, 2, 3, 4], 5)); // Outputs: [ 1, 2, 3, 4, 5 ]
+console.log(insertAfter(["a", "c"], "b", 0)); // Outputs: [ 'a', 'b', 'c' ]
+console.log(insertAfter(["a", "b", "c", "e"], "d", -2)); // Outputs: [ 'a', 'b', 'c', 'd', 'e' ]
+```
+
+</details>
 
 ---
 
