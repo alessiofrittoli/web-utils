@@ -1,5 +1,6 @@
 import { arrayUnique, arrayObjectUnique, listToArray, chunkInto } from '@/arrays'
 import { shuffle, shuffleCopy } from '@/arrays'
+import { normalizeIndex, getPreviousIndex, getNextIndex, insertAfter } from '@/arrays'
 
 
 describe( 'arrayUnique', () => {
@@ -266,6 +267,212 @@ describe( 'shuffleCopy', () => {
 		expect( shuffled ).not.toBe( arr )
 		expect( shuffled.sort() ).toEqual( original.sort() )
 		expect( arr ).toEqual( original )
+
+	} )
+
+} )
+
+
+describe( 'normalizeIndex', () => {
+
+
+	it( 'normalizes positive indexes within range', () => {
+
+		expect( normalizeIndex( 0, 5 ) ).toBe( 0 )
+		expect( normalizeIndex( 2, 5 ) ).toBe( 2 )
+		expect( normalizeIndex( 4, 5 ) ).toBe( 4 )
+
+	} )
+
+
+	it( 'normalizes negative indexes to positive values', () => {
+
+		expect( normalizeIndex( -1, 5 ) ).toBe( 4 )
+		expect( normalizeIndex( -2, 5 ) ).toBe( 3 )
+		expect( normalizeIndex( -5, 5 ) ).toBe( 0 )
+
+	} )
+
+
+	it( 'wraps indexes greater than array length', () => {
+
+		expect( normalizeIndex( 5, 5 ) ).toBe( 0 )
+		expect( normalizeIndex( 6, 5 ) ).toBe( 1 )
+		expect( normalizeIndex( 10, 5 ) ).toBe( 0 )
+
+	} )
+
+
+	it( 'wraps large negative indexes', () => {
+
+		expect( normalizeIndex( -6, 5 ) ).toBe( 4 )
+		expect( normalizeIndex( -10, 5 ) ).toBe( 0 )
+		expect( normalizeIndex( -11, 5 ) ).toBe( 4 )
+
+	} )
+
+
+	it( 'handles length of 1', () => {
+
+		expect( normalizeIndex( 0, 1 ) ).toBe( 0 )
+		expect( normalizeIndex( 1, 1 ) ).toBe( 0 )
+		expect( normalizeIndex( -1, 1 ) ).toBe( 0 )
+
+	} )
+
+} )
+
+
+describe( 'getPreviousIndex', () => {
+
+	it( 'gets previous index for positive indexes', () => {
+
+		expect( getPreviousIndex( 5, 1 ) ).toBe( 0 )
+		expect( getPreviousIndex( 5, 2 ) ).toBe( 1 )
+		expect( getPreviousIndex( 5, 4 ) ).toBe( 3 )
+
+	} )
+
+
+	it( 'wraps around to end when at index 0', () => {
+
+		expect( getPreviousIndex( 5, 0 ) ).toBe( 4 )
+
+	} )
+
+
+	it( 'uses default current index of 0', () => {
+
+		expect( getPreviousIndex( 5 ) ).toBe( 4 )
+
+	} )
+
+
+	it( 'handles length of 1', () => {
+
+		expect( getPreviousIndex( 1, 0 ) ).toBe( 0 )
+
+	} )
+
+} )
+
+
+describe( 'getNextIndex', () => {
+
+	it( 'gets next index for positive indexes', () => {
+
+		expect( getNextIndex( 5, 0 ) ).toBe( 1 )
+		expect( getNextIndex( 5, 2 ) ).toBe( 3 )
+		expect( getNextIndex( 5, 3 ) ).toBe( 4 )
+
+	} )
+
+
+	it( 'wraps around to start when at last index', () => {
+
+		expect( getNextIndex( 5, 4 ) ).toBe( 0 )
+		expect( getNextIndex( 5, 4 ) % 5 ).toBe( 0 )
+
+	} )
+
+
+	it( 'uses default current index of 0', () => {
+
+		expect( getNextIndex( 5 ) ).toBe( 1 )
+
+	} )
+
+
+	it( 'handles length of 1', () => {
+
+		expect( getNextIndex( 1, 0 ) ).toBe( 0 )
+		expect( getNextIndex( 1, 0 ) % 1 ).toBe( 0 )
+
+	} )
+	
+} )
+
+
+describe( 'insertAfter', () => {
+
+	it( 'inserts a single item after specified index', () => {
+		
+		expect( insertAfter( [ 1, 2, 4 ], 3, 1 ) )
+			.toEqual( [ 1, 2, 3, 4 ] )
+
+		expect( insertAfter( [ 'a', 'c' ], 'b', 0 ) )
+			.toEqual( [ 'a', 'b', 'c' ] )
+
+	} )
+
+
+	it( 'inserts multiple items after specified index', () => {
+
+		expect( insertAfter( [ 1, 2 ], [ 3, 4 ], 1 ) )
+			.toEqual( [ 1, 2, 3, 4 ] )
+
+		expect( insertAfter( [ 'a' ], [ 'b', 'c', 'd' ], 0 ) )
+			.toEqual( [ 'a', 'b', 'c', 'd' ] )
+
+	} )
+
+
+	it( 'inserts at end by default when index is -1', () => {
+
+		expect( insertAfter( [ 1, 2, 3 ], 4 ) )
+			.toEqual( [ 1, 2, 3, 4 ] )
+
+		expect( insertAfter( [ 'a', 'b' ], [ 'c', 'd' ] ) )
+			.toEqual( [ 'a', 'b', 'c', 'd' ] )
+
+	} )
+
+
+	it( 'handles negative indexes', () => {
+
+		expect( insertAfter( [ 1, 2, 3, 4 ], 99, -2 ) )
+			.toEqual( [ 1, 2, 3, 99, 4 ] )
+
+	} )
+
+
+	it( 'wraps indexes greater than array length', () => {
+
+		expect( insertAfter( [ 1, 2 ], 3, 5 ) )
+			.toEqual( [ 1, 2, 3 ] )
+
+	} )
+
+
+	it( 'returns new array without modifying original', () => {
+
+		const original	= [ 1, 2, 3 ]
+		const result	= insertAfter( original, 99, 1 )
+
+		expect( result ).not.toBe( original )
+		expect( original ).toEqual( [ 1, 2, 3 ] )
+
+	} )
+
+
+	it( 'handles empty array', () => {
+
+		expect( insertAfter( [], 1 ) )
+			.toEqual( [ 1 ] )
+
+		expect( insertAfter( [], [ 1, 2 ] ) )
+			.toEqual( [ 1, 2 ] )
+
+	} )
+
+
+	it( 'handles single element array', () => {
+
+		expect( insertAfter( [ 1 ], 2, 0 ) )
+			.toEqual( [ 1, 2 ] )
+
+		expect( insertAfter( [ 1 ], 2, -1 ) )
+			.toEqual( [ 1, 2 ] )
 
 	} )
 
