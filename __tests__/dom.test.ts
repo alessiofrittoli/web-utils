@@ -309,6 +309,34 @@ describe( 'dom utilities', () => {
 	
 			} )
 
+
+			it( 'falls back to innerText when textContent is empty', async () => {
+				const style = document.createElement( 'style' )
+
+				Object.defineProperty( style, 'textContent', { configurable: true, get: () => '' } )
+				Object.defineProperty( style, 'innerText', { configurable: true, get: () => 'h1 {color: red;}' } )
+				Object.defineProperty( style, 'innerHTML', { configurable: true, get: () => 'ignored' } )
+
+				const cloned = await cloneStyleSheets( style )
+
+				expect( cloned ).toHaveLength( 1 )
+				expect( cloned[ 0 ]?.textContent ).toBe( 'h1 {color: red;}' )
+			} )
+
+			
+			it( 'falls back to innerHTML when textContent and innerText are empty', async () => {
+				const style = document.createElement( 'style' )
+
+				Object.defineProperty( style, 'textContent', { configurable: true, get: () => '' } )
+				Object.defineProperty( style, 'innerText', { configurable: true, get: () => '' } )
+				Object.defineProperty( style, 'innerHTML', { configurable: true, get: () => 'h1 {color: blue;}' } )
+
+				const cloned = await cloneStyleSheets( style )
+
+				expect( cloned ).toHaveLength( 1 )
+				expect( cloned[ 0 ]?.textContent ).toBe( 'h1 {color: blue;}' )
+			} )
+
 		} )
 
 
@@ -402,11 +430,15 @@ describe( 'dom utilities', () => {
 						text	: responseText,
 						headers	: new Headers(),
 					} as unknown as Response )
+
+					const consoleErrorSpy = jest.spyOn( console, 'error' ).mockImplementation( () => {} )
 	
 					const result = await cloneStyleSheets( { url: 'https://example.com/style.css', fetch: true } )
 		
 					expect( fetchSpy ).toHaveBeenCalled()
 					expect( result ).toHaveLength( 0 )
+
+					consoleErrorSpy.mockRestore()
 		
 				} )
 	

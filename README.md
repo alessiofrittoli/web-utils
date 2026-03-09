@@ -599,6 +599,70 @@ console.log(insertAfter(["a", "b", "c", "e"], "d", -2)); // Outputs: [ 'a', 'b',
 
 ---
 
+##### `findIndexBy`
+
+Finds the index of the first object whose selected field strictly equals the provided value.
+
+<details>
+
+<summary style="cursor:pointer">Type Parameters</summary>
+
+- `T` The object type stored in the array.
+- `U` The key of `T` used for the comparison.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Parameters</summary>
+
+| Parameter       | Type                        | Description                                       |
+| --------------- | --------------------------- | ------------------------------------------------- |
+| `options`       | `FindInxeByOptions<T, U>`   | The search options.                               |
+| `options.items` | `T[]`                       | The collection to search.                         |
+| `options.field` | `U`                         | The object field to compare against `value`.      |
+| `options.value` | `T[U]`                      | The value that must match the selected field.     |
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Returns</summary>
+
+Type: `number`
+
+The index of the matching item, or `-1` when no match is found.
+
+</details>
+
+---
+
+<details>
+
+<summary style="cursor:pointer">Examples</summary>
+
+```ts
+import { findIndexBy } from "@alessiofrittoli/web-utils";
+
+const users = [
+  { id: 1, name: "Ada" },
+  { id: 2, name: "Grace" },
+  { id: 3, name: "Linus" },
+];
+
+console.log(findIndexBy({ items: users, field: "id", value: 2 })); // Outputs: 1
+console.log(findIndexBy({ items: users, field: "name", value: "Linus" })); // Outputs: 2
+console.log(findIndexBy({ items: users, field: "id", value: 9 })); // Outputs: -1
+```
+
+</details>
+
+---
+
 #### Blob utilities
 
 ##### `downloadBlob`
