@@ -186,3 +186,40 @@ export const insertAfter = <T>(
 	...( Array.isArray( item ) ? item : [ item ] ),
 	...array.slice( normalizeIndex( index, array.length ) + 1 ),
 ]
+
+
+/**
+ * Options for locating the index of the first object whose field matches a value.
+ *
+ * @template T The object type stored in the array.
+ * @template U The key of `T` used for the comparison.
+ */
+export interface FindInxeByOptions<T extends object, U extends keyof T = keyof T>
+{
+	/**
+	 * The collection to search.
+	 * 
+	 */
+	items: T[]
+	/**
+	 * The object field to compare against `value`.
+	 * 
+	 */
+	field: U
+	/**
+	 * The value that must match the selected field.
+	 * 
+	 */
+	value: T[ U ]
+}
+
+
+/**
+ * Finds the index of the first object whose selected field strictly equals the provided value.
+ * 
+ * @param options The search options.
+ * @returns The index of the matching item, or `-1` when no match is found.
+ */
+export const findIndexBy = <T extends object, U extends keyof T = keyof T>( options: FindInxeByOptions<T, U> ) => (
+	options.items.findIndex( item => item[ options.field ] === options.value )
+)
