@@ -1,6 +1,6 @@
 import { arrayUnique, arrayObjectUnique, listToArray, chunkInto } from '@/arrays'
 import { shuffle, shuffleCopy } from '@/arrays'
-import { normalizeIndex, getPreviousIndex, getNextIndex, insertAfter } from '@/arrays'
+import { normalizeIndex, getPreviousIndex, getNextIndex, insertAfter, findIndexBy } from '@/arrays'
 
 
 describe( 'arrayUnique', () => {
@@ -473,6 +473,46 @@ describe( 'insertAfter', () => {
 
 		expect( insertAfter( [ 1 ], 2, -1 ) )
 			.toEqual( [ 1, 2 ] )
+
+	} )
+
+} )
+
+
+describe( 'findIndexBy', () => {
+
+	it( 'returns the index of the first object matching the selected field', () => {
+
+		const items = [
+			{ id: 1, name: 'alpha', active: false },
+			{ id: 2, name: 'beta', active: true },
+			{ id: 3, name: 'beta', active: false },
+		]
+
+		expect( findIndexBy( { items, field: 'id', value: 2 } ) ).toBe( 1 )
+		expect( findIndexBy( { items, field: 'name', value: 'beta' } ) ).toBe( 1 )
+		expect( findIndexBy( { items, field: 'active', value: false } ) ).toBe( 0 )
+
+	} )
+
+
+	it( 'returns -1 when no object matches the selected field', () => {
+
+		const items = [
+			{ id: 1, name: 'alpha' },
+			{ id: 2, name: 'beta' },
+		]
+
+		expect( findIndexBy( { items, field: 'id', value: 3 } ) ).toBe( -1 )
+		expect( findIndexBy( { items, field: 'name', value: 'gamma' } ) ).toBe( -1 )
+
+	} )
+
+
+	it( 'returns -1 for empty collections', () => {
+
+		// @ts-expect-error negative testing
+		expect( findIndexBy( { items: [], field: 'id', value: 1 } ) ).toBe( -1 )
 
 	} )
 
