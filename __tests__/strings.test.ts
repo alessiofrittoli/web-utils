@@ -223,6 +223,13 @@ describe('addLeadingCharacter', () => {
 		// @ts-expect-error negative testing
 		expect(() => addLeadingCharacter(123, '/')).toThrow('Input must be a string.')
 	})
+
+	it('throws TypeError if input is too long', () => {
+		const string = Array.from(Array(1001))
+			.map(() => '0')
+			.join('')
+		expect(() => addLeadingCharacter(string, '/')).toThrow('Input too long.')
+	})
 })
 
 describe('removeLeadingCharacter', () => {
@@ -248,6 +255,14 @@ describe('removeLeadingCharacter', () => {
 		expect(() => removeLeadingCharacter(undefined, '/')).toThrow('Input must be a string.')
 		// @ts-expect-error negative testing
 		expect(() => removeLeadingCharacter(123, '/')).toThrow('Input must be a string.')
+	})
+
+	it('throws TypeError if input is too long', () => {
+		const string = Array.from(Array(1001))
+			.map(() => '0')
+			.join('')
+
+		expect(() => removeLeadingCharacter(string, '/')).toThrow('Input too long.')
 	})
 })
 
@@ -275,6 +290,14 @@ describe('addTrailingCharacter', () => {
 		// @ts-expect-error negative testing
 		expect(() => addTrailingCharacter(123, '/')).toThrow('Input must be a string.')
 	})
+
+	it('throws TypeError if input is too long', () => {
+		const string = Array.from(Array(1001))
+			.map(() => '0')
+			.join('')
+
+		expect(() => addTrailingCharacter(string, '/')).toThrow('Input too long.')
+	})
 })
 
 describe('removeTrailingCharacter', () => {
@@ -300,6 +323,14 @@ describe('removeTrailingCharacter', () => {
 		expect(() => removeTrailingCharacter(undefined, '/')).toThrow('Input must be a string.')
 		// @ts-expect-error negative testing
 		expect(() => removeTrailingCharacter(123, '/')).toThrow('Input must be a string.')
+	})
+
+	it('throws TypeError if input is too long', () => {
+		const string = Array.from(Array(1001))
+			.map(() => '0')
+			.join('')
+
+		expect(() => removeTrailingCharacter(string, '/')).toThrow('Input too long.')
 	})
 })
 
