@@ -2884,7 +2884,7 @@ Get a `Map` of all cookies found in `Document.cookie`.
 
 <summary style="cursor:pointer">Returns</summary>
 
-Type: `TypedMap<{ [P in K]: ParsedCookieMap<P, T[P]>; }>`
+Type: `CookiesTypedMap<T, keyof T>`
 
 The Map of parsed cookies indexed by the Cookie name.
 

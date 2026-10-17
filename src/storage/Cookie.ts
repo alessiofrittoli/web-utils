@@ -143,9 +143,18 @@ export interface ParsedCookie<K = string, V = unknown> extends Omit<RawCookie<K,
  */
 export type ParsedCookieMap<K = string, V = unknown> = TypedMap<ParsedCookie<K, V>, false>
 
+/**
+ * Object representation of a a parsed Cookie maps.
+ *
+ */
 export type CookiesMap<T extends Record<string, unknown>, K extends keyof T = keyof T> = {
 	[P in K]: ParsedCookieMap<P, T[P]>
 }
+
+/**
+ * Map representation of parsed Cookies.
+ *
+ */
 export type CookiesTypedMap<T extends Record<string, unknown>, K extends keyof T = keyof T> = TypedMap<
 	CookiesMap<T, K>,
 	true,
@@ -165,7 +174,7 @@ export class Cookie {
 	 */
 	public static get<T, K extends string | number | symbol = string>(
 		name: K,
-	): CookiesMap<Record<K, T>, K>[K] | undefined {
+	): ParsedCookieMap<K, T> | undefined {
 		return Cookie.fromListString<Record<K, T>>(document.cookie).get(name)
 	}
 
