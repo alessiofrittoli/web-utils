@@ -33,7 +33,7 @@ To make changes:
 - Navigate to your cloned repository:
 
 ```bash
-cd web-utils  
+cd web-utils
 ```
 
 - Create and switch to a new branch:
@@ -63,7 +63,7 @@ git add .
 - Write a meaningful commit message:
 
 ```bash
-git commit -m "Add feature/bug-fix description"  
+git commit -m "Add feature/bug-fix description"
 ```
 
 ### 6. Push to Your Fork
@@ -71,7 +71,7 @@ git commit -m "Add feature/bug-fix description"
 Push your branch to your forked repository:
 
 ```bash
-git push origin feature/your-feature-name  
+git push origin feature/your-feature-name
 ```
 
 ### 7. Submit a Pull Request

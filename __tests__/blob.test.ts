@@ -1,59 +1,55 @@
 /**
- * @jest-environment jsdom
+ * @vitest-environment jsdom
  */
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { downloadBlob } from '@/blob'
 
-
-describe( 'downloadBlob', () => {
-	
+describe('downloadBlob', () => {
 	const originalCreateElement = document.createElement
-	const linkClick				= jest.fn()
-	const linkRemove			= jest.fn()
-	const linkHrefSetter		= jest.fn( ( value ) => value )
-	const linkDownloadSetter	= jest.fn( ( value ) => value )
+	const linkClick = vi.fn()
+	const linkRemove = vi.fn()
+	const linkHrefSetter = vi.fn(value => value)
+	const linkDownloadSetter = vi.fn(value => value)
 
-	beforeEach( () => {
-		global.URL.createObjectURL = jest.fn( () => 'mock-url' )
-		global.URL.revokeObjectURL = jest.fn()
-		document.createElement = jest.fn( () => ( {
-			click		: linkClick,
-			remove		: linkRemove,
-			_href		: '',
-			_download	: '',
-			set href( value ) {
-				this._href = linkHrefSetter( value )
+	beforeEach(() => {
+		global.URL.createObjectURL = vi.fn(() => 'mock-url')
+		global.URL.revokeObjectURL = vi.fn()
+		document.createElement = vi.fn(() => ({
+			click: linkClick,
+			remove: linkRemove,
+			_href: '',
+			_download: '',
+			set href(value) {
+				this._href = linkHrefSetter(value)
 			},
-			get href() {
+			get href(): typeof this._href {
 				return this._href
 			},
-			set download( value ) {
-				this._download = linkDownloadSetter( value )
+			set download(value) {
+				this._download = linkDownloadSetter(value)
 			},
-			get download() {
+			get download(): typeof this._download {
 				return this._download
 			},
-		} ) ) as unknown as typeof document.createElement
-	} )
+		})) as unknown as typeof document.createElement
+	})
 
-	afterEach( () => {
-		jest.resetAllMocks()
+	afterEach(() => {
 		document.createElement = originalCreateElement
-	} )
+	})
 
-	it( 'creates a Blob and trigger a download', async () => {
+	it('creates a Blob and trigger a download', async () => {
+		const filename = 'test.txt'
+		const data = 'Hello, world!'
 
-		const filename	= 'test.txt'
-		const data		= 'Hello, world!'
+		await downloadBlob(filename, data)
 
-		await downloadBlob( filename, data )
-
-		expect( URL.createObjectURL ).toHaveBeenCalled()
-		expect( document.createElement ).toHaveBeenCalledWith( 'a' )
-		expect( linkHrefSetter ).toHaveBeenCalledWith( 'mock-url' )
-		expect( linkDownloadSetter ).toHaveBeenCalledWith( filename )
-		expect( linkClick ).toHaveBeenCalled()
-		expect( URL.revokeObjectURL ).toHaveBeenCalledWith( 'mock-url' )
-		expect( linkRemove ).toHaveBeenCalled()
-	} )
-
-} )
+		expect(URL.createObjectURL).toHaveBeenCalled()
+		expect(document.createElement).toHaveBeenCalledWith('a')
+		expect(linkHrefSetter).toHaveBeenCalledWith('mock-url')
+		expect(linkDownloadSetter).toHaveBeenCalledWith(filename)
+		expect(linkClick).toHaveBeenCalled()
+		expect(URL.revokeObjectURL).toHaveBeenCalledWith('mock-url')
+		expect(linkRemove).toHaveBeenCalled()
+	})
+})

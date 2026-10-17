@@ -6,8 +6,5 @@
  *
  * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList/matches)
  */
-export const getMediaMatches = ( query: string ) => (
-	typeof window !== 'undefined'
-		? window.matchMedia( query ).matches
-		: false
-)
+export const getMediaMatches = (query: string): boolean =>
+	typeof window !== 'undefined' ? window.matchMedia(query).matches : false

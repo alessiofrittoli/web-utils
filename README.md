@@ -46,6 +46,13 @@
 
 - [Getting started](#getting-started)
 - [What's Changed](#whats-changed)
+- [Development](#development)
+  - [Local development](#local-development)
+  - [Production build](#production-build)
+  - [Unit tests](#unit-tests)
+    - [Run tests with coverage](#run-tests-with-coverage)
+  - [Contributing](#contributing)
+  - [Security](#security)
 - [API Reference](#api-reference)
   - [Blob utilities](#blob-utilities)
   - [Array utilities](#array-utilities)
@@ -68,13 +75,6 @@
     - [`LocalStorage` Class](#localstorage-class)
     - [`SessionStorage` Class](#sessionstorage-class)
   - [Utils](#utils)
-- [Development](#development)
-  - [Install depenendencies](#install-depenendencies)
-  - [Build the source code](#build-the-source-code)
-  - [ESLint](#eslint)
-  - [Jest](#jest)
-- [Contributing](#contributing)
-- [Security](#security)
 - [Credits](#made-with-)
 
 ---
@@ -110,6 +110,84 @@ Old updates:
 - Add `deferCallback`. See [API Reference](#defercallback) for more info.
 - Add `parameterized` function. See [API Reference](#parameterized) for more info.
 - Add Document Picture-in-Picture utilities. See [Document Picture-in-Picture](#document-picture-in-picture) for more info.
+
+---
+
+### Development
+
+Run the following to start development
+
+```shell
+nvm use
+
+pnpm i
+```
+
+#### Local development
+
+Run the following
+
+```shell
+pnpm dev
+```
+
+This will generate unminified output code, sourcemaps and will enable source file watcher.
+
+---
+
+#### Production build
+
+Run the following to create a local production build
+
+```shell
+pnpm build
+```
+
+This will generate minified output code without sourcemaps.
+
+---
+
+#### Unit tests
+
+Run all the defined test suites by running the following:
+
+```shell
+# Run tests and watch file changes.
+pnpm test:watch
+
+# Run tests in a CI environment.
+pnpm test:ci
+```
+
+---
+
+##### Run tests with coverage
+
+An HTTP server is then started to serve coverage files from `./coverage` folder.
+
+⚠️ You may see a blank page the first time you run this command. Simply refresh the browser to see the updates.
+
+```shell
+pnpm test:coverage:serve
+```
+
+---
+
+#### Contributing
+
+Contributions are truly welcome!
+
+Please refer to the [Contributing Doc](./CONTRIBUTING.md) for more information on how to start contributing to this project.
+
+Help keep this project up to date with [GitHub Sponsor][sponsor-url].
+
+[![GitHub Sponsor][sponsor-badge]][sponsor-url]
+
+---
+
+#### Security
+
+If you believe you have found a security vulnerability, we encourage you to **_responsibly disclose this and NOT open a public issue_**. We will investigate all legitimate reports. Email `security@alessiofrittoli.it` to disclose any security vulnerabilities.
 
 ---
 
@@ -152,10 +230,10 @@ The filtered array.
 ###### Removes duplicates from array
 
 ```ts
-import { arrayUnique } from "@alessiofrittoli/web-utils";
+import { arrayUnique } from '@alessiofrittoli/web-utils'
 
-const pointer = {};
-console.log(arrayUnique([pointer, "b", pointer, "c", "b"]));
+const pointer = {}
+console.log(arrayUnique([pointer, 'b', pointer, 'c', 'b']))
 // Outputs: [ {}, 'b', 'c' ]
 ```
 
@@ -199,17 +277,17 @@ The filtered array.
 ###### Removes duplicates from array with the same propery value
 
 ```ts
-import { arrayObjectUnique } from "@alessiofrittoli/web-utils";
+import { arrayObjectUnique } from '@alessiofrittoli/web-utils'
 
 const arr = [
-  { id: 1, name: "a" },
-  { id: 2, name: "b" },
-  { id: 1, name: "c" }, // duplicate `id`
-  { id: 3, name: "d" },
-  { id: 4, name: "a" }, // duplicate `name`
-];
+  { id: 1, name: 'a' },
+  { id: 2, name: 'b' },
+  { id: 1, name: 'c' }, // duplicate `id`
+  { id: 3, name: 'd' },
+  { id: 4, name: 'a' }, // duplicate `name`
+]
 
-console.log(arrayObjectUnique(arr, "id"));
+console.log(arrayObjectUnique(arr, 'id'))
 // Outputs: [
 //     { id: 1, name: 'a' },
 //     { id: 2, name: 'b' },
@@ -217,7 +295,7 @@ console.log(arrayObjectUnique(arr, "id"));
 //     { id: 4, name: 'a' },
 // ]
 
-console.log(arrayObjectUnique(arr, "name"));
+console.log(arrayObjectUnique(arr, 'name'))
 // Outputs: [
 //     { id: 1, name: 'a' },
 //     { id: 2, name: 'b' },
@@ -265,9 +343,9 @@ The converted stringified Array to Array object.
 ###### Basic usage
 
 ```ts
-import { listToArray } from "@alessiofrittoli/web-utils";
+import { listToArray } from '@alessiofrittoli/web-utils'
 
-console.log(listToArray("1,2, 3, 4").map(Number));
+console.log(listToArray('1,2, 3, 4').map(Number))
 // Outputs: [ 1, 2, 3, 4 ]
 ```
 
@@ -325,12 +403,12 @@ An Array of chunks.
 ###### Basic usage
 
 ```ts
-import { chunkInto } from "@alessiofrittoli/web-utils";
+import { chunkInto } from '@alessiofrittoli/web-utils'
 
-console.log(chunkInto([1, 2, 3, 4, 5], { count: 2 }));
+console.log(chunkInto([1, 2, 3, 4, 5], { count: 2 }))
 // Output: [ [ 1, 2, 3 ], [ 4, 5 ] ]
 
-console.log(chunkInto([1, 2, 3, 4, 5], { size: 2 }));
+console.log(chunkInto([1, 2, 3, 4, 5], { size: 2 }))
 // Output: [ [ 1, 2 ], [ 3, 4 ], [ 5 ] ]
 ```
 
@@ -385,9 +463,9 @@ The modified shuffled array.
 <summary style="cursor:pointer">Example</summary>
 
 ```ts
-import { shuffle } from "@alessiofrittoli/web-utils";
+import { shuffle } from '@alessiofrittoli/web-utils'
 
-console.log(shuffle([1, 2, 3, 4, 5]));
+console.log(shuffle([1, 2, 3, 4, 5]))
 ```
 
 </details>
@@ -436,13 +514,13 @@ The normalized index.
 <summary style="cursor:pointer">Examples</summary>
 
 ```ts
-import { normalizeIndex } from "@alessiofrittoli/web-utils";
+import { normalizeIndex } from '@alessiofrittoli/web-utils'
 
-const array = [0, 1, 2, 3];
+const array = [0, 1, 2, 3]
 
-console.log(normalizeIndex(2, array.length)); // Outputs: 2
-console.log(normalizeIndex(-1, array.length)); // Outputs: 3
-console.log(normalizeIndex(-3, array.length)); // Outputs: 1
+console.log(normalizeIndex(2, array.length)) // Outputs: 2
+console.log(normalizeIndex(-1, array.length)) // Outputs: 3
+console.log(normalizeIndex(-3, array.length)) // Outputs: 1
 ```
 
 </details>
@@ -483,13 +561,13 @@ The previous index.
 <summary style="cursor:pointer">Examples</summary>
 
 ```ts
-import { getPreviousIndex } from "@alessiofrittoli/web-utils";
+import { getPreviousIndex } from '@alessiofrittoli/web-utils'
 
-const array = [0, 1, 2, 3];
+const array = [0, 1, 2, 3]
 
-console.log(getPreviousIndex(array.length, 2)); // Outputs: 1
-console.log(getPreviousIndex(array.length, -1)); // Outputs: 2
-console.log(getPreviousIndex(array.length, -3)); // Outputs: 0
+console.log(getPreviousIndex(array.length, 2)) // Outputs: 1
+console.log(getPreviousIndex(array.length, -1)) // Outputs: 2
+console.log(getPreviousIndex(array.length, -3)) // Outputs: 0
 ```
 
 </details>
@@ -530,13 +608,13 @@ The next index.
 <summary style="cursor:pointer">Examples</summary>
 
 ```ts
-import { getNextIndex } from "@alessiofrittoli/web-utils";
+import { getNextIndex } from '@alessiofrittoli/web-utils'
 
-const array = [0, 1, 2, 3];
+const array = [0, 1, 2, 3]
 
-console.log(getNextIndex(array.length, 2)); // Outputs: 3
-console.log(getNextIndex(array.length, -1)); // Outputs: 0
-console.log(getNextIndex(array.length, -3)); // Outputs: 2
+console.log(getNextIndex(array.length, 2)) // Outputs: 3
+console.log(getNextIndex(array.length, -1)) // Outputs: 0
+console.log(getNextIndex(array.length, -3)) // Outputs: 2
 ```
 
 </details>
@@ -588,11 +666,11 @@ A new array with the item(s) inserted at the specified position.
 <summary style="cursor:pointer">Examples</summary>
 
 ```ts
-import { insertAfter } from "@alessiofrittoli/web-utils";
+import { insertAfter } from '@alessiofrittoli/web-utils'
 
-console.log(insertAfter([1, 2, 3, 4], 5)); // Outputs: [ 1, 2, 3, 4, 5 ]
-console.log(insertAfter(["a", "c"], "b", 0)); // Outputs: [ 'a', 'b', 'c' ]
-console.log(insertAfter(["a", "b", "c", "e"], "d", -2)); // Outputs: [ 'a', 'b', 'c', 'd', 'e' ]
+console.log(insertAfter([1, 2, 3, 4], 5)) // Outputs: [ 1, 2, 3, 4, 5 ]
+console.log(insertAfter(['a', 'c'], 'b', 0)) // Outputs: [ 'a', 'b', 'c' ]
+console.log(insertAfter(['a', 'b', 'c', 'e'], 'd', -2)) // Outputs: [ 'a', 'b', 'c', 'd', 'e' ]
 ```
 
 </details>
@@ -618,12 +696,12 @@ Finds the index of the first object whose selected field strictly equals the pro
 
 <summary style="cursor:pointer">Parameters</summary>
 
-| Parameter       | Type                        | Description                                       |
-| --------------- | --------------------------- | ------------------------------------------------- |
-| `options`       | `FindInxeByOptions<T, U>`   | The search options.                               |
-| `options.items` | `T[]`                       | The collection to search.                         |
-| `options.field` | `U`                         | The object field to compare against `value`.      |
-| `options.value` | `T[U]`                      | The value that must match the selected field.     |
+| Parameter       | Type                      | Description                                   |
+| --------------- | ------------------------- | --------------------------------------------- |
+| `options`       | `FindInxeByOptions<T, U>` | The search options.                           |
+| `options.items` | `T[]`                     | The collection to search.                     |
+| `options.field` | `U`                       | The object field to compare against `value`.  |
+| `options.value` | `T[U]`                    | The value that must match the selected field. |
 
 </details>
 
@@ -646,17 +724,17 @@ The index of the matching item, or `-1` when no match is found.
 <summary style="cursor:pointer">Examples</summary>
 
 ```ts
-import { findIndexBy } from "@alessiofrittoli/web-utils";
+import { findIndexBy } from '@alessiofrittoli/web-utils'
 
 const users = [
-  { id: 1, name: "Ada" },
-  { id: 2, name: "Grace" },
-  { id: 3, name: "Linus" },
-];
+  { id: 1, name: 'Ada' },
+  { id: 2, name: 'Grace' },
+  { id: 3, name: 'Linus' },
+]
 
-console.log(findIndexBy({ items: users, field: "id", value: 2 })); // Outputs: 1
-console.log(findIndexBy({ items: users, field: "name", value: "Linus" })); // Outputs: 2
-console.log(findIndexBy({ items: users, field: "id", value: 9 })); // Outputs: -1
+console.log(findIndexBy({ items: users, field: 'id', value: 2 })) // Outputs: 1
+console.log(findIndexBy({ items: users, field: 'name', value: 'Linus' })) // Outputs: 2
+console.log(findIndexBy({ items: users, field: 'id', value: 9 })) // Outputs: -1
 ```
 
 </details>
@@ -743,12 +821,12 @@ It also applies the `--scrollbar-size` CSS variable that can be used to apply a 
 ###### Block Document HTML scroll when a popup is opened
 
 ```ts
-import { blockScroll } from "@alessiofrittoli/web-utils";
+import { blockScroll } from '@alessiofrittoli/web-utils'
 
 const openPopUpHandler = () => {
-  blockScroll();
+  blockScroll()
   // ... handle popup
-};
+}
 ```
 
 ```css
@@ -764,12 +842,12 @@ const openPopUpHandler = () => {
 ###### Block scroll of a specific HTMLElement
 
 ```ts
-import { blockScroll } from "@alessiofrittoli/web-utils";
+import { blockScroll } from '@alessiofrittoli/web-utils'
 
-const element = document.querySelector(".css-selector");
+const element = document.querySelector('.css-selector')
 
 if (element) {
-  blockScroll(element);
+  blockScroll(element)
 }
 ```
 
@@ -800,12 +878,12 @@ Restore Element Overflow.
 ###### Restore Document HTML scroll when a popup is closed
 
 ```ts
-import { restoreScroll } from "@alessiofrittoli/web-utils";
+import { restoreScroll } from '@alessiofrittoli/web-utils'
 
 const closePopUpHandler = () => {
   // ... handle close
-  restoreScroll();
-};
+  restoreScroll()
+}
 ```
 
 ---
@@ -813,12 +891,12 @@ const closePopUpHandler = () => {
 ###### Restore scroll of a specific HTMLElement
 
 ```ts
-import { restoreScroll } from "@alessiofrittoli/web-utils";
+import { restoreScroll } from '@alessiofrittoli/web-utils'
 
-const element = document.querySelector(".css-selector");
+const element = document.querySelector('.css-selector')
 
 if (element) {
-  restoreScroll(element);
+  restoreScroll(element)
 }
 ```
 
@@ -842,14 +920,14 @@ type UrlStylesheet =
        * The URL string or a URL object of the stylesheet to load.
        *
        */
-      url: UrlInput;
+      url: UrlInput
       /**
        * Indicates whether to fetch the given URL.
        *
        * @default false
        */
-      fetch?: boolean;
-    };
+      fetch?: boolean
+    }
 ```
 
 ---
@@ -859,7 +937,7 @@ type UrlStylesheet =
 Represents a style input.
 
 ```ts
-type Style = UrlStylesheet | HTMLStyleElement | CSSStyleSheet | StyleSheetList;
+type Style = UrlStylesheet | HTMLStyleElement | CSSStyleSheet | StyleSheetList
 ```
 
 ---
@@ -869,7 +947,7 @@ type Style = UrlStylesheet | HTMLStyleElement | CSSStyleSheet | StyleSheetList;
 Represents a single style object or an array of style objects.
 
 ```ts
-type Styles = Style | Style[];
+type Styles = Style | Style[]
 ```
 
 ---
@@ -912,9 +990,9 @@ Type: `HTMLStyleElement[]`
 <summary style="cursor:pointer">Examples</summary>
 
 ```ts
-import { cloneStyleSheetList } from "@alessiofrittoli/web-utils";
+import { cloneStyleSheetList } from '@alessiofrittoli/web-utils'
 
-const styles = cloneStyleSheetList(document.styleSheets);
+const styles = cloneStyleSheetList(document.styleSheets)
 // do something with cloned stylesheets
 // styles.forEach( style => shadowRoot.appendChild( style ) )
 ```
@@ -966,9 +1044,9 @@ Type: `Promise<CloneStyleSheetsReturn>`
 ###### Cloning `StyleSheetList`
 
 ```ts
-import { cloneStyleSheets } from "@alessiofrittoli/web-utils";
+import { cloneStyleSheets } from '@alessiofrittoli/web-utils'
 
-const styles = await cloneStyleSheets(document.styleSheets);
+const styles = await cloneStyleSheets(document.styleSheets)
 // do something with cloned dcoument stylesheets
 // styles.forEach( style => shadowRoot.appendChild( style ) )
 ```
@@ -978,19 +1056,19 @@ const styles = await cloneStyleSheets(document.styleSheets);
 ###### Cloning stylesheets from URL
 
 ```ts
-import { cloneStyleSheets } from "@alessiofrittoli/web-utils";
+import { cloneStyleSheets } from '@alessiofrittoli/web-utils'
 
-const styles = await cloneStyleSheets("/path-to-stylesheet-file.css");
+const styles = await cloneStyleSheets('/path-to-stylesheet-file.css')
 
 const styles = await cloneStyleSheets({
-  url: "/path-to-stylesheet-file-2.css",
+  url: '/path-to-stylesheet-file-2.css',
   fetch: true,
-});
+})
 
 const styles = await cloneStyleSheets([
-  "/path-to-stylesheet-file-3.css",
-  { url: "/path-to-stylesheet-file-4.css", fetch: true },
-]);
+  '/path-to-stylesheet-file-3.css',
+  { url: '/path-to-stylesheet-file-4.css', fetch: true },
+])
 ```
 
 </details>
@@ -1238,23 +1316,23 @@ A new instance of a type-safe `Map`.
 ###### Basic usage
 
 ```ts
-import { getTypedMap } from "@alessiofrittoli/web-utils";
+import { getTypedMap } from '@alessiofrittoli/web-utils'
 
 interface User {
-  name: string;
-  age: number;
-  isActive: boolean;
+  name: string
+  age: number
+  isActive: boolean
 }
 
 const user = getTypedMap<User>([
-  ["name", "Foo"],
-  ["age", 27],
-  ["isActive", true],
-]);
+  ['name', 'Foo'],
+  ['age', 27],
+  ['isActive', true],
+])
 
-console.log(user.get("name")); // type: `string | undefined`
-console.log(user.get("age")); // type: `number | undefined`
-console.log(user.get("isActive")); // type: `boolean | undefined`
+console.log(user.get('name')) // type: `string | undefined`
+console.log(user.get('age')) // type: `number | undefined`
+console.log(user.get('isActive')) // type: `boolean | undefined`
 ```
 
 ---
@@ -1262,25 +1340,25 @@ console.log(user.get("isActive")); // type: `boolean | undefined`
 ###### Respect the given type
 
 ```ts
-import { getTypedMap } from "@alessiofrittoli/web-utils";
+import { getTypedMap } from '@alessiofrittoli/web-utils'
 
 interface User {
-  name: string;
-  age: number;
-  isActive: boolean;
-  banned?: boolean;
+  name: string
+  age: number
+  isActive: boolean
+  banned?: boolean
 }
 
 const user = getTypedMap<User, false>([
-  ["name", "Foo"],
-  ["age", 27],
-  ["isActive", true],
-]);
+  ['name', 'Foo'],
+  ['age', 27],
+  ['isActive', true],
+])
 
-console.log(user.get("name")); // type: `string`
-console.log(user.get("age")); // type: `number`
-console.log(user.get("isActive")); // type: `boolean`
-console.log(user.get("banned")); // type: `boolean | undefined`
+console.log(user.get('name')) // type: `string`
+console.log(user.get('age')) // type: `number`
+console.log(user.get('isActive')) // type: `boolean`
+console.log(user.get('banned')) // type: `boolean | undefined`
 ```
 
 </details>
@@ -1322,13 +1400,13 @@ A new Promise which get resolved after the specified time.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { sleep } from "@alessiofrittoli/web-utils";
+import { sleep } from '@alessiofrittoli/web-utils'
 
 const fn = async () => {
   // ...
-  await sleep(2000);
+  await sleep(2000)
   // ...
-};
+}
 ```
 
 </details>
@@ -1510,10 +1588,10 @@ The processed string.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { ucFirst } from "@alessiofrittoli/web-utils";
+import { ucFirst } from '@alessiofrittoli/web-utils'
 
-console.log(ucFirst("String value")); // Outputs: 'String value'
-console.log(ucFirst("string value")); // Outputs: 'String value'
+console.log(ucFirst('String value')) // Outputs: 'String value'
+console.log(ucFirst('string value')) // Outputs: 'String value'
 ```
 
 </details>
@@ -1553,10 +1631,10 @@ The processed string.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { lcFirst } from "@alessiofrittoli/web-utils";
+import { lcFirst } from '@alessiofrittoli/web-utils'
 
-console.log(lcFirst("String value")); // Outputs: 'string value'
-console.log(lcFirst("string value")); // Outputs: 'string value'
+console.log(lcFirst('String value')) // Outputs: 'string value'
+console.log(lcFirst('string value')) // Outputs: 'string value'
 ```
 
 </details>
@@ -1596,15 +1674,15 @@ The converted string to camelCase.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { toCamelCase } from "@alessiofrittoli/web-utils";
+import { toCamelCase } from '@alessiofrittoli/web-utils'
 
-console.log(toCamelCase("font-family")); // Outputs: 'fontFamily'
-console.log(toCamelCase("background-color")); // Outputs: 'backgroundColor'
-console.log(toCamelCase("-webkit-align-content")); // Outputs: 'WebkitAlignContent'
-console.log(toCamelCase("some value")); // Outputs: 'someValue'
-console.log(toCamelCase("some_value")); // Outputs: 'someValue'
-console.log(toCamelCase("some value_with mixed_Cases")); // Outputs: 'someValueWithMixedCases'
-console.log(toCamelCase("-string@with#special$characters")); // Outputs: 'StringWithSpecialCharacters'
+console.log(toCamelCase('font-family')) // Outputs: 'fontFamily'
+console.log(toCamelCase('background-color')) // Outputs: 'backgroundColor'
+console.log(toCamelCase('-webkit-align-content')) // Outputs: 'WebkitAlignContent'
+console.log(toCamelCase('some value')) // Outputs: 'someValue'
+console.log(toCamelCase('some_value')) // Outputs: 'someValue'
+console.log(toCamelCase('some value_with mixed_Cases')) // Outputs: 'someValueWithMixedCases'
+console.log(toCamelCase('-string@with#special$characters')) // Outputs: 'StringWithSpecialCharacters'
 ```
 
 </details>
@@ -1644,15 +1722,15 @@ The converted string to kebab-case.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { toKebabCase } from "@alessiofrittoli/web-utils";
+import { toKebabCase } from '@alessiofrittoli/web-utils'
 
-console.log(toKebabCase("fontFamily")); // Outputs: 'font-family'
-console.log(toKebabCase("backgroundColor")); // Outputs: 'background-color'
-console.log(toKebabCase("string with spaces")); // Outputs: 'string-with-spaces'
-console.log(toKebabCase("string_with_underscores")); // Outputs: 'string-with-underscores'
-console.log(toKebabCase("WebkitAlignContent")); // Outputs: '-webkit-align-content'
-console.log(toKebabCase("some value_with mixed_Cases")); // Outputs: 'some-value-with-mixed-cases'
-console.log(toKebabCase("-string@with#special$characters")); // Outputs: '-string-with-special-characters
+console.log(toKebabCase('fontFamily')) // Outputs: 'font-family'
+console.log(toKebabCase('backgroundColor')) // Outputs: 'background-color'
+console.log(toKebabCase('string with spaces')) // Outputs: 'string-with-spaces'
+console.log(toKebabCase('string_with_underscores')) // Outputs: 'string-with-underscores'
+console.log(toKebabCase('WebkitAlignContent')) // Outputs: '-webkit-align-content'
+console.log(toKebabCase('some value_with mixed_Cases')) // Outputs: 'some-value-with-mixed-cases'
+console.log(toKebabCase('-string@with#special$characters')) // Outputs: '-string-with-special-characters
 ```
 
 </details>
@@ -1692,48 +1770,48 @@ The stringified `input`.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { stringifyValue } from "@alessiofrittoli/web-utils";
+import { stringifyValue } from '@alessiofrittoli/web-utils'
 
-console.log(stringifyValue(new Date("Sat, 20 Apr 2025 16:20:00 GMT")));
+console.log(stringifyValue(new Date('Sat, 20 Apr 2025 16:20:00 GMT')))
 // Outputs: '2025-04-20T16:20:00.000Z'
 
-console.log(stringifyValue(null));
+console.log(stringifyValue(null))
 // Outputs: 'null'
 
-console.log(stringifyValue({ prop: "value", prop2: true }));
+console.log(stringifyValue({ prop: 'value', prop2: true }))
 // Outputs: '{"prop":"value","prop2":true}'
 
-console.log(stringifyValue([1, 2, true, null, () => {}]));
+console.log(stringifyValue([1, 2, true, null, () => {}]))
 // Outputs: '[1,2,true,null,null]'
 
 console.log(
   stringifyValue(
     new Map([
-      ["key", "value"],
-      ["key2", "value"],
+      ['key', 'value'],
+      ['key2', 'value'],
     ]),
   ),
-);
+)
 // Outputs: '[["key","value"],["key2","value"]]'
 
 console.log(
   stringifyValue(
     new Headers({
-      key: "value",
-      key2: "value",
+      key: 'value',
+      key2: 'value',
     }),
   ),
-);
+)
 // Outputs: '[["key","value"],["key2","value"]]'
 
-console.log(stringifyValue(true)); // Outputs: 'true'
-console.log(stringifyValue(false)); // Outputs: 'false'
-console.log(stringifyValue(0)); // Outputs: '0'
-console.log(stringifyValue(420)); // Outputs: '420'
+console.log(stringifyValue(true)) // Outputs: 'true'
+console.log(stringifyValue(false)) // Outputs: 'false'
+console.log(stringifyValue(0)) // Outputs: '0'
+console.log(stringifyValue(420)) // Outputs: '420'
 
-console.log(stringifyValue(undefined)); // Outputs: ''
-console.log(stringifyValue(() => {})); // Outputs: ''
-console.log(stringifyValue(new Promise<void>((resolve) => resolve()))); // Outputs: ''
+console.log(stringifyValue(undefined)) // Outputs: ''
+console.log(stringifyValue(() => {})) // Outputs: ''
+console.log(stringifyValue(new Promise<void>(resolve => resolve()))) // Outputs: ''
 ```
 
 </details>
@@ -1786,25 +1864,25 @@ Type: `T | undefined`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { parseValue } from "@alessiofrittoli/web-utils";
+import { parseValue } from '@alessiofrittoli/web-utils'
 
-console.log(parseValue<Date>(stringifyValue(new Date())));
+console.log(parseValue<Date>(stringifyValue(new Date())))
 // Outputs: current Date object.
 
-console.log(parseValue<number>("12345")); // Outputs: 12345
-console.log(parseValue()); // Outputs: undefined
-console.log(parseValue(" ")); // Outputs: undefined
+console.log(parseValue<number>('12345')) // Outputs: 12345
+console.log(parseValue()) // Outputs: undefined
+console.log(parseValue(' ')) // Outputs: undefined
 
-console.log(parseValue<true>(stringifyValue(true)));
+console.log(parseValue<true>(stringifyValue(true)))
 // Outputs: true
 
-console.log(parseValue(stringifyValue({ key: "value" })));
+console.log(parseValue(stringifyValue({ key: 'value' })))
 // Outputs: { key: 'value' }
 
-console.log(parseValue(stringifyValue([1, 2, 3, 4, 5])));
+console.log(parseValue(stringifyValue([1, 2, 3, 4, 5])))
 // Outputs: [ 1, 2, 3, 4, 5 ]
 
-console.log(parseValue("String value")); // Outputs: 'String value'
+console.log(parseValue('String value')) // Outputs: 'String value'
 ```
 
 </details>
@@ -1822,7 +1900,7 @@ Creates a parameterized string with placeholder values.
 Represents a value that can be used as a parameter in string operations.
 
 ```ts
-type ParameterizedValue = string | boolean | number | bigint;
+type ParameterizedValue = string | boolean | number | bigint
 ```
 
 ###### `Parameterized`
@@ -1830,7 +1908,7 @@ type ParameterizedValue = string | boolean | number | bigint;
 Represents a parameterized string with its corresponding values.
 
 ```ts
-type Parameterized = [string, ParameterizedValue[]];
+type Parameterized = [string, ParameterizedValue[]]
 ```
 
 <details>
@@ -1838,13 +1916,13 @@ type Parameterized = [string, ParameterizedValue[]];
 <summary style="cursor:pointer">Examples</summary>
 
 ```ts
-import { parameterized } from "@alessiofrittoli/web-utils";
+import { parameterized } from '@alessiofrittoli/web-utils'
 
 const data = {
-  value: "parameterized",
-};
+  value: 'parameterized',
+}
 
-console.log(parameterized`My string with ${data.value} values.`); // [ 'My string with ? values.', [ 'parameterized' ] ]
+console.log(parameterized`My string with ${data.value} values.`) // [ 'My string with ? values.', [ 'parameterized' ] ]
 ```
 
 </details>
@@ -1905,9 +1983,9 @@ Type: `boolean`
 ###### Check if current device is landscape oriented
 
 ```ts
-import { getMediaMatches } from "@alessiofrittoli/web-utils";
+import { getMediaMatches } from '@alessiofrittoli/web-utils'
 
-console.log(!getMediaMatches("(orientation:portrait)"));
+console.log(!getMediaMatches('(orientation:portrait)'))
 ```
 
 </details>
@@ -1957,22 +2035,22 @@ Type: `WindowProxy | null`
 ###### Re-focus a previously opened popup
 
 ```ts
-import { openBrowserPopUp } from "@alessiofrittoli/web-utils";
+import { openBrowserPopUp } from '@alessiofrittoli/web-utils'
 
-let windowProxy: WindowProxy | null = null;
+let windowProxy: WindowProxy | null = null
 
 const clickHandler = () => {
   if (windowProxy && !windowProxy.closed) {
-    return windowProxy.focus();
+    return windowProxy.focus()
   }
 
   windowProxy = openBrowserPopUp({
     url: {
-      pathname: "/",
-      query: { key: "value" },
+      pathname: '/',
+      query: { key: 'value' },
     },
-  });
-};
+  })
+}
 ```
 
 ---
@@ -1980,24 +2058,24 @@ const clickHandler = () => {
 ###### Re-use a popup
 
 ```ts
-import { openBrowserPopUp } from "@alessiofrittoli/web-utils";
+import { openBrowserPopUp } from '@alessiofrittoli/web-utils'
 
 const clickHandler = () => {
   openBrowserPopUp({
-    context: "some-context-name",
+    context: 'some-context-name',
     url: {
-      pathname: "/",
-      query: { key: "value" },
+      pathname: '/',
+      query: { key: 'value' },
     },
-  });
-};
+  })
+}
 
 const clickHandler2 = () => {
   openBrowserPopUp({
-    context: "some-context-name",
-    url: "/other-path",
-  });
-};
+    context: 'some-context-name',
+    url: '/other-path',
+  })
+}
 ```
 
 </details>
@@ -2176,21 +2254,18 @@ Type: `Promise<OpenDocumentPictureInPicture>`
 ###### Simple usage
 
 ```ts
-import { Exception } from "@alessiofrittoli/exception";
-import {
-  openDocumentPictureInPicture,
-  ErrorCode,
-} from "@alessiofrittoli/web-utils";
+import { openDocumentPictureInPicture, ErrorCode } from '@alessiofrittoli/web-utils'
+import { Exception } from '@alessiofrittoli/exception'
 
 const openPictureInPicture = async () => {
   try {
-    const content = document.createElement("div");
+    const content = document.createElement('div')
 
-    const { window } = await openDocumentPictureInPicture();
+    const { window } = await openDocumentPictureInPicture()
 
-    window.document.body.appendChild(content);
+    window.document.body.appendChild(content)
   } catch (_err) {
-    const err = _err as Error;
+    const err = _err as Error
 
     const error = Exception.isException<string, ErrorCode>(err)
       ? err
@@ -2198,17 +2273,17 @@ const openPictureInPicture = async () => {
           code: ErrorCode.UNKNOWN,
           name: err.name,
           cause: err,
-        });
+        })
 
     switch (error.code) {
       case ErrorCode.DOCUMENT_PIP_NOT_SUPPORTED:
-        console.warn("Document Picture-in-Picture is not supported.");
-        break;
+        console.warn('Document Picture-in-Picture is not supported.')
+        break
       default:
-        console.error("Unknown error", error);
+        console.error('Unknown error', error)
     }
   }
-};
+}
 ```
 
 ---
@@ -2216,28 +2291,25 @@ const openPictureInPicture = async () => {
 ###### Load render blocking styles
 
 ```ts
-import { Exception } from "@alessiofrittoli/exception";
-import {
-  openDocumentPictureInPicture,
-  ErrorCode,
-} from "@alessiofrittoli/web-utils";
+import { openDocumentPictureInPicture, ErrorCode } from '@alessiofrittoli/web-utils'
+import { Exception } from '@alessiofrittoli/exception'
 
 const openPictureInPicture = async () => {
   try {
-    const content = document.createElement("div");
+    const content = document.createElement('div')
 
     const { window } = await openDocumentPictureInPicture({
       styles: {
-        url: "/important-stylesheet-fetched-before-opening.css",
+        url: '/important-stylesheet-fetched-before-opening.css',
         fetch: true,
       },
-    });
+    })
 
-    window.document.body.appendChild(content);
+    window.document.body.appendChild(content)
   } catch (error) {
     // ...
   }
-};
+}
 ```
 
 </details>
@@ -2270,9 +2342,9 @@ Type: `boolean`
 ###### Check if current device is landscape oriented
 
 ```ts
-import { isPortrait } from "@alessiofrittoli/web-utils";
+import { isPortrait } from '@alessiofrittoli/web-utils'
 
-console.log(!isPortrait());
+console.log(!isPortrait())
 ```
 
 </details>
@@ -2325,11 +2397,11 @@ An object defining network status and `NetworkInformation`. See [`Connection`](#
 <summary style="cursor:pointer">Examples</summary>
 
 ```ts
-import { getConnection } from "@alessiofrittoli/web-utils";
+import { getConnection } from '@alessiofrittoli/web-utils'
 
-const { network } = getConnection();
+const { network } = getConnection()
 
-console.log(network?.effectiveType);
+console.log(network?.effectiveType)
 ```
 
 </details>
@@ -2345,13 +2417,9 @@ console.log(network?.effectiveType);
 <summary style="cursor:pointer">Importing enum and types</summary>
 
 ```ts
-import { Priority, SameSite } from "@alessiofrittoli/web-utils";
+import { Priority, SameSite } from '@alessiofrittoli/web-utils'
 
-import type {
-  RawCookie,
-  ParsedCookie,
-  ParsedCookieMap,
-} from "@alessiofrittoli/web-utils";
+import type { RawCookie, ParsedCookie, ParsedCookieMap } from '@alessiofrittoli/web-utils'
 ```
 
 </details>
@@ -2494,21 +2562,21 @@ The parsed Cookie Map.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { Cookie } from "@alessiofrittoli/web-utils";
+import { Cookie } from '@alessiofrittoli/web-utils'
 
 const cookie = Cookie.parse({
-  name: "cookiename",
-  value: { test: "value" },
-  path: "/specific-path",
+  name: 'cookiename',
+  value: { test: 'value' },
+  path: '/specific-path',
   priority: Priority.High,
   expires: Date.now() + 20 * 60 * 1000,
-  domain: "example.com",
+  domain: 'example.com',
   secure: true,
   httpOnly: true,
   sameSite: SameSite.Lax,
   maxAge: Date.now() + 30 * 60 * 1000,
   partitioned: true,
-});
+})
 ```
 
 </details>
@@ -2561,21 +2629,21 @@ The stringified Cookie ready to be stored.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { Cookie } from "@alessiofrittoli/web-utils";
+import { Cookie } from '@alessiofrittoli/web-utils'
 
 document.cookie = Cookie.toString({
-  name: "cookiename",
-  value: { test: "value" },
-  path: "/specific-path",
+  name: 'cookiename',
+  value: { test: 'value' },
+  path: '/specific-path',
   priority: Priority.High,
   expires: Date.now() + 20 * 60 * 1000,
-  domain: "example.com",
+  domain: 'example.com',
   secure: true,
   httpOnly: false,
   sameSite: SameSite.Lax,
   maxAge: Date.now() + 30 * 60 * 1000,
   partitioned: true,
-});
+})
 ```
 
 </details>
@@ -2628,12 +2696,9 @@ The parsed Cookie Map or `null` if parsing fails.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { Cookie } from "@alessiofrittoli/web-utils";
+import { Cookie } from '@alessiofrittoli/web-utils'
 
-const cookies = document.cookie
-  .split("; ")
-  .map(Cookie.fromString)
-  .filter(Boolean);
+const cookies = document.cookie.split('; ').map(Cookie.fromString).filter(Boolean)
 ```
 
 </details>
@@ -2688,26 +2753,26 @@ The Map of parsed cookies indexed by the Cookie name.
 ###### Defining custom types
 
 ```ts
-import { Cookie } from "@alessiofrittoli/web-utils";
+import { Cookie } from '@alessiofrittoli/web-utils'
 
 /** On-site stubbed cookie names. */
 enum CookieName {
-  COOKIE_1 = "cookie-1",
-  COOKIE_2 = "cookie-2",
+  COOKIE_1 = 'cookie-1',
+  COOKIE_2 = 'cookie-2',
 }
 
 interface Cookie1 {
-  test: "value";
+  test: 'value'
 }
 
 interface Cookie2 {
-  test: boolean;
+  test: boolean
 }
 
 type CookiesMap = {
-  [CookieName.COOKIE_1]: Cookie1;
-  [CookieName.COOKIE_2]: Cookie2;
-};
+  [CookieName.COOKIE_1]: Cookie1
+  [CookieName.COOKIE_2]: Cookie2
+}
 ```
 
 ---
@@ -2715,11 +2780,11 @@ type CookiesMap = {
 ###### Get parsed cookies from `Document.cookie`
 
 ```ts
-import { Cookie } from "@alessiofrittoli/web-utils";
+import { Cookie } from '@alessiofrittoli/web-utils'
 
-const cookies = Cookie.fromListString<CookiesMap>(document.cookie);
-const cookie = cookies.get(CookieName.COOKIE_1); // `ParsedCookieMap<CookieName.COOKIE_1, Cookie1> | undefined`
-const cookieValue = cookie?.get("value"); // `Cookie1 | undefined`
+const cookies = Cookie.fromListString<CookiesMap>(document.cookie)
+const cookie = cookies.get(CookieName.COOKIE_1) // `ParsedCookieMap<CookieName.COOKIE_1, Cookie1> | undefined`
+const cookieValue = cookie?.get('value') // `Cookie1 | undefined`
 ```
 
 ---
@@ -2727,15 +2792,15 @@ const cookieValue = cookie?.get("value"); // `Cookie1 | undefined`
 ###### Get parsed cookies from a request `Cookie` header
 
 ```ts
-import { Cookie } from "@alessiofrittoli/web-utils";
+import { Cookie } from '@alessiofrittoli/web-utils'
 
-const { headers } = request;
-const cookielist = headers.get("Cookie");
+const { headers } = request
+const cookielist = headers.get('Cookie')
 
 if (cookielist) {
-  const cookies = Cookie.fromListString<CookiesMap>(cookielist);
-  const cookie = cookies.get(CookieName.COOKIE_2); // `ParsedCookieMap<CookieName.COOKIE_2, Cookie2> | undefined`
-  const cookieValue = cookie?.get("value"); // `Cookie2 | undefined`
+  const cookies = Cookie.fromListString<CookiesMap>(cookielist)
+  const cookie = cookies.get(CookieName.COOKIE_2) // `ParsedCookieMap<CookieName.COOKIE_2, Cookie2> | undefined`
+  const cookieValue = cookie?.get('value') // `Cookie2 | undefined`
 }
 ```
 
@@ -2789,10 +2854,10 @@ Type: `ParsedCookieMap<typeof name, T> | undefined`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { Cookie } from "@alessiofrittoli/web-utils";
+import { Cookie } from '@alessiofrittoli/web-utils'
 
-const cookie = Cookie.get<string>("access_token");
-const value = cookie?.get("value"); // `string | undefined`
+const cookie = Cookie.get<string>('access_token')
+const value = cookie?.get('value') // `string | undefined`
 ```
 
 </details>
@@ -2832,10 +2897,10 @@ The Map of parsed cookies indexed by the Cookie name.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { Cookie } from "@alessiofrittoli/web-utils";
+import { Cookie } from '@alessiofrittoli/web-utils'
 
-const cookies = Cookie.getAll();
-const cookie = cookies.get("somecookie");
+const cookies = Cookie.getAll()
+const cookie = cookies.get('somecookie')
 ```
 
 </details>
@@ -2887,25 +2952,25 @@ Type: `ParsedCookieMap<K, V> | false`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { Cookie, type RawCookie } from "@alessiofrittoli/web-utils";
+import { Cookie, type RawCookie } from '@alessiofrittoli/web-utils'
 
 const cookieOptions: RawCookie = {
-  name: "cookiename",
-  value: { test: "value" },
-  path: "/specific-path",
+  name: 'cookiename',
+  value: { test: 'value' },
+  path: '/specific-path',
   priority: Priority.High,
   expires: Date.now() + 20 * 60 * 1000,
-  domain: "example.com",
+  domain: 'example.com',
   secure: true,
   httpOnly: false,
   sameSite: SameSite.Lax,
   maxAge: Date.now() + 30 * 60 * 1000,
   partitioned: true,
-};
+}
 
-Cookie.set(cookieOptions);
+Cookie.set(cookieOptions)
 // or
-Cookie.set(Coookie.parse(cookieOptions));
+Cookie.set(Coookie.parse(cookieOptions))
 ```
 
 </details>
@@ -2946,9 +3011,9 @@ Type: `boolean`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { Cookie } from "@alessiofrittoli/web-utils";
+import { Cookie } from '@alessiofrittoli/web-utils'
 
-Cookie.delete("some_cookie");
+Cookie.delete('some_cookie')
 ```
 
 </details>
@@ -2999,9 +3064,9 @@ Type: `string | null`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { LocalStorage } from "@alessiofrittoli/web-utils";
+import { LocalStorage } from '@alessiofrittoli/web-utils'
 
-console.log(LocalStorage.key(0)); // Outputs: first item name if any.
+console.log(LocalStorage.key(0)) // Outputs: first item name if any.
 ```
 
 </details>
@@ -3029,9 +3094,9 @@ The number of key/value pairs.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { LocalStorage } from "@alessiofrittoli/web-utils";
+import { LocalStorage } from '@alessiofrittoli/web-utils'
 
-console.log(LocalStorage.getLength());
+console.log(LocalStorage.getLength())
 ```
 
 </details>
@@ -3084,9 +3149,9 @@ Type: `T | undefined`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { LocalStorage } from "@alessiofrittoli/web-utils";
+import { LocalStorage } from '@alessiofrittoli/web-utils'
 
-LocalStorage.get<Date>("expiration");
+LocalStorage.get<Date>('expiration')
 ```
 
 </details>
@@ -3143,9 +3208,9 @@ A "QuotaExceededError" DOMException exception if the new value couldn't be set. 
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { LocalStorage } from "@alessiofrittoli/web-utils";
+import { LocalStorage } from '@alessiofrittoli/web-utils'
 
-LocalStorage.set<Date>("expiration", new Date());
+LocalStorage.set<Date>('expiration', new Date())
 ```
 
 </details>
@@ -3175,9 +3240,9 @@ Dispatches a storage event on Window objects holding an equivalent Storage objec
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { LocalStorage } from "@alessiofrittoli/web-utils";
+import { LocalStorage } from '@alessiofrittoli/web-utils'
 
-LocalStorage.delete("expiration");
+LocalStorage.delete('expiration')
 ```
 
 </details>
@@ -3195,9 +3260,9 @@ Dispatches a storage event on Window objects holding an equivalent Storage objec
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { LocalStorage } from "@alessiofrittoli/web-utils";
+import { LocalStorage } from '@alessiofrittoli/web-utils'
 
-LocalStorage.clear();
+LocalStorage.clear()
 ```
 
 </details>
@@ -3231,7 +3296,7 @@ Extracts and normalizes dimensions from various input formats.
 Represents valid input types for specifying dimensions.
 
 ```ts
-type InputDimensions = string | number | [xy: Dimensions[number]] | Dimensions;
+type InputDimensions = string | number | [xy: Dimensions[number]] | Dimensions
 ```
 
 ---
@@ -3241,7 +3306,7 @@ type InputDimensions = string | number | [xy: Dimensions[number]] | Dimensions;
 Represents a tuple of two optional numeric values.
 
 ```ts
-type Dimensions = [x: number | undefined, y: number | undefined];
+type Dimensions = [x: number | undefined, y: number | undefined]
 ```
 
 </details>
@@ -3277,90 +3342,18 @@ A tuple containing `[ number, number ]` where either value can be `undefined`.
 <summary style="cursor:pointer">Examples</summary>
 
 ```ts
-import { getDimensions } from "@alessiofrittoli/web-utils";
+import { getDimensions } from '@alessiofrittoli/web-utils'
 
-const [width, height] = getDimensions(); // [ undefined, undefined ]
-const [width, height] = getDimensions(100); // [ 100, 100 ]
-const [width, height] = getDimensions([200, 300]); // [ 200, 300 ]
-const [width, height] = getDimensions([200]); // [ 200, 200 ]
-const [width, height] = getDimensions("200x300"); // [ 200, 300 ]
+const [width, height] = getDimensions() // [ undefined, undefined ]
+const [width, height] = getDimensions(100) // [ 100, 100 ]
+const [width, height] = getDimensions([200, 300]) // [ 200, 300 ]
+const [width, height] = getDimensions([200]) // [ 200, 200 ]
+const [width, height] = getDimensions('200x300') // [ 200, 300 ]
 ```
 
 </details>
 
 ---
-
-### Development
-
-#### Install depenendencies
-
-```bash
-npm install
-```
-
-or using `pnpm`
-
-```bash
-pnpm i
-```
-
-#### Build the source code
-
-Run the following command to test and build code for distribution.
-
-```bash
-pnpm build
-```
-
-#### [ESLint](https://www.npmjs.com/package/eslint)
-
-warnings / errors check.
-
-```bash
-pnpm lint
-```
-
-#### [Jest](https://npmjs.com/package/jest)
-
-Run all the defined test suites by running the following:
-
-```bash
-# Run tests and watch file changes.
-pnpm test:watch
-
-# Run tests in a CI environment.
-pnpm test:ci
-```
-
-- See [`package.json`](./package.json) file scripts for more info.
-
-Run tests with coverage.
-
-An HTTP server is then started to serve coverage files from `./coverage` folder.
-
-⚠️ You may see a blank page the first time you run this command. Simply refresh the browser to see the updates.
-
-```bash
-test:coverage:serve
-```
-
----
-
-### Contributing
-
-Contributions are truly welcome!
-
-Please refer to the [Contributing Doc](./CONTRIBUTING.md) for more information on how to start contributing to this project.
-
-Help keep this project up to date with [GitHub Sponsor][sponsor-url].
-
-[![GitHub Sponsor][sponsor-badge]][sponsor-url]
-
----
-
-### Security
-
-If you believe you have found a security vulnerability, we encourage you to **_responsibly disclose this and NOT open a public issue_**. We will investigate all legitimate reports. Email `security@alessiofrittoli.it` to disclose any security vulnerabilities.
 
 ### Made with ☕
 

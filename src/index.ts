@@ -3,11 +3,9 @@ export * from '@/browser-api/media-queries'
 export * from '@/browser-api/picture-in-picture'
 export * from '@/browser-api/popup'
 export * from '@/browser-api/sharer'
-
 export * from '@/storage/Cookie'
 export * from '@/storage/LocalStorage'
 export * from '@/storage/SessionStorage'
-
 export * from '@/arrays'
 export * from '@/blob'
 export * from '@/device'

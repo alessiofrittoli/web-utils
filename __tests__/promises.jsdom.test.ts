@@ -1,137 +1,107 @@
 /**
- * @jest-environment jsdom
+ * @vitest-environment jsdom
  */
+import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
 import { deferCallback, deferTask } from '@/promises'
 
+describe('deferTask', () => {
+	let rafSpy: Mock<typeof requestAnimationFrame>
 
-describe( 'deferTask', () => {
+	beforeEach(() => {
+		vi.useFakeTimers()
 
-	let rafSpy: jest.SpyInstance<number, [ FrameRequestCallback ]>
+		rafSpy = vi.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => {
+			cb(performance.now())
+			return 1
+		})
+	})
 
-	beforeEach( () => {
-
-		jest.useFakeTimers()
-		rafSpy = (
-			jest.spyOn( window, 'requestAnimationFrame' )
-				.mockImplementation( cb => {
-					cb( performance.now() )
-					return 1
-				} )
-		)
-
-	} )
-
-
-	afterEach( () => {
-
+	afterEach(() => {
 		rafSpy.mockRestore()
-		jest.useRealTimers()
+		vi.clearAllTimers().useRealTimers()
+	})
 
-	} )
+	it('resolves with the result of a synchronous task', async () => {
+		const task = vi.fn(() => 42)
+		const promise = deferTask(task)
 
+		vi.runAllTimers()
 
-	it( 'resolves with the result of a synchronous task', async () => {
+		await expect(promise).resolves.toBe(42)
 
-		const task		= jest.fn( () => 42 )
-		const promise	= deferTask( task )
+		expect(task).toHaveBeenCalled()
+	})
 
-		jest.runAllTimers()
-		
-		await expect( promise ).resolves.toBe( 42 )
-		
-		expect( task ).toHaveBeenCalled()
+	it('resolves with the result of an asynchronous task', async () => {
+		const task = vi.fn(async () => 'async result')
+		const promise = deferTask(task)
 
-	} )
-	
+		vi.runAllTimers()
 
-	it( 'resolves with the result of an asynchronous task', async () => {
+		await expect(promise).resolves.toBe('async result')
+		expect(task).toHaveBeenCalled()
+	})
 
-		const task		= jest.fn( async () => 'async result' )
-		const promise	= deferTask( task )
+	it('rejects if the task throws synchronously', async () => {
+		const error = new Error('fail')
+		const task = vi.fn(() => {
+			throw error
+		})
+		const promise = deferTask(task)
 
-		jest.runAllTimers()
+		vi.runAllTimers()
 
-		await expect( promise ).resolves.toBe( 'async result' )
-		expect( task ).toHaveBeenCalled()
+		await expect(promise).rejects.toBe(error)
+		expect(task).toHaveBeenCalled()
+	})
 
-	} )
+	it('rejects if the task returns a rejected promise', async () => {
+		const error = new Error('async fail')
+		const task = vi.fn(async () => {
+			throw error
+		})
+		const promise = deferTask(task)
 
+		vi.runAllTimers()
 
-	it( 'rejects if the task throws synchronously', async () => {
+		await expect(promise).rejects.toBe(error)
+		expect(task).toHaveBeenCalled()
+	})
 
-		const error		= new Error( 'fail' )
-		const task		= jest.fn( () => { throw error } )
-		const promise	= deferTask( task )
+	it('defers task with requestAnimationFrame and setTimeout', async () => {
+		const task = vi.fn(() => 1)
+		const setTimeoutSpy = vi.spyOn(window, 'setTimeout')
+		const promise = deferTask(task)
 
-		jest.runAllTimers()
-
-		await expect( promise ).rejects.toBe( error )
-		expect( task ).toHaveBeenCalled()
-
-	} )
-
-
-	it( 'rejects if the task returns a rejected promise', async () => {
-
-		const error		= new Error( 'async fail' )
-		const task		= jest.fn( async () => { throw error })
-		const promise	= deferTask( task )
-
-		jest.runAllTimers()
-
-		await expect( promise ).rejects.toBe( error )
-		expect( task ).toHaveBeenCalled()
-
-	} )
-
-
-	it( 'defers task with requestAnimationFrame and setTimeout', async () => {
-
-		const task			= jest.fn( () => 1 )
-		const setTimeoutSpy	= jest.spyOn( window, 'setTimeout' )
-		const promise		= deferTask( task )
-
-		jest.runAllTimers()
+		vi.runAllTimers()
 
 		await promise
 
-		expect( rafSpy ).toHaveBeenCalled()
-		expect( setTimeoutSpy ).toHaveBeenCalledWith( expect.any( Function ), 0 )
+		expect(rafSpy).toHaveBeenCalled()
+		expect(setTimeoutSpy).toHaveBeenCalledWith(expect.any(Function), 0)
 
 		setTimeoutSpy.mockRestore()
+	})
 
-	} )
+	it('proxies given arguments to the given task function', async () => {
+		const task = vi.fn((input: number) => input + 1)
 
+		const result = deferTask(task, 10)
 
-	it( 'proxies given arguments to the given task function', async () => {
+		vi.runAllTimers()
 
-		const task = jest.fn( ( input: number ) => input + 1 )
+		await expect(result).resolves.toBe(11)
+	})
 
-		const result = deferTask( task, 10 )
+	describe('deferCallback', () => {
+		it('returns a callback which proxies task arguments', async () => {
+			type Handler = (input: number) => number
+			const task = (input: number): number => input + 1
+			const result = deferCallback<Handler, Parameters<Handler>>(task)(10)
 
-		jest.runAllTimers()
+			vi.runAllTimers()
 
-		await expect( result ).resolves.toBe( 11 )
-
-	} )
-
-
-	describe( 'deferCallback', () => {
-		
-		it( 'returns a callback which proxies task arguments', async () => {
-
-			type Handler	= ( input: number ) => number
-			const task		= ( input: number ) => input + 1
-			const result	= deferCallback<Handler, Parameters<Handler>>( task )( 10 )
-
-			jest.runAllTimers()
-
-			await expect( result ).resolves.toBe( 11 )
-
-		} )
-	
-	} )
-
-
-} )
-
+			await expect(result).resolves.toBe(11)
+		})
+	})
+})
