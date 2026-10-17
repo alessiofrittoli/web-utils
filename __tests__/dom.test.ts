@@ -1,451 +1,374 @@
 /**
- * @jest-environment jsdom
+ * @vitest-environment jsdom
  */
-
-import { blockScroll, restoreScroll } from '@/dom'
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
 import { cloneStyleSheetList, cloneStyleSheets } from '@/dom'
+import { blockScroll, restoreScroll } from '@/dom'
 
-describe( 'dom utilities', () => {
-
+describe('dom utilities', () => {
 	let originalHtmlStyle: CSSStyleDeclaration
 
-	beforeEach( () => {
+	beforeEach(() => {
 		originalHtmlStyle = {
-			...document.documentElement.style
+			...document.documentElement.style,
 		}
-	} )
+	})
 
-
-	afterEach( () => {
+	afterEach(() => {
 		document.documentElement.style.cssText = ''
-		Object.assign( document.documentElement.style, originalHtmlStyle )
-	} )
+		Object.assign(document.documentElement.style, originalHtmlStyle)
+	})
 
-	describe( 'blockScroll', () => {
-
-		it( 'adds oveflow hidden to the <html /> node', () => {
-			
+	describe('blockScroll', () => {
+		it('adds oveflow hidden to the <html /> node', () => {
 			blockScroll()
 
 			const htmlElement = document.documentElement
-			
-			expect( htmlElement.style.overflow ).toBe( 'hidden' )
 
-		} )
+			expect(htmlElement.style.overflow).toBe('hidden')
+		})
 
-
-		it( 'calculates the scrollbar width and sets the `--scrollbar-size` CSS variable to the <html /> node', () => {
-			
+		it('calculates the scrollbar width and sets the `--scrollbar-size` CSS variable to the <html /> node', () => {
 			blockScroll()
-			
+
 			const htmlElement = document.documentElement
 
-			expect( htmlElement.style.paddingRight ).toMatch( /px$/ )
-			expect( htmlElement.style.getPropertyValue( '--scrollbar-size' ) ).toMatch( /px$/ )
-			
-		} )
+			expect(htmlElement.style.paddingRight).toMatch(/px$/)
+			expect(htmlElement.style.getPropertyValue('--scrollbar-size')).toMatch(/px$/)
+		})
 
+		it('adds oveflow hidden to a custom HTML node', () => {
+			const div = document.createElement('div')
+			document.body.appendChild(div)
 
-		it( 'adds oveflow hidden to a custom HTML node', () => {
-			
-			const div = document.createElement( 'div' )
-			document.body.appendChild( div )
+			blockScroll(div)
 
-			blockScroll( div )
-			
-			expect( div.style.overflow ).toBe( 'hidden' )
+			expect(div.style.overflow).toBe('hidden')
+		})
 
-		} )
+		it('calculates the scrollbar width and sets the `--scrollbar-size` CSS variable to a custom HTML node', () => {
+			const div = document.createElement('div')
+			document.body.appendChild(div)
 
+			blockScroll(div)
 
-		it( 'calculates the scrollbar width and sets the `--scrollbar-size` CSS variable to a custom HTML node', () => {
-			
-			const div = document.createElement( 'div' )
-			document.body.appendChild( div )
+			expect(div.style.paddingRight).toMatch(/px$/)
+			expect(div.style.getPropertyValue('--scrollbar-size')).toMatch(/px$/)
+		})
+	})
 
-			blockScroll( div )
-
-			expect( div.style.paddingRight ).toMatch( /px$/ )
-			expect( div.style.getPropertyValue( '--scrollbar-size' ) ).toMatch( /px$/ )
-			
-		} )
-
-	} )
-
-
-	describe( 'restoreScroll', () => {
-
-		it( 'restores scroll of the <html /> element', () => {
-
+	describe('restoreScroll', () => {
+		it('restores scroll of the <html /> element', () => {
 			blockScroll()
 			restoreScroll()
 
 			const htmlElement = document.documentElement
 
-			expect( htmlElement.style.overflow ).toBe( '' )
-			expect( htmlElement.style.paddingRight ).toBe( '' )
-			expect( htmlElement.style.getPropertyValue( '--scrollbar-size' ) ).toBe( '' )
+			expect(htmlElement.style.overflow).toBe('')
+			expect(htmlElement.style.paddingRight).toBe('')
+			expect(htmlElement.style.getPropertyValue('--scrollbar-size')).toBe('')
+		})
 
-		} )
+		it('restores scroll of a custom HTML element', () => {
+			const div = document.createElement('div')
+			document.body.appendChild(div)
 
-		
-		it( 'restores scroll of a custom HTML element', () => {
+			blockScroll(div)
+			restoreScroll(div)
 
-			const div = document.createElement( 'div' )
-			document.body.appendChild( div )
+			expect(div.style.overflow).toBe('')
+			expect(div.style.paddingRight).toBe('')
+			expect(div.style.getPropertyValue('--scrollbar-size')).toBe('')
 
-			blockScroll( div )
-			restoreScroll( div )
+			document.body.removeChild(div)
+		})
+	})
 
-			expect( div.style.overflow ).toBe( '' )
-			expect( div.style.paddingRight ).toBe( '' )
-			expect( div.style.getPropertyValue( '--scrollbar-size' ) ).toBe( '' )
-
-			document.body.removeChild( div )
-
-		} )
-
-	} )
-
-
-	describe( 'cloneStyleSheetList', () => {
-
-		beforeEach( () => {
+	describe('cloneStyleSheetList', () => {
+		beforeEach(() => {
 			// clean styles
-			document.querySelectorAll( 'style' ).forEach( style => {
+			document.querySelectorAll('style').forEach(style => {
 				style.remove()
-			} )
-		} )
+			})
+		})
 
+		it('clones StyleSheetList into HTMLStyleElements', () => {
+			const styles = Array.from(Array(2)).map((_, index) => {
+				const style = document.createElement('style')
+				style.innerHTML = `h${index + 1} {color: green;}`
 
-		it( 'clones StyleSheetList into HTMLStyleElements', () => {
-
-			const styles = Array.from( Array( 2 ) ).map( ( _, index ) => {
-				const style = document.createElement( 'style' )
-				style.innerHTML = `h${ index + 1 } {color: green;}`
-
-				document.head.appendChild( style )
+				document.head.appendChild(style)
 				return style
-			} )
+			})
 
-			const cloned = cloneStyleSheetList( document.styleSheets )
+			const cloned = cloneStyleSheetList(document.styleSheets)
 
-			expect( cloned.length ).toBe( styles.length )
+			expect(cloned.length).toBe(styles.length)
 
-			cloned.forEach( ( style, index ) => {
-				expect( style ).toBeInstanceOf( HTMLStyleElement )
-				expect( style.innerText )
-					.toBe( styles[ index ]?.innerText )
-			} )
+			cloned.forEach((style, index) => {
+				expect(style).toBeInstanceOf(HTMLStyleElement)
+				expect(style.innerText).toBe(styles[index]?.innerText)
+			})
+		})
 
-		} )
-
-
-		it( 'clones an array of CSSStyleSheet into HTMLStyleElements', () => {
-
-			const styles = Array.from( Array( 2 ) ).map( ( _, index ) => {
+		it('clones an array of CSSStyleSheet into HTMLStyleElements', () => {
+			const styles = Array.from(Array(2)).map((_, index) => {
 				const style = new CSSStyleSheet()
-				style.insertRule( `h${ index + 1 }: {color: green;}` )
+				style.insertRule(`h${index + 1}: {color: green;}`)
 				return style
-			} )
+			})
 
-			const cloned = cloneStyleSheetList( styles )
+			const cloned = cloneStyleSheetList(styles)
 
-			expect( cloned.length ).toBe( styles.length )
+			expect(cloned.length).toBe(styles.length)
 
-			cloned.forEach( ( style, index ) => {
-				const rules = Array.from( styles[ index ]?.cssRules || [] )
+			cloned.forEach((style, index) => {
+				const rules = Array.from(styles[index]?.cssRules || [])
 
-				expect( style ).toBeInstanceOf( HTMLStyleElement )
-				expect( style.innerHTML )
-					.toBe( rules.at( 0 )?.cssText )
-			} )
+				expect(style).toBeInstanceOf(HTMLStyleElement)
+				expect(style.innerHTML).toBe(rules.at(0)?.cssText)
+			})
+		})
 
-		} )
+		it('filters out stylesheets with inaccessible cssRules', () => {
+			const cloned = cloneStyleSheetList([new CSSStyleSheet()])
 
+			expect(cloned.length).toBe(0)
+		})
 
-		it( 'filters out stylesheets with inaccessible cssRules', () => {
-			
-			const cloned = cloneStyleSheetList( [ new CSSStyleSheet() ] )
+		it('logs error to console when an error occurs and skips iteration', () => {
+			const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
-			expect( cloned.length ).toBe( 0 )
+			const createElementSpy = vi.spyOn(document, 'createElement').mockImplementation(() => {
+				throw new Error('Unexpected error')
+			})
 
-		} )
+			const result = cloneStyleSheetList([{} as CSSStyleSheet])
 
+			expect(result).toEqual([])
 
-		it( 'logs error to console when an error occurs and skips iteration', () => {
-
-			const consoleSpy = jest.spyOn( console, 'error' ).mockImplementation( () => {} )
-
-			const createElementSpy = jest.spyOn( document, 'createElement' ).mockImplementation( () => {
-				throw new Error( 'Unexpected error' )
-			} )
-
-			const result = cloneStyleSheetList( [ {} as CSSStyleSheet ] )
-
-			expect( result ).toEqual( [] )
-
-			expect( consoleSpy ).toHaveBeenCalledWith(
-				'Error while cloning styles.', expect.any( Error )
-			)
+			expect(consoleSpy).toHaveBeenCalledWith('Error while cloning styles.', expect.any(Error))
 
 			consoleSpy.mockRestore()
 			createElementSpy.mockRestore()
+		})
+	})
 
-		} )
-
-	} )
-	
-
-	describe( 'cloneStyleSheets', () => {
-
-		beforeEach( () => {
+	describe('cloneStyleSheets', () => {
+		beforeEach(() => {
 			// clean styles
-			document.querySelectorAll( 'style' ).forEach( style => {
+			document.querySelectorAll('style').forEach(style => {
 				style.remove()
-			} )
-		} )
+			})
+		})
 
+		describe('StyleSheetList', () => {
+			it('clones a StyleSheetList or an array of StyleSheetList', async () => {
+				const styles = Array.from(Array(2)).map((_, index) => {
+					const style = document.createElement('style')
+					style.innerHTML = `h${index + 1} {color: green;}`
 
-		describe( 'StyleSheetList', () => {
-			
-			it( 'clones a StyleSheetList or an array of StyleSheetList', async () => {
-
-				const styles = Array.from( Array( 2 ) ).map( ( _, index ) => {
-					const style = document.createElement( 'style' )
-					style.innerHTML = `h${ index + 1 } {color: green;}`
-
-					document.head.appendChild( style )
+					document.head.appendChild(style)
 					return style
-				} )
+				})
 
-				const cloned = await cloneStyleSheets( document.styleSheets )
+				const cloned = await cloneStyleSheets(document.styleSheets)
 
-				expect( cloned.length ).toBe( styles.length )
+				expect(cloned.length).toBe(styles.length)
 
-				cloned.forEach( ( style, index ) => {
-					expect( style ).toBeInstanceOf( HTMLStyleElement )
-					expect( style.innerText )
-						.toBe( styles[ index ]?.innerText )
-				} )
+				cloned.forEach((style, index) => {
+					expect(style).toBeInstanceOf(HTMLStyleElement)
+					expect(style.innerText).toBe(styles[index]?.innerText)
+				})
+			})
+		})
 
-			} )
-
-		} )
-
-
-		describe( 'CSSStyleSheet', () => {
-			
-			it( 'clones a CSSStyleSheet', async () => {
-	
+		describe('CSSStyleSheet', () => {
+			it('clones a CSSStyleSheet', async () => {
 				const style = new CSSStyleSheet()
-				style.insertRule( 'h1: {color: green;}' )
-	
-				const cloned = await cloneStyleSheets( style )
-	
-				expect( cloned.length ).toBe( 1 )
-	
-				expect( cloned.at( 0 ) ).toBeInstanceOf( HTMLStyleElement )
-				expect( cloned.at( 0 )?.innerHTML ).toBe( 'h1: {color: green;}' )
-	
-			} )
-	
-	
-			it( 'clones an array of CSSStyleSheet', async () => {
-				const styles = Array.from( Array( 2 ) ).map( ( _, index ) => {
+				style.insertRule('h1: {color: green;}')
+
+				const cloned = await cloneStyleSheets(style)
+
+				expect(cloned.length).toBe(1)
+
+				expect(cloned.at(0)).toBeInstanceOf(HTMLStyleElement)
+				expect(cloned.at(0)?.innerHTML).toBe('h1: {color: green;}')
+			})
+
+			it('clones an array of CSSStyleSheet', async () => {
+				const styles = Array.from(Array(2)).map((_, index) => {
 					const style = new CSSStyleSheet()
-					style.insertRule( `h${ index + 1 }: {color: green;}` )
+					style.insertRule(`h${index + 1}: {color: green;}`)
 					return style
-				} )
-	
-				const cloned = await cloneStyleSheets( styles )
-	
-				expect( cloned.length ).toBe( styles.length )
-	
-				cloned.forEach( ( style, index ) => {
-					const rules = Array.from( styles[ index ]?.cssRules || [] )
-	
-					expect( style ).toBeInstanceOf( HTMLStyleElement )
-					expect( style.innerHTML )
-						.toBe( rules.at( 0 )?.cssText )
-				} )
-			} )
+				})
 
-		} )
+				const cloned = await cloneStyleSheets(styles)
 
+				expect(cloned.length).toBe(styles.length)
 
-		describe( 'HTMLStyleElement', () => {
-			
-			it( 'clones a single HTMLStyleElement', async () => {
-	
-				const style		= document.createElement( 'style' )
-				style.innerHTML	= 'body { color: red; }'
-				const result	= await cloneStyleSheets( style )
-	
-				expect( result ).toHaveLength( 1 )
-				expect( result[ 0 ] ).toBeInstanceOf( HTMLStyleElement )
-				expect( result[ 0 ]?.innerHTML ).toBe( 'body { color: red; }' )
-	
-			} )
-			
-			
-			it( 'clones multiple styles from an array of HTMLStyleElement', async () => {
-	
-				const styles = Array.from( Array( 2 ) ).map( ( _, index ) => {
-					const style		= document.createElement( 'style' )
-					style.innerHTML	= `h${ index + 1 } {color: green;}`
+				cloned.forEach((style, index) => {
+					const rules = Array.from(styles[index]?.cssRules || [])
+
+					expect(style).toBeInstanceOf(HTMLStyleElement)
+					expect(style.innerHTML).toBe(rules.at(0)?.cssText)
+				})
+			})
+		})
+
+		describe('HTMLStyleElement', () => {
+			it('clones a single HTMLStyleElement', async () => {
+				const style = document.createElement('style')
+				style.innerHTML = 'body { color: red; }'
+				const result = await cloneStyleSheets(style)
+
+				expect(result).toHaveLength(1)
+				expect(result[0]).toBeInstanceOf(HTMLStyleElement)
+				expect(result[0]?.innerHTML).toBe('body { color: red; }')
+			})
+
+			it('clones multiple styles from an array of HTMLStyleElement', async () => {
+				const styles = Array.from(Array(2)).map((_, index) => {
+					const style = document.createElement('style')
+					style.innerHTML = `h${index + 1} {color: green;}`
 					return style
-				} )
-	
-				const cloned = await cloneStyleSheets( styles )
-	
-				expect( cloned.length ).toBe( styles.length )
-	
-				cloned.forEach( ( style, index ) => {
-					expect( style ).toBeInstanceOf( HTMLStyleElement )
-					expect( style.innerHTML )
-						.toBe( styles[ index ]?.innerHTML )
-				} )
-	
-			} )
+				})
 
+				const cloned = await cloneStyleSheets(styles)
 
-			it( 'falls back to innerText when textContent is empty', async () => {
-				const style = document.createElement( 'style' )
+				expect(cloned.length).toBe(styles.length)
 
-				Object.defineProperty( style, 'textContent', { configurable: true, get: () => '' } )
-				Object.defineProperty( style, 'innerText', { configurable: true, get: () => 'h1 {color: red;}' } )
-				Object.defineProperty( style, 'innerHTML', { configurable: true, get: () => 'ignored' } )
+				cloned.forEach((style, index) => {
+					expect(style).toBeInstanceOf(HTMLStyleElement)
+					expect(style.innerHTML).toBe(styles[index]?.innerHTML)
+				})
+			})
 
-				const cloned = await cloneStyleSheets( style )
+			it('falls back to innerText when textContent is empty', async () => {
+				const style = document.createElement('style')
 
-				expect( cloned ).toHaveLength( 1 )
-				expect( cloned[ 0 ]?.textContent ).toBe( 'h1 {color: red;}' )
-			} )
+				Object.defineProperty(style, 'textContent', { configurable: true, get: () => '' })
+				Object.defineProperty(style, 'innerText', {
+					configurable: true,
+					get: () => 'h1 {color: red;}',
+				})
+				Object.defineProperty(style, 'innerHTML', { configurable: true, get: () => 'ignored' })
 
-			
-			it( 'falls back to innerHTML when textContent and innerText are empty', async () => {
-				const style = document.createElement( 'style' )
+				const cloned = await cloneStyleSheets(style)
 
-				Object.defineProperty( style, 'textContent', { configurable: true, get: () => '' } )
-				Object.defineProperty( style, 'innerText', { configurable: true, get: () => '' } )
-				Object.defineProperty( style, 'innerHTML', { configurable: true, get: () => 'h1 {color: blue;}' } )
+				expect(cloned).toHaveLength(1)
+				expect(cloned[0]?.textContent).toBe('h1 {color: red;}')
+			})
 
-				const cloned = await cloneStyleSheets( style )
+			it('falls back to innerHTML when textContent and innerText are empty', async () => {
+				const style = document.createElement('style')
 
-				expect( cloned ).toHaveLength( 1 )
-				expect( cloned[ 0 ]?.textContent ).toBe( 'h1 {color: blue;}' )
-			} )
+				Object.defineProperty(style, 'textContent', { configurable: true, get: () => '' })
+				Object.defineProperty(style, 'innerText', { configurable: true, get: () => '' })
+				Object.defineProperty(style, 'innerHTML', {
+					configurable: true,
+					get: () => 'h1 {color: blue;}',
+				})
 
-		} )
+				const cloned = await cloneStyleSheets(style)
 
+				expect(cloned).toHaveLength(1)
+				expect(cloned[0]?.textContent).toBe('h1 {color: blue;}')
+			})
+		})
 
-		describe( 'UrlStylesheet', () => {
+		describe('UrlStylesheet', () => {
+			it('creates a link element for URL stylesheet with fetch false', async () => {
+				const result = await cloneStyleSheets('https://example.com/style.css')
 
-			it( 'creates a link element for URL stylesheet with fetch false', async () => {
+				expect(result).toHaveLength(1)
+				expect(result[0]).toBeInstanceOf(HTMLLinkElement)
+				expect((result[0] as HTMLLinkElement).href).toBe('https://example.com/style.css')
+				expect((result[0] as HTMLLinkElement).rel).toBe('stylesheet')
+			})
 
-				const result = await cloneStyleSheets( 'https://example.com/style.css' )
+			it('creates a link element for URL stylesheet object with fetch undefined', async () => {
+				const result = await cloneStyleSheets({ url: { pathname: '/style.css' }, fetch: undefined })
 
-				expect( result ).toHaveLength( 1 )
-				expect( result[ 0 ] ).toBeInstanceOf( HTMLLinkElement )
-				expect( ( result[ 0 ] as HTMLLinkElement ).href ).toBe( 'https://example.com/style.css' )
-				expect( ( result[ 0 ] as HTMLLinkElement ).rel ).toBe( 'stylesheet' )
+				expect(result).toHaveLength(1)
+				expect(result[0]).toBeInstanceOf(HTMLLinkElement)
+				expect((result[0] as HTMLLinkElement).href).toBe('http://localhost:3000/style.css')
+			})
 
-			} )
+			it('creates a link element for URL stylesheet object with fetch false', async () => {
+				const result = await cloneStyleSheets({ url: 'https://example.com/style.css', fetch: false })
 
+				expect(result).toHaveLength(1)
+				expect(result[0]).toBeInstanceOf(HTMLLinkElement)
+				expect((result[0] as HTMLLinkElement).href).toBe('https://example.com/style.css')
+			})
 
-			it( 'creates a link element for URL stylesheet object with fetch undefined', async () => {
-
-				const result = await cloneStyleSheets( { url: { pathname: '/style.css' }, fetch: undefined } )
-
-				expect( result ).toHaveLength( 1 )
-				expect( result[ 0 ] ).toBeInstanceOf( HTMLLinkElement )
-				expect( ( result[ 0 ] as HTMLLinkElement ).href ).toBe( 'http://localhost/style.css' )
-
-			} )
-			
-			
-			it( 'creates a link element for URL stylesheet object with fetch false', async () => {
-
-				const result = await cloneStyleSheets( { url: 'https://example.com/style.css', fetch: false } )
-
-				expect( result ).toHaveLength( 1 )
-				expect( result[ 0 ] ).toBeInstanceOf( HTMLLinkElement )
-				expect( ( result[ 0 ] as HTMLLinkElement ).href ).toBe( 'https://example.com/style.css' )
-
-			} )
-
-
-			describe( 'fetch', () => {
-	
+			describe('fetch', () => {
 				let deleteFetch = false
-				let fetchSpy: jest.SpyInstance<ReturnType<typeof fetch>>
-				const responseText = jest.fn()
-	
-				beforeAll( () => {
-					if ( ! global.fetch ) {
-						Object.defineProperty( global, 'fetch', {
+				let fetchSpy: Mock<typeof fetch>
+				const responseText = vi.fn()
+
+				beforeAll(() => {
+					if (!global.fetch) {
+						Object.defineProperty(global, 'fetch', {
 							writable: true,
-							value	: jest.fn(),
-						} )
+							value: vi.fn(),
+						})
 						deleteFetch = true
 					}
-	
-					fetchSpy = jest.spyOn( global, 'fetch' ).mockResolvedValue( {
-						ok		: true,
-						status	: 200,
-						text	: responseText,
-						headers	: new Headers( { 'Content-Type': 'text/css' } ),
-					} as unknown as Response )
-				} )
-	
-				afterAll( () => {
-					fetchSpy.mockRestore()
-	
-					if ( deleteFetch ) {
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						delete ( global as any ).fetch
-					}
-				} )
-	
-				it( 'returns HTMLStyleElement with fetched content if fetch is set to true', async () => {
-					
-					const css = 'h1 {color: green}'
-					responseText.mockReturnValueOnce( css )
-					const result = await cloneStyleSheets( { url: 'https://example.com/style.css', fetch: true } )
-		
-					expect( fetchSpy ).toHaveBeenCalled()
-					expect( result ).toHaveLength( 1 )
-					expect( result[ 0 ] ).toBeInstanceOf( HTMLStyleElement )
-					expect( result[ 0 ]?.textContent ).toBe( css )
-		
-				} )
-				
-				
-				it( 'doesn\'t return a HTMLStyleElement if fetch fails', async () => {
-					
-					fetchSpy.mockResolvedValueOnce( {
-						ok		: false,
-						status	: 404,
-						text	: responseText,
-						headers	: new Headers(),
-					} as unknown as Response )
 
-					const consoleErrorSpy = jest.spyOn( console, 'error' ).mockImplementation( () => {} )
-	
-					const result = await cloneStyleSheets( { url: 'https://example.com/style.css', fetch: true } )
-		
-					expect( fetchSpy ).toHaveBeenCalled()
-					expect( result ).toHaveLength( 0 )
+					fetchSpy = vi.spyOn(global, 'fetch').mockResolvedValue({
+						ok: true,
+						status: 200,
+						text: responseText,
+						headers: new Headers({ 'Content-Type': 'text/css' }),
+					} as unknown as Response)
+				})
+
+				afterAll(() => {
+					fetchSpy.mockRestore()
+
+					if (deleteFetch) {
+						// oxlint-disable-next-line typescript/no-explicit-any
+						delete (global as any).fetch
+					}
+				})
+
+				it('returns HTMLStyleElement with fetched content if fetch is set to true', async () => {
+					const css = 'h1 {color: green}'
+					responseText.mockReturnValueOnce(css)
+					const result = await cloneStyleSheets({
+						url: 'https://example.com/style.css',
+						fetch: true,
+					})
+
+					expect(fetchSpy).toHaveBeenCalled()
+					expect(result).toHaveLength(1)
+					expect(result[0]).toBeInstanceOf(HTMLStyleElement)
+					expect(result[0]?.textContent).toBe(css)
+				})
+
+				it("doesn't return a HTMLStyleElement if fetch fails", async () => {
+					fetchSpy.mockResolvedValueOnce({
+						ok: false,
+						status: 404,
+						text: responseText,
+						headers: new Headers(),
+					} as unknown as Response)
+
+					const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+					const result = await cloneStyleSheets({
+						url: 'https://example.com/style.css',
+						fetch: true,
+					})
+
+					expect(fetchSpy).toHaveBeenCalled()
+					expect(result).toHaveLength(0)
 
 					consoleErrorSpy.mockRestore()
-		
-				} )
-	
-			} )
-
-		} )
-
-	} )
-
-} )
+				})
+			})
+		})
+	})
+})

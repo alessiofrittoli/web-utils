@@ -1,13 +1,23 @@
 {
 	"workbench.colorCustomizations": {
-		"titleBar.activeBackground": "#212121",
+		"titleBar.activeBackground": "#00000000",
 		"titleBar.border": "#9B8BEA",
 		"titleBar.activeForeground": "#F0F0F0",
-		"statusBar.background": "#212121",
-		"statusBar.border":"#9B8BEA",
+		"statusBar.background": "#191919",
+		"statusBar.border": "#9B8BEA",
 		"statusBar.foreground": "#F0F0F0",
 		"activityBar.activeBorder": "#9B8BEA",
-		"activityBarBadge.foreground":"#212121",
-		"activityBarBadge.background":"#9B8BEA",
+		"activityBarBadge.foreground": "#212121",
+		"activityBarBadge.background": "#9B8BEA"
 	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"files.associations": {
+		".ignore": "ignore",
+		".gitignore": "ignore"
+	},
+	"js/ts.tsdk.path": "node_modules/typescript/lib",
+	"json.schemaDownload.trustedDomains": {
+		"https://raw.githubusercontent.com/DavidAnson/markdownlint/": true
+	}
 }
