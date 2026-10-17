@@ -1,9 +1,8 @@
 import { isValidDate } from '@alessiofrittoli/date-utils'
 import { isNumeric } from '@alessiofrittoli/math-utils'
-
-import { isPromise, isString } from './types'
-import { escapeRegExpCharSet } from './regex'
-import { isEmpty } from './validation'
+import { isPromise, isString } from '@/types'
+import { escapeRegExpCharSet } from '@/regex'
+import { isEmpty } from '@/validation'
 
 /**
  * Make first letter uppercase.
@@ -114,7 +113,13 @@ export const addLeadingCharacter = (
 	character: string,
 	search: string | RegExp = character,
 ): string => {
-	if (typeof input !== 'string') throw new TypeError('Input must be a string.')
+	if (typeof input !== 'string') {
+		throw new TypeError('Input must be a string.')
+	}
+
+	if (input.length > 1000) {
+		throw new TypeError('Input too long.')
+	}
 
 	const regEx = search instanceof RegExp ? search : new RegExp(`^[${escapeRegExpCharSet(search)}]?`)
 
@@ -130,7 +135,13 @@ export const addLeadingCharacter = (
  * @returns	The given string with leading character removed.
  */
 export const removeLeadingCharacter = (input: string, character: string | RegExp): string => {
-	if (typeof input !== 'string') throw new TypeError('Input must be a string.')
+	if (typeof input !== 'string') {
+		throw new TypeError('Input must be a string.')
+	}
+
+	if (input.length > 1000) {
+		throw new TypeError('Input too long.')
+	}
 
 	const regEx =
 		character instanceof RegExp ? character : new RegExp(`^[${escapeRegExpCharSet(character)}]+`)
@@ -154,7 +165,13 @@ export const addTrailingCharacter = (
 	character: string,
 	search: string | RegExp = character,
 ): string => {
-	if (typeof input !== 'string') throw new TypeError('Input must be a string.')
+	if (typeof input !== 'string') {
+		throw new TypeError('Input must be a string.')
+	}
+
+	if (input.length > 1000) {
+		throw new TypeError('Input too long.')
+	}
 
 	const regEx = search instanceof RegExp ? search : new RegExp(`[${escapeRegExpCharSet(search)}]?$`)
 
@@ -170,10 +187,17 @@ export const addTrailingCharacter = (
  * @returns	The given string with trailing character removed.
  */
 export const removeTrailingCharacter = (input: string, character: string | RegExp): string => {
-	if (typeof input !== 'string') throw new TypeError('Input must be a string.')
+	if (typeof input !== 'string') {
+		throw new TypeError('Input must be a string.')
+	}
+
+	if (input.length > 1000) {
+		throw new TypeError('Input too long.')
+	}
 
 	const regEx =
 		character instanceof RegExp ? character : new RegExp(`[${escapeRegExpCharSet(character)}]?$`)
+
 	return input.replace(regEx, '')
 }
 
