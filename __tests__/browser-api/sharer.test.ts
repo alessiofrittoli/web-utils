@@ -17,12 +17,12 @@ import {
 	shareOnTelegram,
 	shareOnPinterest,
 	shareOnWhatsApp,
-} from '@/browser-api/sharer'
+} from '@/sharer'
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
-import { openBrowserPopUp as _openBrowserPopUp } from '@/browser-api/popup'
+import { openBrowserPopUp as _openBrowserPopUp } from '@/browser-popup'
 import { Url } from '@alessiofrittoli/url-utils'
 
-vi.mock('@/browser-api/popup', () => ({
+vi.mock('@/browser-popup', () => ({
 	openBrowserPopUp: vi.fn(),
 }))
 

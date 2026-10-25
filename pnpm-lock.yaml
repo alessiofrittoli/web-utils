@@ -26,9 +26,6 @@ importers:
       '@alessiofrittoli/package-configs':
         specifier: ^1.9.0
         version: 1.9.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@eslint/js@10.0.1)(oxlint-tsgolint@7.0.2005)(oxlint@1.89.0(oxlint-tsgolint@7.0.2005))(prettier-plugin-sort-imports@1.8.11(typescript@6.0.3))(prettier@3.9.10)(tsdown@0.23.2(typescript@6.0.3))(typescript@6.0.3)(vite@8.3.4(@types/node@24.19.2)(esbuild@0.27.0))(vitest@5.0.5)
-      '@alessiofrittoli/type-utils':
-        specifier: ^2.1.0
-        version: 2.1.0(@alessiofrittoli/chain-functions@2.8.0)(@alessiofrittoli/node-scripts@4.2.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@alessiofrittoli/typed-map@1.1.0))
       '@alessiofrittoli/typed-map':
         specifier: ^1.1.0
         version: 1.1.0

@@ -1,7 +1,7 @@
-import type { OpenBrowserPopUpOptions } from '@/browser-api/popup'
 import { Url, type UrlInput } from '@alessiofrittoli/url-utils'
+import type { OpenBrowserPopUpOptions } from '@/browser-popup'
 import { emailDataToString, type EmailData } from '@/strings'
-import { openBrowserPopUp } from '@/browser-api/popup'
+import { openBrowserPopUp } from '@/browser-popup'
 
 /**
  * @see {@link globalThis.ShareData}
