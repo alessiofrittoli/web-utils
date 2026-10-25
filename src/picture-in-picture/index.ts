@@ -1,5 +1,5 @@
 import { getDimensions, type InputDimensions } from '@/sizes'
-import { cloneStyleSheets, type Styles } from '@/styleheet'
+import { cloneStyleSheets, type Styles } from '@/stylesheet'
 import { PiPErrors } from '@/picture-in-picture/errors'
 import { Exception } from '@alessiofrittoli/exception'
 
