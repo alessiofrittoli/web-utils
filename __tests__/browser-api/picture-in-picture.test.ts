@@ -7,13 +7,11 @@ import {
 	openDocumentPictureInPicture,
 } from '@/picture-in-picture'
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
-import { cloneStyleSheets as _cloneStyleSheets, type Styles } from '@/dom'
+import { cloneStyleSheets as _cloneStyleSheets, type Styles } from '@/stylesheet'
 import { PiPErrors } from '@/picture-in-picture/errors'
 
-vi.mock('@/dom', () => ({
-	cloneStyleSheets: vi.fn(async () => {
-		return [document.createElement('style')]
-	}),
+vi.mock('@/stylesheet', () => ({
+	cloneStyleSheets: vi.fn(async () => [document.createElement('style')]),
 }))
 
 const cloneStyleSheets = _cloneStyleSheets as Mock<typeof _cloneStyleSheets>

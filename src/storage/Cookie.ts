@@ -1,6 +1,7 @@
-import { parseValue, stringifyValue, toCamelCase, lcFirst, ucFirst } from '@/strings'
 import { getTypedMap, type TypedMap } from '@alessiofrittoli/typed-map'
+import { parseValue, stringifyValue } from '@/string-parser'
 import { isValidDate } from '@alessiofrittoli/date-utils'
+import { toCamelCase, lcFirst, ucFirst } from '@/strings'
 
 /**
  * The Cookie Priority.

@@ -1,4 +1,4 @@
-import { parseValue, stringifyValue } from '@/strings'
+import { parseValue, stringifyValue } from '@/string-parser'
 
 /**
  * A browser-compatible implementation of [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage). Data is stored in
