@@ -1,4 +1,4 @@
-import { parseValue, stringifyValue } from '@/strings'
+import { parseValue, stringifyValue } from '@/string-parser'
 
 /**
  * A browser-compatible implementation of [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). Data is stored

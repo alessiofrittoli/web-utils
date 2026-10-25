@@ -1,29 +1,5 @@
-import type { UrlInput } from '@alessiofrittoli/url-utils'
-
-/**
- * Prevent Element Overflow.
- *
- * @param target (Optional) The target HTMLElement. Default: `Document.documentElement`.
- */
-export const blockScroll = (target: HTMLElement = document.documentElement): void => {
-	const { width } = target.getBoundingClientRect()
-	target.style.overflow = 'hidden'
-	const scrollBarSize = Math.max(0, target.clientWidth - width)
-
-	target.style.paddingRight = `${scrollBarSize}px`
-	target.style.setProperty('--scrollbar-size', `${scrollBarSize}px`)
-}
-
-/**
- * Restore Element Overflow.
- *
- * @param target (Optional) The target HTMLElement. Default: `Document.documentElement`.
- */
-export const restoreScroll = (target: HTMLElement = document.documentElement): void => {
-	target.style.removeProperty('overflow')
-	target.style.removeProperty('padding-right')
-	target.style.removeProperty('--scrollbar-size')
-}
+import { Url, type UrlInput } from '@alessiofrittoli/url-utils'
+import { fetch } from '@alessiofrittoli/fetcher'
 
 /**
  * Represents a URL stylesheet as a simple URL input, URL object or as an object
@@ -136,13 +112,10 @@ export const clonseStyleElements = (
  *
  * @returns The stylesheet `HTMLLinkElement` or `HTMLStyleElement` when using fetch strategy.
  */
-export const cloneUrlStylesheets = async (
+export const cloneUrlStylesheets = (
 	styleUrls: UrlStylesheet | UrlStylesheet[],
-): Promise<PromiseSettledResult<HTMLLinkElement | HTMLStyleElement>[]> => {
-	const { Url } = await import('@alessiofrittoli/url-utils')
-	const { fetch } = await import('@alessiofrittoli/fetcher')
-
-	return Promise.allSettled(
+): Promise<PromiseSettledResult<HTMLLinkElement | HTMLStyleElement>[]> =>
+	Promise.allSettled(
 		(!Array.isArray(styleUrls) ? [styleUrls] : styleUrls).map(async urlInput => {
 			const isUrlString = typeof urlInput === 'string'
 
@@ -174,7 +147,6 @@ export const cloneUrlStylesheets = async (
 			return style
 		}),
 	)
-}
 
 /**
  * Clones style sheets from various sources into new HTMLStyleElement nodes.
