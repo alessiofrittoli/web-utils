@@ -31,6 +31,10 @@ export type Dimensions = [x: number | undefined, y: number | undefined]
  * const [ width, height ] = getDimensions( [ 200 ] )       // [ 200, 200 ]
  * const [ width, height ] = getDimensions( '200x300' )     // [ 200, 300 ]
  * ```
+ *
+ * Requires the following packages to be installed:
+ *
+ * - [`@alessiofrittoli/math-utils`](https://npmjs.com/package/@alessiofrittoli/math-utils)
  */
 export const getDimensions = (dimensions?: InputDimensions): Dimensions => {
 	if (typeof dimensions === 'undefined') {

@@ -60,7 +60,6 @@
     - [Scroll utilities](#scroll-utilities)
     - [Stylesheet utilities](#stylesheet-utilities)
   - [Generators utilities](#generators-utilities)
-  - [Map utilities](#map-utilities)
   - [Promises utilities](#promises-utilities)
   - [Strings utilities](#strings-utilities)
   - [Types utilities](#types-utilities)
@@ -99,13 +98,20 @@ pnpm i @alessiofrittoli/web-utils
 
 #### Updates in the latest release 🎉
 
+- Removed deprecated `getTypedMap` which is now part of [`@alessiofrittoli/typed-map`](https://www.npmjs.com/package/@alessiofrittoli/typed-map).
+- Moved [`openBrowserPopUp`](#openbrowserpopup) to `/browser-popup` sub-path export.
+- Moved [`Document Picture-in-Picture`](#document-picture-in-picture) to `/picture-in-picture` sub-path export.
+- Moved [`Cookie` Class](#cookie-class) to `/cookie` sub-path export.
+- Moved [`LocalStorage` Class](#localstorage-class) to `/storage` sub-path export.
+- Moved [`SessionStorage` Class](#sessionstorage-class) to `/storage` sub-path export.
+- Moved [`getDimensions`](#getdimensions) to `/sizes` sub-path export.
+
+Old updates:
+
 - Add `normalizeIndex` utility function. See [API Reference](#normalizeindex) for more info.
 - Add `getPreviousIndex` utility function. See [API Reference](#getpreviousindex) for more info.
 - Add `getNextIndex` utility function. See [API Reference](#getnextindex) for more info.
 - Add `insertAfter` utility function. See [API Reference](#insertafter) for more info.
-
-Old updates:
-
 - Add `deferTask`. See [API Reference](#defertask) for more info.
 - Add `deferCallback`. See [API Reference](#defercallback) for more info.
 - Add `parameterized` function. See [API Reference](#parameterized) for more info.
@@ -821,7 +827,7 @@ It also applies the `--scrollbar-size` CSS variable that can be used to apply a 
 ###### Block Document HTML scroll when a popup is opened
 
 ```ts
-import { blockScroll } from '@alessiofrittoli/web-utils'
+import { blockScroll } from '@alessiofrittoli/web-utils/dom'
 
 const openPopUpHandler = () => {
   blockScroll()
@@ -842,7 +848,7 @@ const openPopUpHandler = () => {
 ###### Block scroll of a specific HTMLElement
 
 ```ts
-import { blockScroll } from '@alessiofrittoli/web-utils'
+import { blockScroll } from '@alessiofrittoli/web-utils/dom'
 
 const element = document.querySelector('.css-selector')
 
@@ -878,7 +884,7 @@ Restore Element Overflow.
 ###### Restore Document HTML scroll when a popup is closed
 
 ```ts
-import { restoreScroll } from '@alessiofrittoli/web-utils'
+import { restoreScroll } from '@alessiofrittoli/web-utils/dom'
 
 const closePopUpHandler = () => {
   // ... handle close
@@ -891,7 +897,7 @@ const closePopUpHandler = () => {
 ###### Restore scroll of a specific HTMLElement
 
 ```ts
-import { restoreScroll } from '@alessiofrittoli/web-utils'
+import { restoreScroll } from '@alessiofrittoli/web-utils/dom'
 
 const element = document.querySelector('.css-selector')
 
@@ -990,7 +996,7 @@ Type: `HTMLStyleElement[]`
 <summary style="cursor:pointer">Examples</summary>
 
 ```ts
-import { cloneStyleSheetList } from '@alessiofrittoli/web-utils'
+import { cloneStyleSheetList } from '@alessiofrittoli/web-utils/stylesheet'
 
 const styles = cloneStyleSheetList(document.styleSheets)
 // do something with cloned stylesheets
@@ -1044,7 +1050,7 @@ Type: `Promise<CloneStyleSheetsReturn>`
 ###### Cloning `StyleSheetList`
 
 ```ts
-import { cloneStyleSheets } from '@alessiofrittoli/web-utils'
+import { cloneStyleSheets } from '@alessiofrittoli/web-utils/stylesheet'
 
 const styles = await cloneStyleSheets(document.styleSheets)
 // do something with cloned dcoument stylesheets
@@ -1056,7 +1062,7 @@ const styles = await cloneStyleSheets(document.styleSheets)
 ###### Cloning stylesheets from URL
 
 ```ts
-import { cloneStyleSheets } from '@alessiofrittoli/web-utils'
+import { cloneStyleSheets } from '@alessiofrittoli/web-utils/stylesheet'
 
 const styles = await cloneStyleSheets('/path-to-stylesheet-file.css')
 
@@ -1884,6 +1890,13 @@ Opens a webpage in a browser PopUp.
 
 The `openBrowserPopUp` uses [`Window.open()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open) under the hood, but provides default options to make your work easier.
 
+> [!WARNING]
+>
+> Requires the following packages to be installed:
+>
+> - [`@alessiofrittoli/typed-map`](https://npmjs.com/package/@alessiofrittoli/typed-map)
+> - [`@alessiofrittoli/url-utils`](https://npmjs.com/package/@alessiofrittoli/url-utils)
+
 <details>
 
 <summary style="cursor:pointer">Parameters</summary>
@@ -1921,7 +1934,7 @@ Type: `WindowProxy | null`
 ###### Re-focus a previously opened popup
 
 ```ts
-import { openBrowserPopUp } from '@alessiofrittoli/web-utils'
+import { openBrowserPopUp } from '@alessiofrittoli/web-utils/browser-popup'
 
 let windowProxy: WindowProxy | null = null
 
@@ -1944,7 +1957,7 @@ const clickHandler = () => {
 ###### Re-use a popup
 
 ```ts
-import { openBrowserPopUp } from '@alessiofrittoli/web-utils'
+import { openBrowserPopUp } from '@alessiofrittoli/web-utils/browser-popup'
 
 const clickHandler = () => {
   openBrowserPopUp({
@@ -1969,6 +1982,15 @@ const clickHandler2 = () => {
 ---
 
 ##### Document Picture-in-Picture
+
+> [!WARNING]
+>
+> Requires the following packages to be installed:
+>
+> - [`@alessiofrittoli/exception`](https://npmjs.com/package/@alessiofrittoli/exception)
+> - [`@alessiofrittoli/fetcher`](https://npmjs.com/package/@alessiofrittoli/fetcher)
+> - [`@alessiofrittoli/url-utils`](https://npmjs.com/package/@alessiofrittoli/url-utils)
+> - [`@alessiofrittoli/math-utils`](https://npmjs.com/package/@alessiofrittoli/math-utils)
 
 ###### Types
 
@@ -2040,7 +2062,7 @@ Type: `boolean`
 <summary style="cursor:pointer">Examples</summary>
 
 ```ts
-import { isDocumentPictureInPictureSupported } from "@alessiofrittoli/web-utils";
+import { isDocumentPictureInPictureSupported } from "@alessiofrittoli/web-utils/picture-in-picture";
 
 if ( isDocumentPictureInPictureSupported() ) {
   ...
@@ -2063,7 +2085,7 @@ Validates that the Document Picture-in-Picture API is supported by the current b
 
 ```ts
 import { Exception } from "@alessiofrittoli/exception";
-import { requiresDocumentPictureInPictureAPI, ErrorCode } from "@alessiofrittoli/web-utils";
+import { requiresDocumentPictureInPictureAPI, ErrorCode } from "@alessiofrittoli/web-utils/picture-in-picture";
 
 const myFunction = () => {
   requiresDocumentPictureInPictureAPI()
@@ -2140,7 +2162,7 @@ Type: `Promise<OpenDocumentPictureInPicture>`
 ###### Simple usage
 
 ```ts
-import { openDocumentPictureInPicture, ErrorCode } from '@alessiofrittoli/web-utils'
+import { openDocumentPictureInPicture, ErrorCode } from '@alessiofrittoli/web-utils/picture-in-picture'
 import { Exception } from '@alessiofrittoli/exception'
 
 const openPictureInPicture = async () => {
@@ -2177,7 +2199,7 @@ const openPictureInPicture = async () => {
 ###### Load render blocking styles
 
 ```ts
-import { openDocumentPictureInPicture, ErrorCode } from '@alessiofrittoli/web-utils'
+import { openDocumentPictureInPicture, ErrorCode } from '@alessiofrittoli/web-utils/picture-in-picture'
 import { Exception } from '@alessiofrittoli/exception'
 
 const openPictureInPicture = async () => {
@@ -2298,14 +2320,21 @@ console.log(network?.effectiveType)
 
 ##### `Cookie` Class
 
+> [!WARNING]
+>
+> Requires the following packages to be installed:
+>
+> - [`@alessiofrittoli/typed-map`](https://npmjs.com/package/@alessiofrittoli/typed-map)
+> - [`@alessiofrittoli/date-utils`](https://npmjs.com/package/@alessiofrittoli/date-utils)
+> - [`@alessiofrittoli/math-utils`](https://npmjs.com/package/@alessiofrittoli/math-utils)
+
 <details>
 
 <summary style="cursor:pointer">Importing enum and types</summary>
 
 ```ts
-import { Priority, SameSite } from '@alessiofrittoli/web-utils'
-
-import type { RawCookie, ParsedCookie, ParsedCookieMap } from '@alessiofrittoli/web-utils'
+import type { RawCookie, ParsedCookie, ParsedCookieMap } from '@alessiofrittoli/web-utils/cookie'
+import { Priority, SameSite } from '@alessiofrittoli/web-utils/cookie'
 ```
 
 </details>
@@ -2448,7 +2477,7 @@ The parsed Cookie Map.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { Cookie } from '@alessiofrittoli/web-utils'
+import { Cookie } from '@alessiofrittoli/web-utils/cookie'
 
 const cookie = Cookie.parse({
   name: 'cookiename',
@@ -2515,7 +2544,7 @@ The stringified Cookie ready to be stored.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { Cookie } from '@alessiofrittoli/web-utils'
+import { Cookie } from '@alessiofrittoli/web-utils/cookie'
 
 document.cookie = Cookie.toString({
   name: 'cookiename',
@@ -2582,7 +2611,7 @@ The parsed Cookie Map or `null` if parsing fails.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { Cookie } from '@alessiofrittoli/web-utils'
+import { Cookie } from '@alessiofrittoli/web-utils/cookie'
 
 const cookies = document.cookie.split('; ').map(Cookie.fromString).filter(Boolean)
 ```
@@ -2639,7 +2668,7 @@ The Map of parsed cookies indexed by the Cookie name.
 ###### Defining custom types
 
 ```ts
-import { Cookie } from '@alessiofrittoli/web-utils'
+import { Cookie } from '@alessiofrittoli/web-utils/cookie'
 
 /** On-site stubbed cookie names. */
 enum CookieName {
@@ -2666,7 +2695,7 @@ type CookiesMap = {
 ###### Get parsed cookies from `Document.cookie`
 
 ```ts
-import { Cookie } from '@alessiofrittoli/web-utils'
+import { Cookie } from '@alessiofrittoli/web-utils/cookie'
 
 const cookies = Cookie.fromListString<CookiesMap>(document.cookie)
 const cookie = cookies.get(CookieName.COOKIE_1) // `ParsedCookieMap<CookieName.COOKIE_1, Cookie1> | undefined`
@@ -2678,7 +2707,7 @@ const cookieValue = cookie?.get('value') // `Cookie1 | undefined`
 ###### Get parsed cookies from a request `Cookie` header
 
 ```ts
-import { Cookie } from '@alessiofrittoli/web-utils'
+import { Cookie } from '@alessiofrittoli/web-utils/cookie'
 
 const { headers } = request
 const cookielist = headers.get('Cookie')
@@ -2740,7 +2769,7 @@ Type: `ParsedCookieMap<typeof name, T> | undefined`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { Cookie } from '@alessiofrittoli/web-utils'
+import { Cookie } from '@alessiofrittoli/web-utils/cookie'
 
 const cookie = Cookie.get<string>('access_token')
 const value = cookie?.get('value') // `string | undefined`
@@ -2783,7 +2812,7 @@ The Map of parsed cookies indexed by the Cookie name.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { Cookie } from '@alessiofrittoli/web-utils'
+import { Cookie } from '@alessiofrittoli/web-utils/cookie'
 
 const cookies = Cookie.getAll()
 const cookie = cookies.get('somecookie')
@@ -2838,7 +2867,7 @@ Type: `ParsedCookieMap<K, V> | false`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { Cookie, type RawCookie } from '@alessiofrittoli/web-utils'
+import { Cookie, type RawCookie } from '@alessiofrittoli/web-utils/cookie'
 
 const cookieOptions: RawCookie = {
   name: 'cookiename',
@@ -2897,7 +2926,7 @@ Type: `boolean`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { Cookie } from '@alessiofrittoli/web-utils'
+import { Cookie } from '@alessiofrittoli/web-utils/cookie'
 
 Cookie.delete('some_cookie')
 ```
@@ -2909,6 +2938,13 @@ Cookie.delete('some_cookie')
 ---
 
 ##### `LocalStorage` Class
+
+> [!WARNING]
+>
+> Requires the following packages to be installed:
+>
+> - [`@alessiofrittoli/date-utils`](https://npmjs.com/package/@alessiofrittoli/date-utils)
+> - [`@alessiofrittoli/math-utils`](https://npmjs.com/package/@alessiofrittoli/math-utils)
 
 A browser-compatible implementation of [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
 
@@ -2950,7 +2986,7 @@ Type: `string | null`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { LocalStorage } from '@alessiofrittoli/web-utils'
+import { LocalStorage } from '@alessiofrittoli/web-utils/storage'
 
 console.log(LocalStorage.key(0)) // Outputs: first item name if any.
 ```
@@ -2980,7 +3016,7 @@ The number of key/value pairs.
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { LocalStorage } from '@alessiofrittoli/web-utils'
+import { LocalStorage } from '@alessiofrittoli/web-utils/storage'
 
 console.log(LocalStorage.getLength())
 ```
@@ -3035,7 +3071,7 @@ Type: `T | undefined`
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { LocalStorage } from '@alessiofrittoli/web-utils'
+import { LocalStorage } from '@alessiofrittoli/web-utils/storage'
 
 LocalStorage.get<Date>('expiration')
 ```
@@ -3094,7 +3130,7 @@ A "QuotaExceededError" DOMException exception if the new value couldn't be set. 
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { LocalStorage } from '@alessiofrittoli/web-utils'
+import { LocalStorage } from '@alessiofrittoli/web-utils/storage'
 
 LocalStorage.set<Date>('expiration', new Date())
 ```
@@ -3126,7 +3162,7 @@ Dispatches a storage event on Window objects holding an equivalent Storage objec
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { LocalStorage } from '@alessiofrittoli/web-utils'
+import { LocalStorage } from '@alessiofrittoli/web-utils/storage'
 
 LocalStorage.delete('expiration')
 ```
@@ -3146,7 +3182,7 @@ Dispatches a storage event on Window objects holding an equivalent Storage objec
 <summary style="cursor:pointer">Usage</summary>
 
 ```ts
-import { LocalStorage } from '@alessiofrittoli/web-utils'
+import { LocalStorage } from '@alessiofrittoli/web-utils/storage'
 
 LocalStorage.clear()
 ```
@@ -3164,6 +3200,13 @@ A browser-compatible implementation of [`sessionStorage`](https://developer.mozi
 Same API References of [`LocalStorage` Class](#localstorage-class) is applied to the `SessionStorage` Class.
 
 Please, refer to [`LocalStorage` Class](#localstorage-class) static methods API Reference for more informations.
+
+> [!WARNING]
+>
+> Requires the following packages to be installed:
+>
+> - [`@alessiofrittoli/date-utils`](https://npmjs.com/package/@alessiofrittoli/date-utils)
+> - [`@alessiofrittoli/math-utils`](https://npmjs.com/package/@alessiofrittoli/math-utils)
 
 ---
 
@@ -3228,7 +3271,7 @@ A tuple containing `[ number, number ]` where either value can be `undefined`.
 <summary style="cursor:pointer">Examples</summary>
 
 ```ts
-import { getDimensions } from '@alessiofrittoli/web-utils'
+import { getDimensions } from '@alessiofrittoli/web-utils/sizes'
 
 const [width, height] = getDimensions() // [ undefined, undefined ]
 const [width, height] = getDimensions(100) // [ 100, 100 ]
