@@ -1,8 +1,8 @@
 /**
  * @vitest-environment jsdom
  */
-import { Cookie, Priority, SameSite } from '@/storage/Cookie'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { Cookie, Priority, SameSite } from '@/cookie'
 
 describe('Cookie', () => {
 	enum CookieName {

@@ -8,6 +8,11 @@ import { parseValue, stringifyValue } from '@/string-parser'
  * Enable this API with the `--experimental-webstorage` CLI flag.
  * `localStorage` data is not stored per user or per request when used in the context
  * of a server, it is shared across all users and requests.
+ *
+ * Requires the following packages to be installed:
+ *
+ * - [`@alessiofrittoli/date-utils`](https://npmjs.com/package/@alessiofrittoli/date-utils)
+ * - [`@alessiofrittoli/math-utils`](https://npmjs.com/package/@alessiofrittoli/math-utils)
  */
 export class LocalStorage {
 	/**

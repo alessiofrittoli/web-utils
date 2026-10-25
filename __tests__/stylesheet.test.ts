@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
-import { cloneStyleSheetList, cloneStyleSheets } from '@/stylesheet'
+import { cloneStyleSheetList, cloneStyleSheets } from '@/styleheet'
 
 describe('dom utilities', () => {
 	let originalHtmlStyle: CSSStyleDeclaration

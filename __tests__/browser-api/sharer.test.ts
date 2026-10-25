@@ -1,9 +1,5 @@
 // oxlint-disable typescript/unbound-method typescript/no-misused-spread
 import {
-	canWebApiShare,
-	canWebApiShareData,
-	share,
-	shareViaEmail,
 	openSharerPopUp,
 	shareOnFacebook,
 	shareOnWorkplace,
@@ -17,12 +13,14 @@ import {
 	shareOnTelegram,
 	shareOnPinterest,
 	shareOnWhatsApp,
-} from '@/sharer'
+} from '@/browser-popup'
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
+import { canWebApiShare, canWebApiShareData, shareViaEmail } from '@/sharer'
 import { openBrowserPopUp as _openBrowserPopUp } from '@/browser-popup'
 import { Url } from '@alessiofrittoli/url-utils'
+import { share } from '@/share'
 
-vi.mock('@/browser-popup', () => ({
+vi.mock('@/browser-popup/openBrowserPopUp', () => ({
 	openBrowserPopUp: vi.fn(),
 }))
 

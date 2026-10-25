@@ -8,6 +8,11 @@ import { isEmpty } from '@/validation'
  *
  * @param	input The value to stringify.
  * @returns	The stringified `input`.
+ *
+ * Requires the following packages to be installed:
+ *
+ * - [`@alessiofrittoli/date-utils`](https://npmjs.com/package/@alessiofrittoli/date-utils)
+ * - [`@alessiofrittoli/math-utils`](https://npmjs.com/package/@alessiofrittoli/math-utils)
  */
 export const stringifyValue = (input?: unknown): string => {
 	if (isPromise(input)) return ''
@@ -34,6 +39,11 @@ export const stringifyValue = (input?: unknown): string => {
  *
  * @param	input The value to parse.
  * @returns	The parsed `input`.
+ *
+ * Requires the following packages to be installed:
+ *
+ * - [`@alessiofrittoli/date-utils`](https://npmjs.com/package/@alessiofrittoli/date-utils)
+ * - [`@alessiofrittoli/math-utils`](https://npmjs.com/package/@alessiofrittoli/math-utils)
  */
 export const parseValue = <T>(input?: string): T | undefined => {
 	if (!input) return

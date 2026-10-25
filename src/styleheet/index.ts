@@ -58,6 +58,11 @@ export type CloneStyleSheetsReturn = (HTMLStyleElement | HTMLLinkElement)[]
  * const styles = cloneStyleSheetList( document.styleSheets )
  * styles.forEach( style => shadowRoot.appendChild( style ) )
  * ```
+ *
+ * Requires the following packages to be installed:
+ *
+ * - [`@alessiofrittoli/url-utils`](https://npmjs.com/package/@alessiofrittoli/url-utils)
+ * - [`@alessiofrittoli/fetcher`](https://npmjs.com/package/@alessiofrittoli/fetcher)
  */
 export const cloneStyleSheetList = (styles: StyleSheetList | CSSStyleSheet[]): HTMLStyleElement[] =>
 	[...styles]
@@ -95,6 +100,11 @@ export const cloneStyleSheetList = (styles: StyleSheetList | CSSStyleSheet[]): H
  * ```ts
  * const styles = clonseStyleElements( document.querySelectorAll( 'style' ) )
  * ```
+ *
+ * Requires the following packages to be installed:
+ *
+ * - [`@alessiofrittoli/url-utils`](https://npmjs.com/package/@alessiofrittoli/url-utils)
+ * - [`@alessiofrittoli/fetcher`](https://npmjs.com/package/@alessiofrittoli/fetcher)
  */
 export const clonseStyleElements = (
 	styleElements: HTMLStyleElement | HTMLStyleElement[],
@@ -111,6 +121,11 @@ export const clonseStyleElements = (
  * @param styleUrls The source `UrlStylesheet` or array of `UrlStylesheet` objects to clone.
  *
  * @returns The stylesheet `HTMLLinkElement` or `HTMLStyleElement` when using fetch strategy.
+ *
+ * Requires the following packages to be installed:
+ *
+ * - [`@alessiofrittoli/url-utils`](https://npmjs.com/package/@alessiofrittoli/url-utils)
+ * - [`@alessiofrittoli/fetcher`](https://npmjs.com/package/@alessiofrittoli/fetcher)
  */
 export const cloneUrlStylesheets = (
 	styleUrls: UrlStylesheet | UrlStylesheet[],
@@ -166,6 +181,11 @@ export const cloneUrlStylesheets = (
  * - When a URL stylesheet has `fetch: true`, the stylesheet content is fetched and embedded as inline CSS.
  * - When `fetch: false` (default), a link element is created instead.
  * - URL parsing is handled through the Url utility with support for both string and `UrlInput` object formats.
+ *
+ * Requires the following packages to be installed:
+ *
+ * - [`@alessiofrittoli/url-utils`](https://npmjs.com/package/@alessiofrittoli/url-utils)
+ * - [`@alessiofrittoli/fetcher`](https://npmjs.com/package/@alessiofrittoli/fetcher)
  */
 export const cloneStyleSheets = async (styles: Styles): Promise<CloneStyleSheetsReturn> => {
 	if (!Array.isArray(styles)) {

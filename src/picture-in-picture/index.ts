@@ -1,5 +1,5 @@
 import { getDimensions, type InputDimensions } from '@/sizes'
-import { cloneStyleSheets, type Styles } from '@/stylesheet'
+import { cloneStyleSheets, type Styles } from '@/styleheet'
 import { PiPErrors } from '@/picture-in-picture/errors'
 import { Exception } from '@alessiofrittoli/exception'
 
@@ -11,6 +11,13 @@ export * from '@/picture-in-picture/errors'
  * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/Document_Picture-in-Picture_API)
  *
  * @returns `true` if Document Picture-in-Picture is supported, `false` otherwise.
+ *
+ * Requires the following packages to be installed:
+ *
+ * - [`@alessiofrittoli/exception`](https://npmjs.com/package/@alessiofrittoli/exception)
+ * - [`@alessiofrittoli/fetcher`](https://npmjs.com/package/@alessiofrittoli/fetcher)
+ * - [`@alessiofrittoli/url-utils`](https://npmjs.com/package/@alessiofrittoli/url-utils)
+ * - [`@alessiofrittoli/math-utils`](https://npmjs.com/package/@alessiofrittoli/math-utils)
  */
 export const isDocumentPictureInPictureSupported = (): boolean =>
 	'documentPictureInPicture' in window &&
@@ -20,6 +27,13 @@ export const isDocumentPictureInPictureSupported = (): boolean =>
  * Validates that the Document Picture-in-Picture API is supported by the current browser.
  *
  * @throws {Exception} Throws a new Exception if the Document Picture-in-Picture API is not supported.
+ *
+ * Requires the following packages to be installed:
+ *
+ * - [`@alessiofrittoli/exception`](https://npmjs.com/package/@alessiofrittoli/exception)
+ * - [`@alessiofrittoli/fetcher`](https://npmjs.com/package/@alessiofrittoli/fetcher)
+ * - [`@alessiofrittoli/url-utils`](https://npmjs.com/package/@alessiofrittoli/url-utils)
+ * - [`@alessiofrittoli/math-utils`](https://npmjs.com/package/@alessiofrittoli/math-utils)
  */
 export const requiresDocumentPictureInPictureAPI = (): void => {
 	if (!isDocumentPictureInPictureSupported()) {
@@ -93,6 +107,13 @@ export interface OpenDocumentPictureInPicture {
  * @throws {Exception} Throws a new Exception if the Document Picture-in-Picture API is not supported.
  *
  * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/Document_Picture-in-Picture_API)
+ *
+ * Requires the following packages to be installed:
+ *
+ * - [`@alessiofrittoli/exception`](https://npmjs.com/package/@alessiofrittoli/exception)
+ * - [`@alessiofrittoli/fetcher`](https://npmjs.com/package/@alessiofrittoli/fetcher)
+ * - [`@alessiofrittoli/url-utils`](https://npmjs.com/package/@alessiofrittoli/url-utils)
+ * - [`@alessiofrittoli/math-utils`](https://npmjs.com/package/@alessiofrittoli/math-utils)
  */
 export const openDocumentPictureInPicture = async (
 	options: OpenDocumentPictureInPictureOptions = {},

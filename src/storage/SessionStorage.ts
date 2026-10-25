@@ -4,6 +4,11 @@ import { parseValue, stringifyValue } from '@/string-parser'
  * A browser-compatible implementation of [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage). Data is stored in
  * memory, with a storage quota of 10 MB. `sessionStorage` data persists only within
  * the currently running process, and is not shared between workers.
+ *
+ * Requires the following packages to be installed:
+ *
+ * - [`@alessiofrittoli/date-utils`](https://npmjs.com/package/@alessiofrittoli/date-utils)
+ * - [`@alessiofrittoli/math-utils`](https://npmjs.com/package/@alessiofrittoli/math-utils)
  */
 export class SessionStorage {
 	/**

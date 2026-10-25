@@ -7,7 +7,7 @@ import {
 	openDocumentPictureInPicture,
 } from '@/picture-in-picture'
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
-import { cloneStyleSheets as _cloneStyleSheets, type Styles } from '@/stylesheet'
+import { cloneStyleSheets as _cloneStyleSheets, type Styles } from '@/styleheet'
 import { PiPErrors } from '@/picture-in-picture/errors'
 
 vi.mock('@/stylesheet', () => ({

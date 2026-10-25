@@ -165,6 +165,11 @@ export type CookiesTypedMap<T extends Record<string, unknown>, K extends keyof T
 /**
  * Easly handle cookies.
  *
+ * Requires the following packages to be installed:
+ *
+ * - [`@alessiofrittoli/typed-map`](https://npmjs.com/package/@alessiofrittoli/typed-map)
+ * - [`@alessiofrittoli/date-utils`](https://npmjs.com/package/@alessiofrittoli/date-utils)
+ * - [`@alessiofrittoli/math-utils`](https://npmjs.com/package/@alessiofrittoli/math-utils)
  */
 export class Cookie {
 	/**
