@@ -51,6 +51,18 @@ export interface OpenDocumentPictureInPictureOptions extends Omit<
 	 */
 	styles?: Styles
 	/**
+	 * Indicates whether to prevent context menus.
+	 *
+	 * @default false
+	 */
+	preventContextMenus?: boolean
+	/**
+	 * Indicates whether to block window dev-tools panel.
+	 *
+	 * @default false
+	 */
+	preventDevTools?: boolean
+	/**
 	 * A callback to execute when Picture-in-Picture window is closed.
 	 *
 	 */
@@ -87,7 +99,7 @@ export const openDocumentPictureInPicture = async (
 ): Promise<OpenDocumentPictureInPicture> => {
 	requiresDocumentPictureInPictureAPI()
 
-	const { sizes, styles: customStyles, onQuit, ...rest } = options
+	const { sizes, styles: customStyles, preventContextMenus, preventDevTools, onQuit, ...rest } = options
 
 	const [width = 250, height = width] = getDimensions(sizes)
 
@@ -102,6 +114,27 @@ export const openDocumentPictureInPicture = async (
 	})) as Window
 
 	styles.map(style => pipWindow.document.head.appendChild(style))
+
+	if (preventContextMenus || preventDevTools) {
+		// prevent right click on window
+		pipWindow.addEventListener('contextmenu', event => {
+			event.preventDefault()
+		})
+	}
+
+	if (preventDevTools) {
+		pipWindow.addEventListener('keydown', event => {
+			// prevent CTRL+Shift+C | Cmd+Shift+C
+			if (event.code === 'KeyC' && !!event.metaKey && !!event.shiftKey) {
+				event.preventDefault()
+			}
+
+			// prevent Fn+F12
+			if (event.code === 'F12') {
+				event.preventDefault()
+			}
+		})
+	}
 
 	if (onQuit) {
 		pipWindow.addEventListener('pagehide', onQuit, { once: true })
