@@ -1,5 +1,4 @@
-import { Url, type UrlInput } from '@alessiofrittoli/url-utils'
-import { fetch } from '@alessiofrittoli/fetcher'
+import type { UrlInput } from '@alessiofrittoli/url-utils'
 
 /**
  * Prevent Element Overflow.
@@ -139,8 +138,11 @@ export const clonseStyleElements = (
  */
 export const cloneUrlStylesheets = async (
 	styleUrls: UrlStylesheet | UrlStylesheet[],
-): Promise<PromiseSettledResult<HTMLLinkElement | HTMLStyleElement>[]> =>
-	Promise.allSettled(
+): Promise<PromiseSettledResult<HTMLLinkElement | HTMLStyleElement>[]> => {
+	const { Url } = await import('@alessiofrittoli/url-utils')
+	const { fetch } = await import('@alessiofrittoli/fetcher')
+
+	return Promise.allSettled(
 		(!Array.isArray(styleUrls) ? [styleUrls] : styleUrls).map(async urlInput => {
 			const isUrlString = typeof urlInput === 'string'
 
@@ -172,6 +174,7 @@ export const cloneUrlStylesheets = async (
 			return style
 		}),
 	)
+}
 
 /**
  * Clones style sheets from various sources into new HTMLStyleElement nodes.
