@@ -16,17 +16,39 @@ vi.mock('@/stylesheet', () => ({
 
 const cloneStyleSheets = _cloneStyleSheets as Mock<typeof _cloneStyleSheets>
 
-describe('Document Picture-in-Picture', () => {
-	let mockDocumentPiPWindow: {
-		width: number
-		height: number
-		disallowReturnToOpener: undefined
-		preferInitialWindowPlacement: undefined
-		addEventListener: Mock<(event: string, listener: (event: Event) => void) => void>
-		document: {
-			head: HTMLHeadElement
-		}
+class PointerEvent extends Event {
+	public constructor(type: string, eventInitDict?: PointerEventInit) {
+		super(type, eventInitDict)
 	}
+}
+
+class DocumentPiPWindow extends EventTarget {
+	public width = 0
+	public height = 0
+	public disallowReturnToOpener?: undefined
+	public preferInitialWindowPlacement?: undefined
+
+	public document = {
+		head: document.createElement('head'),
+	}
+
+	public constructor() {
+		super()
+	}
+
+	public override addEventListener = vi.fn(
+		(
+			type: string,
+			callback: EventListenerOrEventListenerObject | null,
+			options?: AddEventListenerOptions | boolean,
+		) => {
+			super.addEventListener(type, callback, options)
+		},
+	)
+}
+
+describe('Document Picture-in-Picture', () => {
+	let mockDocumentPiPWindow: DocumentPiPWindow
 
 	/**
 	 * Mock of window.documentPictureInPicture.requestWindow().
@@ -45,18 +67,7 @@ describe('Document Picture-in-Picture', () => {
 	>
 
 	beforeEach(() => {
-		mockDocumentPiPWindow = {
-			width: 0,
-			height: 0,
-			disallowReturnToOpener: undefined,
-			preferInitialWindowPlacement: undefined,
-			addEventListener: vi.fn((event, listener) => {
-				listener(new Event(event))
-			}),
-			document: {
-				head: document.createElement('head'),
-			},
-		}
+		mockDocumentPiPWindow = new DocumentPiPWindow()
 
 		mockRequestWindow = vi.fn((options = {}) => {
 			Object.entries(options).map(([key, value]) => {
@@ -75,7 +86,6 @@ describe('Document Picture-in-Picture', () => {
 			get: mockDocumentPictureInPicture,
 		})
 	})
-	// })
 
 	afterEach(() => {
 		vi.clearAllMocks()
@@ -156,9 +166,70 @@ describe('Document Picture-in-Picture', () => {
 		it('calls given onQuit callback on Document Picture-in-Picture pagehide event', async () => {
 			const onQuit = vi.fn()
 
-			await openDocumentPictureInPicture({ onQuit })
+			const { window } = await openDocumentPictureInPicture({ onQuit })
+
+			window.dispatchEvent(new Event('pagehide'))
 
 			expect(onQuit).toHaveBeenCalled()
+		})
+
+		it('prevents context menus if `preventContextMenus` is set `true`', async () => {
+			const contextMenuEvent = new PointerEvent('contextmenu')
+
+			const contextMenuPreventDefault = vi.spyOn(contextMenuEvent, 'preventDefault')
+
+			const { window } = await openDocumentPictureInPicture({
+				preventContextMenus: true,
+			})
+
+			expect(mockDocumentPiPWindow.addEventListener).toHaveBeenCalledWith(
+				'contextmenu',
+				expect.any(Function),
+			)
+
+			window.dispatchEvent(contextMenuEvent)
+
+			expect(contextMenuPreventDefault).toHaveBeenCalled()
+		})
+
+		it('prevents context menus and dev-tools panel opening if `preventDevTools` is set `true`', async () => {
+			const contextMenuEvent = new PointerEvent('contextmenu')
+			const ctrlShiftCEvent = new KeyboardEvent('keydown', {
+				code: 'KeyC',
+				metaKey: true,
+				shiftKey: true,
+			})
+			const fnF12Event = new KeyboardEvent('keydown', {
+				code: 'F12',
+			})
+
+			const contextMenuPreventDefault = vi.spyOn(contextMenuEvent, 'preventDefault')
+			const ctrlShiftCPreventDefault = vi.spyOn(ctrlShiftCEvent, 'preventDefault')
+			const fnF12EventPreventDefault = vi.spyOn(fnF12Event, 'preventDefault')
+
+			const { window } = await openDocumentPictureInPicture({
+				preventDevTools: true,
+			})
+
+			expect(mockDocumentPiPWindow.addEventListener).toHaveBeenCalledWith(
+				'contextmenu',
+				expect.any(Function),
+			)
+
+			expect(mockDocumentPiPWindow.addEventListener).toHaveBeenCalledWith(
+				'keydown',
+				expect.any(Function),
+			)
+
+			console.log({ ctrlShiftCEvent: ctrlShiftCEvent.code })
+
+			window.dispatchEvent(contextMenuEvent)
+			window.dispatchEvent(ctrlShiftCEvent)
+			window.dispatchEvent(fnF12Event)
+
+			expect(contextMenuPreventDefault).toHaveBeenCalled()
+			expect(ctrlShiftCPreventDefault).toHaveBeenCalled()
+			expect(fnF12EventPreventDefault).toHaveBeenCalled()
 		})
 	})
 })
