@@ -1255,6 +1255,12 @@ Type: `reference` is `AsyncGenerator<T>`
 
 ##### Interface `TypedMap<T, P, K>`
 
+> [!WARNING]
+>
+> @deprecated
+>
+> This interface has been moved to [`@alessiofrittoli/typed-map`](https://npmjs.org/package/@alessiofrittoli/typed-map) package.
+
 A type-safe extension of the Map class that enforces key-value relationships based on a provided type.
 
 <details>
@@ -1272,6 +1278,12 @@ A type-safe extension of the Map class that enforces key-value relationships bas
 ---
 
 ##### `getTypedMap<T, P, K>`
+
+> [!WARNING]
+>
+> @deprecated
+>
+> This function has been moved to [`@alessiofrittoli/typed-map`](https://npmjs.org/package/@alessiofrittoli/typed-map) package.
 
 Creates a new instance of a type-safe `Map` with the given type.
 

@@ -1,5 +1,5 @@
 import { Url, type UrlInput } from '@alessiofrittoli/url-utils'
-import { fetch } from '@alessiofrittoli/fetcher/fetch'
+import { fetch } from '@alessiofrittoli/fetcher'
 
 /**
  * Prevent Element Overflow.

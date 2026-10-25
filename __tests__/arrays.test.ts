@@ -1,3 +1,4 @@
+// oxlint-disable typescript/require-array-sort-compare
 import {
 	normalizeIndex,
 	getPreviousIndex,
