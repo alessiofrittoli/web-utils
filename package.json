@@ -1,6 +1,6 @@
 {
 	"name": "@alessiofrittoli/web-utils",
-	"version": "2.4.0",
+	"version": "2.5.0",
 	"description": "Common TypeScript web utilities",
 	"type": "module",
 	"author": {
