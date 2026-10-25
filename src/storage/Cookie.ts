@@ -1,6 +1,6 @@
 import { parseValue, stringifyValue, toCamelCase, lcFirst, ucFirst } from '@/strings'
+import { getTypedMap, type TypedMap } from '@alessiofrittoli/typed-map'
 import { isValidDate } from '@alessiofrittoli/date-utils'
-import { getTypedMap, type TypedMap } from '@/map'
 
 /**
  * The Cookie Priority.
@@ -271,8 +271,9 @@ export class Cookie {
 		const nameValue = [name, cookie.get('value')]
 
 		return [nameValue, ...values]
-			.map(([key, value]) => {
-				key = key !== name ? (ucFirst(key!.toString()) as K) : key
+			.map(([_key, _value]) => {
+				let key = _key !== name ? (ucFirst(_key!.toString()) as K) : _key
+				let value = _value
 
 				if (key === 'Expires' && isValidDate(value)) {
 					value = value.toUTCString()

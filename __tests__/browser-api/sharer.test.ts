@@ -1,3 +1,4 @@
+// oxlint-disable typescript/unbound-method typescript/no-misused-spread
 import {
 	canWebApiShare,
 	canWebApiShareData,

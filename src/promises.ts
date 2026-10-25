@@ -11,6 +11,7 @@ export const sleep = (time: number): Promise<void> => new Promise<void>(resolve 
  *
  * @template T The task function arguments.
  */
+// oxlint-disable-next-line typescript/no-redundant-type-constituents
 export type DeferredTask<T extends unknown[]> = (...args: T) => unknown | Promise<unknown>
 
 /**
@@ -44,6 +45,7 @@ export const deferTask = <T extends DeferredTask<U>, U extends unknown[]>(
 ): Promise<Awaited<ReturnType<T>>> =>
 	new Promise<Awaited<ReturnType<T>>>((resolve, reject) => {
 		const tick = (): void => {
+			// oxlint-disable-next-line typescript/no-misused-promises
 			setTimeout(async () => {
 				try {
 					resolve((await task(...args)) as Awaited<ReturnType<T>>)

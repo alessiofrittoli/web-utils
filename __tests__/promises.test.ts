@@ -19,6 +19,7 @@ describe('promises', () => {
 			vi.advanceTimersByTime(ms / 2)
 
 			let resolved = false
+			// oxlint-disable-next-line typescript/no-floating-promises
 			promise.then(() => {
 				resolved = true
 			})

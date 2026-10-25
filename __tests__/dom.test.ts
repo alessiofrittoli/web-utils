@@ -10,6 +10,7 @@ describe('dom utilities', () => {
 
 	beforeEach(() => {
 		originalHtmlStyle = {
+			// oxlint-disable-next-line typescript/no-misused-spread
 			...document.documentElement.style,
 		}
 	})

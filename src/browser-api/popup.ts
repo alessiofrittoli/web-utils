@@ -1,5 +1,5 @@
 import { Url, type UrlInput } from '@alessiofrittoli/url-utils'
-import { getTypedMap } from '@/map'
+import { getTypedMap } from '@alessiofrittoli/typed-map'
 
 export type Truthy = 'yes' | '1' | 'true'
 export type Falsey = 'no' | '0' | 'false'

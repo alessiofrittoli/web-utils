@@ -42,22 +42,6 @@ export interface OpenDocumentPictureInPictureOptions extends Omit<
 	 * @default [ 250, 250 ]
 	 */
 	sizes?: InputDimensions
-	// /**
-	//  * Hints to the browser that it should not display a UI control that enables the user to return to the originating tab and close the Picture-in-Picture window.
-	//  *
-	//  * @default false
-	//  */
-	// disallowReturnToOpener?: boolean
-	// /**
-	//  * Defines whether the Picture-in-Picture window will always appear back at the position and size it initially opened at,
-	//  * when it is closed and then reopened.
-	//  *
-	//  * By contrast, if `preferInitialWindowPlacement` is `false` the Picture-in-Picture window's size and position will be remembered
-	//  * when closed and reopened — it will reopen at its previous position and size, for example as set by the user.
-	//  *
-	//  * @default false
-	//  */
-	// preferInitialWindowPlacement?: boolean
 	/**
 	 * Custom styles to load inside the Picture-in-Picture window.
 	 *

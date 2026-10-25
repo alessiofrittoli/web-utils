@@ -4,6 +4,8 @@
  * @template T The object type defining the key-value relationships.
  * @template P Defines whether the `Map.get()` method should return a possibily undefined value.
  * @template K Internal - The subset of keys in T that are allowed in the Map. Defaults to all keys of T.
+ *
+ * @deprecated This interface has been moved to [`@alessiofrittoli/typed-map`](https://npmjs.org/package/@alessiofrittoli/typed-map) package.
  */
 export interface TypedMap<T, P extends boolean = true, K extends keyof T = keyof T> extends Map<K, T[K]> {
 	/**
@@ -36,6 +38,8 @@ export interface TypedMap<T, P extends boolean = true, K extends keyof T = keyof
  * @param iterable Initial `Map` constructor iterable object.
  *
  * @returns A new instance of a type-safe Map.
+ *
+ * @deprecated This function has been moved to [`@alessiofrittoli/typed-map`](https://npmjs.org/package/@alessiofrittoli/typed-map) package.
  */
 export const getTypedMap = <T, P extends boolean = true, K extends keyof T = keyof T>(
 	iterable?: Iterable<readonly [K, T[K]]> | null,

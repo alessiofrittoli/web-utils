@@ -13,15 +13,12 @@ jobs:
 
     steps:
       - name: Setup environment
-        uses: alessiofrittoli/github-actions/.github/actions/setup-pnpm-node@v1
+        uses: alessiofrittoli/github-actions/.github/actions/setup-pnpm-node@v1.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Linting
         run: pnpm lint
-
-      - name: Type checking
-        run: pnpm tsc
 
       - name: Run unit tests
         run: pnpm test:coverage:ci

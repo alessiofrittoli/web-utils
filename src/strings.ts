@@ -66,6 +66,7 @@ export const stringifyValue = (input?: unknown): string => {
 		return JSON.stringify(input)
 	}
 
+	// oxlint-disable-next-line typescript/no-base-to-string
 	return input?.toString() || ''
 }
 
@@ -107,6 +108,8 @@ export const parseValue = <T>(input?: string): T | undefined => {
  * @param	search		( Optional ) A custom search expression. Default `character`.
  *
  * @returns	The given string with leading character.
+ *
+ * @deprecated This function has been moved to [`@alessiofrittoli/url-util`](https://npmjs.org/package/@alessiofrittoli/url-utils)
  */
 export const addLeadingCharacter = (
 	input: string,
@@ -133,6 +136,8 @@ export const addLeadingCharacter = (
  * @param	character	The character to remove.
  *
  * @returns	The given string with leading character removed.
+ *
+ * @deprecated This function has been moved to [`@alessiofrittoli/url-util`](https://npmjs.org/package/@alessiofrittoli/url-utils)
  */
 export const removeLeadingCharacter = (input: string, character: string | RegExp): string => {
 	if (typeof input !== 'string') {
@@ -159,6 +164,8 @@ export const removeLeadingCharacter = (input: string, character: string | RegExp
  * @param	search		( Optional ) A custom search expression. Default `character`.
  *
  * @returns	The given string with trailing character.
+ *
+ * @deprecated This function has been moved to [`@alessiofrittoli/url-util`](https://npmjs.org/package/@alessiofrittoli/url-utils)
  */
 export const addTrailingCharacter = (
 	input: string,
@@ -185,6 +192,8 @@ export const addTrailingCharacter = (
  * @param	character	The character to remove.
  *
  * @returns	The given string with trailing character removed.
+ *
+ * @deprecated This function has been moved to [`@alessiofrittoli/url-util`](https://npmjs.org/package/@alessiofrittoli/url-utils)
  */
 export const removeTrailingCharacter = (input: string, character: string | RegExp): string => {
 	if (typeof input !== 'string') {

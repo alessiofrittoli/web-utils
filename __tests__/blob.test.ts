@@ -1,3 +1,4 @@
+// oxlint-disable typescript/unbound-method
 /**
  * @vitest-environment jsdom
  */
