@@ -1,7 +1,7 @@
 /**
  * @vitest-environment jsdom
  */
-import { openBrowserPopUp, type OpenBrowserPopUpOptions } from '@/browser-api/popup'
+import { openBrowserPopUp, type OpenBrowserPopUpOptions } from '@/browser-popup'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe('openBrowserPopUp', () => {

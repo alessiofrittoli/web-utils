@@ -1,7 +1,9 @@
-import { getDimensions, type InputDimensions } from '@/utils'
+import { getDimensions, type InputDimensions } from '@/sizes'
+import { PiPErrors } from '@/picture-in-picture/errors'
 import { Exception } from '@alessiofrittoli/exception'
 import { cloneStyleSheets, type Styles } from '@/dom'
-import { ErrorCode } from '@/errors'
+
+export * from '@/picture-in-picture/errors'
 
 /**
  * Checks if the Document Picture-in-Picture API is supported by the current browser.
@@ -23,7 +25,7 @@ export const requiresDocumentPictureInPictureAPI = (): void => {
 	if (!isDocumentPictureInPictureSupported()) {
 		throw new Exception({
 			message: 'The Document Picture-in-Picture API is not supported in the current browser.',
-			code: ErrorCode.DOCUMENT_PIP_NOT_SUPPORTED,
+			code: PiPErrors.DOCUMENT_PIP_NOT_SUPPORTED,
 		})
 	}
 }

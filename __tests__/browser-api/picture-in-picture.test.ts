@@ -5,10 +5,10 @@ import {
 	isDocumentPictureInPictureSupported,
 	requiresDocumentPictureInPictureAPI,
 	openDocumentPictureInPicture,
-} from '@/browser-api/picture-in-picture'
+} from '@/picture-in-picture'
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
 import { cloneStyleSheets as _cloneStyleSheets, type Styles } from '@/dom'
-import { ErrorCode } from '@/errors'
+import { PiPErrors } from '@/picture-in-picture/errors'
 
 vi.mock('@/dom', () => ({
 	cloneStyleSheets: vi.fn(async () => {
@@ -103,7 +103,7 @@ describe('Document Picture-in-Picture', () => {
 			mockDocumentPictureInPicture.mockReturnValue({})
 
 			expect(requiresDocumentPictureInPictureAPI).toThrow(
-				expect.objectContaining({ code: ErrorCode.DOCUMENT_PIP_NOT_SUPPORTED }),
+				expect.objectContaining({ code: PiPErrors.DOCUMENT_PIP_NOT_SUPPORTED }),
 			)
 		})
 

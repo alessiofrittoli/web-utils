@@ -1,5 +1,3 @@
-import type { ValueOf } from '@alessiofrittoli/type-utils'
-
 /**
  * Filter object removing falsey values.
  *
@@ -41,5 +39,5 @@ export const cloneObject = <T extends object>(a: T): T =>
  * @param	value	The key value to look for.
  * @returns	The given object key name.
  */
-export const getObjectKey = <T extends object>(obj: T, value: ValueOf<T>): string | undefined =>
+export const getObjectKey = <T extends object>(obj: T, value: T[keyof T]): string | undefined =>
 	Object.keys(obj).find(key => obj[key as keyof T] === value)

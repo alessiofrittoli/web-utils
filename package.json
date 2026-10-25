@@ -1,6 +1,6 @@
 {
 	"name": "@alessiofrittoli/web-utils",
-	"version": "2.5.0",
+	"version": "3.0.0-alpha.1",
 	"description": "Common TypeScript web utilities",
 	"type": "module",
 	"author": {
@@ -92,9 +92,28 @@
 		"@alessiofrittoli/exception": "^4.2.0",
 		"@alessiofrittoli/fetcher": "^2.1.0",
 		"@alessiofrittoli/math-utils": "^2.2.0",
-		"@alessiofrittoli/type-utils": "^2.1.0",
 		"@alessiofrittoli/typed-map": "^1.1.0",
 		"@alessiofrittoli/url-utils": "^4.2.0"
+	},
+	"peerDependenciesMeta": {
+		"@alessiofrittoli/date-utils": {
+			"optional": true
+		},
+		"@alessiofrittoli/exception": {
+			"optional": true
+		},
+		"@alessiofrittoli/fetcher": {
+			"optional": true
+		},
+		"@alessiofrittoli/math-utils": {
+			"optional": true
+		},
+		"@alessiofrittoli/typed-map": {
+			"optional": true
+		},
+		"@alessiofrittoli/url-utils": {
+			"optional": true
+		}
 	},
 	"devDependencies": {
 		"@alessiofrittoli/date-utils": "^4.3.0",
@@ -103,7 +122,6 @@
 		"@alessiofrittoli/math-utils": "^2.2.0",
 		"@alessiofrittoli/node-scripts": "^4.2.0",
 		"@alessiofrittoli/package-configs": "^1.9.0",
-		"@alessiofrittoli/type-utils": "^2.1.0",
 		"@alessiofrittoli/typed-map": "^1.1.0",
 		"@alessiofrittoli/url-utils": "^4.2.0",
 		"@types/node": "^24.19.1",

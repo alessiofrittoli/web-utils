@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getDimensions } from '@/utils'
+import { getDimensions } from '@/sizes'
 
 describe('getDimensions', () => {
 	it('returns undefined for both dimensions when no argument is provided', () => {
