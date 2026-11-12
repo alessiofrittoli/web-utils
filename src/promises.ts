@@ -85,9 +85,8 @@ export const deferTask = <T extends DeferredTask<U>, U extends unknown[]>(
  * button.addEventListener( 'click', deferCallback( longTask ) )
  * ```
  */
-export const deferCallback =
-	<T extends DeferredTask<U>, U extends unknown[]>(
-		task: T,
-	): ((...args: U) => Promise<Awaited<ReturnType<T>>>) =>
-	(...args: U) =>
-		deferTask(task, ...args)
+// prettier-ignore
+// oxlint-disable-next-line typescript/no-explicit-any
+export const deferCallback = <T extends DeferredTask<U>, U extends any[]>(task: T): ((...args: U) => Promise<Awaited<ReturnType<T>>>) => (
+	(...args: U) => deferTask(task, ...args)
+)
