@@ -89,9 +89,9 @@
 	},
 	"peerDependencies": {
 		"@alessiofrittoli/date-utils": "^4.3.0",
-		"@alessiofrittoli/exception": "^4.2.0",
-		"@alessiofrittoli/fetcher": "^2.1.0",
-		"@alessiofrittoli/math-utils": "^2.2.0",
+		"@alessiofrittoli/exception": "^4.3.0",
+		"@alessiofrittoli/fetcher": "^2.2.0",
+		"@alessiofrittoli/math-utils": "^3.0.1",
 		"@alessiofrittoli/typed-map": "^1.1.0",
 		"@alessiofrittoli/url-utils": "^4.2.0"
 	},
@@ -117,23 +117,23 @@
 	},
 	"devDependencies": {
 		"@alessiofrittoli/date-utils": "^4.3.0",
-		"@alessiofrittoli/exception": "^4.2.0",
-		"@alessiofrittoli/fetcher": "^2.1.0",
-		"@alessiofrittoli/math-utils": "^2.2.0",
+		"@alessiofrittoli/exception": "^4.3.0",
+		"@alessiofrittoli/fetcher": "^2.2.0",
+		"@alessiofrittoli/math-utils": "^3.0.1",
 		"@alessiofrittoli/node-scripts": "^4.2.0",
-		"@alessiofrittoli/package-configs": "^1.9.0",
+		"@alessiofrittoli/package-configs": "^1.14.0",
 		"@alessiofrittoli/typed-map": "^1.1.0",
 		"@alessiofrittoli/url-utils": "^4.2.0",
 		"@types/node": "^24.19.1",
-		"@vitest/coverage-v8": "^5.0.5",
-		"concurrently": "^10.0.6",
+		"@vitest/coverage-v8": "^5.1.0",
+		"concurrently": "^10.0.7",
 		"http-server": "^14.1.1",
-		"oxlint": "^1.89.0",
-		"oxlint-tsgolint": "^7.0.2005",
-		"prettier": "^3.9.10",
+		"oxlint": "^1.93.0",
+		"oxlint-tsgolint": "^7.0.2006",
+		"prettier": "^3.10.0",
 		"prettier-plugin-sort-imports": "^1.8.11",
-		"tsdown": "^0.23.2",
+		"tsdown": "^0.23.7",
 		"typescript": "^6.0.3",
-		"vitest": "^5.0.5"
+		"vitest": "^5.1.0"
 	}
 }

@@ -45,7 +45,6 @@ export const deferTask = <T extends DeferredTask<U>, U extends unknown[]>(
 ): Promise<Awaited<ReturnType<T>>> =>
 	new Promise<Awaited<ReturnType<T>>>((resolve, reject) => {
 		const tick = (): void => {
-			// oxlint-disable-next-line typescript/no-misused-promises
 			setTimeout(async () => {
 				try {
 					resolve((await task(...args)) as Awaited<ReturnType<T>>)
