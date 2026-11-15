@@ -24,8 +24,8 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@alessiofrittoli/typed-map@1.1.0)
       '@alessiofrittoli/package-configs':
-        specifier: ^1.14.0
-        version: 1.14.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@eslint/js@10.0.1)(oxlint-tsgolint@7.0.2006)(oxlint@1.93.0(oxlint-tsgolint@7.0.2006))(prettier-plugin-sort-imports@1.8.11(typescript@6.0.3))(prettier@3.10.0)(tsdown@0.23.7(typescript@6.0.3))(typescript@6.0.3)(vite@8.3.4(@types/node@24.19.2)(esbuild@0.27.0))(vitest@5.1.0)
+        specifier: ^1.14.1
+        version: 1.14.1(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@eslint/js@10.0.1)(oxlint-tsgolint@7.0.2007)(oxlint@1.93.0(oxlint-tsgolint@7.0.2007))(prettier-plugin-sort-imports@1.8.11(typescript@6.0.3))(prettier@3.10.1)(tsdown@0.23.7(typescript@6.0.3))(typescript@6.0.3)(vite@8.3.4(@types/node@24.19.2)(esbuild@0.27.0))(vitest@5.1.0)
       '@alessiofrittoli/typed-map':
         specifier: ^1.1.0
         version: 1.1.0
@@ -46,13 +46,13 @@ importers:
         version: 14.1.1(debug@4.4.1(supports-color@10.2.2))(supports-color@10.2.2)
       oxlint:
         specifier: ^1.93.0
-        version: 1.93.0(oxlint-tsgolint@7.0.2006)
+        version: 1.93.0(oxlint-tsgolint@7.0.2007)
       oxlint-tsgolint:
-        specifier: ^7.0.2006
-        version: 7.0.2006
+        specifier: ^7.0.2007
+        version: 7.0.2007
       prettier:
-        specifier: ^3.10.0
-        version: 3.10.0
+        specifier: ^3.10.1
+        version: 3.10.1
       prettier-plugin-sort-imports:
         specifier: ^1.8.11
         version: 1.8.11(typescript@6.0.3)
@@ -126,8 +126,8 @@ packages:
       '@alessiofrittoli/tsconfig': ^1.0.0
       '@alessiofrittoli/typed-map': ^1.0.0
 
-  '@alessiofrittoli/package-configs@1.14.0':
-    resolution: {integrity: sha512-3W3A84Vpj6Uxckq2t6ghxzCA3wGpGVcb85VOx7r0bTJjOB19nIeRfFIDrRuZEYu6++UWuH2uvkXqAZ/+D+9ORA==}
+  '@alessiofrittoli/package-configs@1.14.1':
+    resolution: {integrity: sha512-UgIIWlIb1T36ciMH8B0Lzg0kmfr5PM0ujgAvljwNS1t7SUeiH3P0Ujf5quVDnUbRTjHLXGrKp8P0ubwajGrd2A==}
     engines: {node: '>=24.15.0', pnpm: '>=11.27.1'}
     peerDependencies:
       '@alessiofrittoli/tsconfig': ^1.0.0
@@ -460,33 +460,33 @@ packages:
   '@oxc-project/types@0.158.0':
     resolution: {integrity: sha512-xZ66qA4WmLbTLlxH3mqMd8f9UKbaOzOT0ATwFf4DH/14pMgpUrtqtjyYzOQmgfl2a0iRAAMbQ9G1th/67jRzGw==}
 
-  '@oxlint-tsgolint/darwin-arm64@7.0.2006':
-    resolution: {integrity: sha512-uc0MEHXZUDW23Zmo5X28eSNeSnP17jKnh9GiehpVZqhfy99ks8spyXT5Llar3tjDN7ppnQN0Qd9FK6WNkdD+fQ==}
+  '@oxlint-tsgolint/darwin-arm64@7.0.2007':
+    resolution: {integrity: sha512-bjNxPFyu1wNK74epHzXrtVLrj7oEuB8jQvJZDSia2d5EZ/0YgnyhI37E9U530IUZlNCqlTWjko1iT3CKAYF9+A==}
     cpu: [arm64]
     os: [darwin]
 
-  '@oxlint-tsgolint/darwin-x64@7.0.2006':
-    resolution: {integrity: sha512-+x1/pa3S3VMC9cif8XKTOCQUuqRT+wu1Ix+FK5svXa2xbXCuE7+4S0SfmuSnK/mk9AI5+xBxZFhILxmCPUZ1hA==}
+  '@oxlint-tsgolint/darwin-x64@7.0.2007':
+    resolution: {integrity: sha512-dCd7mzk2FeTaU46LLeXy5mQyEFICaPqlew/LpehNzEuL86D0jTYlwZHbibRqdRrvkSNgq1szz/7014FIHgyV1g==}
     cpu: [x64]
     os: [darwin]
 
-  '@oxlint-tsgolint/linux-arm64@7.0.2006':
-    resolution: {integrity: sha512-90v7HX8m54kHXn5DpjNEN18Fb7xwJMREe/wji3USyAf9pTMv7a3qZ3cPoLViIcIzxPLmkcYZIs1j1H3Z2gbVLA==}
+  '@oxlint-tsgolint/linux-arm64@7.0.2007':
+    resolution: {integrity: sha512-qb0XUQXuTmQ8H++zsx/tQitG0/fU3BE16KGp1qXExeDgRzEc7WIlCuN1i+rmA40lty9gQs+x3a73BFODVhTZqA==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxlint-tsgolint/linux-x64@7.0.2006':
-    resolution: {integrity: sha512-/k0wsEqHiA5dWBJYuld3Vecv6bIhKCasxpho/aFkvh870Qox33MuTkKUGWIVm/njAxw7W4pu1a/Xfa3jwuKuPQ==}
+  '@oxlint-tsgolint/linux-x64@7.0.2007':
+    resolution: {integrity: sha512-75vx0067HSgxq/HEZzlHwqhcujn3bshg43fVLTx604jZdZZMQfPVCcxTh2RTEShP7ACT1PRty6vboZlWh5RtEA==}
     cpu: [x64]
     os: [linux]
 
-  '@oxlint-tsgolint/win32-arm64@7.0.2006':
-    resolution: {integrity: sha512-CQT5sqcLZLNZSWLzUUEjQmp74UX8h1agp3ZJ8pfRktHbx6gfBa8a7CjrnRrZ9VXlwnXVkpw7m5KBO6y+S5MQRA==}
+  '@oxlint-tsgolint/win32-arm64@7.0.2007':
+    resolution: {integrity: sha512-6zl7I+BvScfOPtnPtSEP5JA+z8NkDPGd47YnQChL5lLF/Dzs7Rasr1G+q0zGlQcP8OEgW43hW4QlUTXxPfD13Q==}
     cpu: [arm64]
     os: [win32]
 
-  '@oxlint-tsgolint/win32-x64@7.0.2006':
-    resolution: {integrity: sha512-VZsGowXcp3vQNkjoGeVCOTf4aGrRpRk6bBJWhefnJVPr6z+dX+LKqqHfwaqnFvg66Q2iJpXqklRW38YO21ee+Q==}
+  '@oxlint-tsgolint/win32-x64@7.0.2007':
+    resolution: {integrity: sha512-VptFHYhBm0SIWCUkx89hmTrKVOQsDg0iB1YE3EBlvRRtCHGUd3pU1kMxPBg1wOd83ZMmIn7zB6maBROtpmrP5g==}
     cpu: [x64]
     os: [win32]
 
@@ -1289,8 +1289,8 @@ packages:
     resolution: {integrity: sha512-ur5UIdyw5Y7yEj9wLzhqXiy6GZ3Mwx0yGI+5sMn2r0N0v3cKJvUmFH5yPP+WXh9e0xfyzyJX95D8l088DNFj7A==}
     hasBin: true
 
-  oxlint-tsgolint@7.0.2006:
-    resolution: {integrity: sha512-5B3UtH71kycPHUC1kFEIffivEAs49SUmkJuHZOZnTY0NPj4legp0bcsCQucuLVNCoJzDucS68P2C4WIhP+LypQ==}
+  oxlint-tsgolint@7.0.2007:
+    resolution: {integrity: sha512-i8X2qf6VVqFzoNVP34joMKuZpO6T2uXMOgKJaSPFc6p+E3FTnbIGPRbI8K4ZApmtDTMu2CIeGfpzeK1zzGwfnA==}
     hasBin: true
 
   oxlint@1.93.0:
@@ -1329,8 +1329,8 @@ packages:
     peerDependencies:
       typescript: '>4.0.0'
 
-  prettier@3.10.0:
-    resolution: {integrity: sha512-mBi4765LgjO1PFjlEs7pUeK0nb1bw71c+N4/ItfeUWNdY5cV2pRKaFpbbFRYmDJMO+5ZwzGxHRqHxFZna7iv5w==}
+  prettier@3.10.1:
+    resolution: {integrity: sha512-70vp3ZUYoPlFbF9uiTdXHUUCGEIp7d4+6p+8DYbkm2jP7x/3i/paXVF6dopSI3zd/CEitrZN1rc4i85xWmmXlg==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -1741,16 +1741,16 @@ snapshots:
       '@alessiofrittoli/tsconfig': 1.1.0(typescript@6.0.3)
       '@alessiofrittoli/typed-map': 1.1.0
 
-  '@alessiofrittoli/package-configs@1.14.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@eslint/js@10.0.1)(oxlint-tsgolint@7.0.2006)(oxlint@1.93.0(oxlint-tsgolint@7.0.2006))(prettier-plugin-sort-imports@1.8.11(typescript@6.0.3))(prettier@3.10.0)(tsdown@0.23.7(typescript@6.0.3))(typescript@6.0.3)(vite@8.3.4(@types/node@24.19.2)(esbuild@0.27.0))(vitest@5.1.0)':
+  '@alessiofrittoli/package-configs@1.14.1(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@eslint/js@10.0.1)(oxlint-tsgolint@7.0.2007)(oxlint@1.93.0(oxlint-tsgolint@7.0.2007))(prettier-plugin-sort-imports@1.8.11(typescript@6.0.3))(prettier@3.10.1)(tsdown@0.23.7(typescript@6.0.3))(typescript@6.0.3)(vite@8.3.4(@types/node@24.19.2)(esbuild@0.27.0))(vitest@5.1.0)':
     dependencies:
       prompts: 2.4.2
       typescript: 6.0.3
     optionalDependencies:
       '@alessiofrittoli/tsconfig': 1.1.0(typescript@6.0.3)
       '@eslint/js': 10.0.1
-      oxlint: 1.93.0(oxlint-tsgolint@7.0.2006)
-      oxlint-tsgolint: 7.0.2006
-      prettier: 3.10.0
+      oxlint: 1.93.0(oxlint-tsgolint@7.0.2007)
+      oxlint-tsgolint: 7.0.2007
+      prettier: 3.10.1
       prettier-plugin-sort-imports: 1.8.11(typescript@6.0.3)
       tsdown: 0.23.7(typescript@6.0.3)
       vite: 8.3.4(@types/node@24.19.2)(esbuild@0.27.0)
@@ -1937,22 +1937,22 @@ snapshots:
 
   '@oxc-project/types@0.158.0': {}
 
-  '@oxlint-tsgolint/darwin-arm64@7.0.2006':
+  '@oxlint-tsgolint/darwin-arm64@7.0.2007':
     optional: true
 
-  '@oxlint-tsgolint/darwin-x64@7.0.2006':
+  '@oxlint-tsgolint/darwin-x64@7.0.2007':
     optional: true
 
-  '@oxlint-tsgolint/linux-arm64@7.0.2006':
+  '@oxlint-tsgolint/linux-arm64@7.0.2007':
     optional: true
 
-  '@oxlint-tsgolint/linux-x64@7.0.2006':
+  '@oxlint-tsgolint/linux-x64@7.0.2007':
     optional: true
 
-  '@oxlint-tsgolint/win32-arm64@7.0.2006':
+  '@oxlint-tsgolint/win32-arm64@7.0.2007':
     optional: true
 
-  '@oxlint-tsgolint/win32-x64@7.0.2006':
+  '@oxlint-tsgolint/win32-x64@7.0.2007':
     optional: true
 
   '@oxlint/binding-android-arm-eabi@1.93.0':
@@ -2566,16 +2566,16 @@ snapshots:
 
   opener@1.5.2: {}
 
-  oxlint-tsgolint@7.0.2006:
+  oxlint-tsgolint@7.0.2007:
     optionalDependencies:
-      '@oxlint-tsgolint/darwin-arm64': 7.0.2006
-      '@oxlint-tsgolint/darwin-x64': 7.0.2006
-      '@oxlint-tsgolint/linux-arm64': 7.0.2006
-      '@oxlint-tsgolint/linux-x64': 7.0.2006
-      '@oxlint-tsgolint/win32-arm64': 7.0.2006
-      '@oxlint-tsgolint/win32-x64': 7.0.2006
+      '@oxlint-tsgolint/darwin-arm64': 7.0.2007
+      '@oxlint-tsgolint/darwin-x64': 7.0.2007
+      '@oxlint-tsgolint/linux-arm64': 7.0.2007
+      '@oxlint-tsgolint/linux-x64': 7.0.2007
+      '@oxlint-tsgolint/win32-arm64': 7.0.2007
+      '@oxlint-tsgolint/win32-x64': 7.0.2007
 
-  oxlint@1.93.0(oxlint-tsgolint@7.0.2006):
+  oxlint@1.93.0(oxlint-tsgolint@7.0.2007):
     optionalDependencies:
       '@oxlint/binding-android-arm-eabi': 1.93.0
       '@oxlint/binding-android-arm64': 1.93.0
@@ -2596,7 +2596,7 @@ snapshots:
       '@oxlint/binding-win32-arm64-msvc': 1.93.0
       '@oxlint/binding-win32-ia32-msvc': 1.93.0
       '@oxlint/binding-win32-x64-msvc': 1.93.0
-      oxlint-tsgolint: 7.0.2006
+      oxlint-tsgolint: 7.0.2007
 
   parse5@7.3.0:
     dependencies:
@@ -2622,10 +2622,10 @@ snapshots:
 
   prettier-plugin-sort-imports@1.8.11(typescript@6.0.3):
     dependencies:
-      prettier: 3.10.0
+      prettier: 3.10.1
       typescript: 6.0.3
 
-  prettier@3.10.0: {}
+  prettier@3.10.1: {}
 
   prompts@2.4.2:
     dependencies:

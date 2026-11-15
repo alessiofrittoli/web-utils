@@ -1,6 +1,6 @@
 {
 	"name": "@alessiofrittoli/web-utils",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"description": "Common TypeScript web utilities",
 	"type": "module",
 	"author": {
@@ -121,7 +121,7 @@
 		"@alessiofrittoli/fetcher": "^2.2.0",
 		"@alessiofrittoli/math-utils": "^3.0.1",
 		"@alessiofrittoli/node-scripts": "^4.2.0",
-		"@alessiofrittoli/package-configs": "^1.14.0",
+		"@alessiofrittoli/package-configs": "^1.14.1",
 		"@alessiofrittoli/typed-map": "^1.1.0",
 		"@alessiofrittoli/url-utils": "^4.2.0",
 		"@types/node": "^24.19.1",
@@ -129,8 +129,8 @@
 		"concurrently": "^10.0.7",
 		"http-server": "^14.1.1",
 		"oxlint": "^1.93.0",
-		"oxlint-tsgolint": "^7.0.2006",
-		"prettier": "^3.10.0",
+		"oxlint-tsgolint": "^7.0.2007",
+		"prettier": "^3.10.1",
 		"prettier-plugin-sort-imports": "^1.8.11",
 		"tsdown": "^0.23.7",
 		"typescript": "^6.0.3",
