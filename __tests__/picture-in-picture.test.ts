@@ -5,6 +5,7 @@ import {
 	isDocumentPictureInPictureSupported,
 	requiresDocumentPictureInPictureAPI,
 	openDocumentPictureInPicture,
+	type RequestPictureInPictureWindowParams,
 } from '@/picture-in-picture'
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
 import { cloneStyleSheets as _cloneStyleSheets, type Styles } from '@/stylesheet'

@@ -45,6 +45,48 @@ export const requiresDocumentPictureInPictureAPI = (): void => {
 }
 
 /**
+ * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/DocumentPictureInPicture/requestWindow#options)
+ */
+export interface RequestPictureInPictureWindowParams {
+	/**
+	 * A non-negative number representing the width to set for the Picture-in-Picture window's viewport, in pixels.
+	 *
+	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/DocumentPictureInPicture/requestWindow#width)
+	 *
+	 * @default 0
+	 */
+	width?: number
+	/**
+	 * A non-negative number representing the height to set for the Picture-in-Picture window's viewport, in pixels.
+	 *
+	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/DocumentPictureInPicture/requestWindow#height)
+	 *
+	 * @default 0
+	 */
+	height?: number
+	/**
+	 * Hints to the browser that it should not display a UI control that enables the user to return to the originating tab and close the Picture-in-Picture window.
+	 *
+	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/DocumentPictureInPicture/requestWindow#disallowreturntoopener)
+	 *
+	 * @default false
+	 */
+	disallowReturnToOpener?: boolean
+	/**
+	 * Defines whether the Picture-in-Picture window will always appear back at the position and size it initially opened at,
+	 * when it is closed and then reopened.
+	 *
+	 * By contrast, if `preferInitialWindowPlacement` is `false` the Picture-in-Picture window's size and position will be remembered
+	 * when closed and reopened — it will reopen at its previous position and size, for example as set by the user.
+	 *
+	 * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/DocumentPictureInPicture/requestWindow#preferinitialwindowplacement)
+	 *
+	 * @default false
+	 */
+	preferInitialWindowPlacement?: boolean
+}
+
+/**
  * Defines configuration options for opening a Document Picture-in-Picture window.
  *
  */
