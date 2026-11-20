@@ -33,7 +33,7 @@ export class LockManager {
 	 * The LockManager Logger.
 	 *
 	 */
-	public readonly logger: Logger
+	private readonly logger: Logger
 
 	/**
 	 * The callback that resolves the lock Promise.
