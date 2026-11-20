@@ -1,6 +1,6 @@
 {
 	"name": "@alessiofrittoli/web-utils",
-	"version": "3.0.2",
+	"version": "3.1.0",
 	"description": "Common TypeScript web utilities",
 	"type": "module",
 	"author": {
@@ -17,7 +17,6 @@
 	],
 	"keywords": [
 		"web-utilities",
-		"typed-map",
 		"map",
 		"string-utilities",
 		"web-storage-api",
@@ -130,15 +129,15 @@
 		"@alessiofrittoli/typed-map": "^1.1.0",
 		"@alessiofrittoli/url-utils": "^4.2.0",
 		"@types/node": "^24.19.1",
-		"@vitest/coverage-v8": "^5.1.0",
+		"@vitest/coverage-v8": "^5.1.1",
 		"concurrently": "^10.0.7",
 		"http-server": "^14.1.1",
-		"oxlint": "^1.93.0",
+		"oxlint": "^1.94.0",
 		"oxlint-tsgolint": "^7.0.2007",
 		"prettier": "^3.10.1",
 		"prettier-plugin-sort-imports": "^1.8.11",
 		"tsdown": "^0.23.7",
 		"typescript": "^6.0.3",
-		"vitest": "^5.1.0"
+		"vitest": "^5.1.1"
 	}
 }
