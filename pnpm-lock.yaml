@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@alessiofrittoli/console':
+        specifier: ^1.1.0
+        version: 1.1.0(10d615487d5ad98ea041283657f85222)
       '@alessiofrittoli/date-utils':
         specifier: ^4.3.0
         version: 4.3.0(@alessiofrittoli/math-utils@3.0.1(@alessiofrittoli/typed-map@1.1.0))(@alessiofrittoli/type-utils@2.1.0(@alessiofrittoli/chain-functions@2.8.0)(@alessiofrittoli/node-scripts@4.2.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@alessiofrittoli/typed-map@1.1.0)))
@@ -71,6 +74,13 @@ packages:
   '@alessiofrittoli/chain-functions@2.8.0':
     resolution: {integrity: sha512-Y6/vMOdXnqq7bTLfnxoW2QAIZYg7RpPSlPH3J2/Wg6s/GiX17pJyiHq6Ol8s1Tj6HDJ5I93lz9VY7HCqmILtbA==}
     engines: {node: '>=24.15.0', pnpm: '>=11.27.1'}
+
+  '@alessiofrittoli/console@1.1.0':
+    resolution: {integrity: sha512-uMBwXYXpvphUeB/oB7XunC80h7tsc5zfGHI8mygImJGC8Nfw6pbefR5o/vl/pIkNUNoVvBzgFfc7cvg+3lx/NA==}
+    engines: {node: '>=24.15.0', pnpm: '>=11.27.1'}
+    peerDependencies:
+      '@alessiofrittoli/math-utils': ^3.0.1
+      '@alessiofrittoli/web-utils': ^3.0.2
 
   '@alessiofrittoli/date-utils@4.3.0':
     resolution: {integrity: sha512-2zujFzYvBmQkF336lw2437UlrG5MbpwbCBUU/5M8uxppe5niwMdcOsMLv5CsfVQ3z4LEbKZ/DCw4Dvqrs5QLkQ==}
@@ -207,6 +217,30 @@ packages:
   '@alessiofrittoli/url-utils@4.2.0':
     resolution: {integrity: sha512-ijBJOb6toMgLnveSQvyOzDPVretE0D4CwZSaBcQL94eMrxR+m3o8hZ5OVrFLFuA/+igJPJAQ+lLQk/f92BWo9w==}
     engines: {node: '>=24.15.0', pnpm: '>=11.27.1'}
+
+  '@alessiofrittoli/web-utils@3.0.2':
+    resolution: {integrity: sha512-v2K2o1U2yIoz2qRv7kONbyVjyMPe6sTOuup5ZS6KLzQlBewywMpSMAju49a3DFf0CchSelOSkyhBO8RpQ6X+WQ==}
+    engines: {node: '>=24.15.0', pnpm: '>=11.27.1'}
+    peerDependencies:
+      '@alessiofrittoli/date-utils': ^4.3.0
+      '@alessiofrittoli/exception': ^4.3.0
+      '@alessiofrittoli/fetcher': ^2.2.0
+      '@alessiofrittoli/math-utils': ^3.0.1
+      '@alessiofrittoli/typed-map': ^1.1.0
+      '@alessiofrittoli/url-utils': ^4.2.0
+    peerDependenciesMeta:
+      '@alessiofrittoli/date-utils':
+        optional: true
+      '@alessiofrittoli/exception':
+        optional: true
+      '@alessiofrittoli/fetcher':
+        optional: true
+      '@alessiofrittoli/math-utils':
+        optional: true
+      '@alessiofrittoli/typed-map':
+        optional: true
+      '@alessiofrittoli/url-utils':
+        optional: true
 
   '@asamuzakjp/css-color@3.2.0':
     resolution: {integrity: sha512-K1A6z8tS3XsmCMM86xoWdn7Fkdn9m6RSVtocUrJYIwZnFVkng/PvkEoWtOWmP+Scc6saYWHWZYbndEEXxl24jw==}
@@ -1715,6 +1749,11 @@ snapshots:
 
   '@alessiofrittoli/chain-functions@2.8.0': {}
 
+  '@alessiofrittoli/console@1.1.0(10d615487d5ad98ea041283657f85222)':
+    dependencies:
+      '@alessiofrittoli/math-utils': 3.0.1(@alessiofrittoli/typed-map@1.1.0)
+      '@alessiofrittoli/web-utils': 3.0.2(@alessiofrittoli/date-utils@4.3.0(@alessiofrittoli/math-utils@3.0.1(@alessiofrittoli/typed-map@1.1.0))(@alessiofrittoli/type-utils@2.1.0(@alessiofrittoli/chain-functions@2.8.0)(@alessiofrittoli/node-scripts@4.2.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@alessiofrittoli/typed-map@1.1.0))))(@alessiofrittoli/exception@4.3.0)(@alessiofrittoli/fetcher@2.2.0(@alessiofrittoli/chain-functions@2.8.0)(@alessiofrittoli/exception@4.3.0)(@alessiofrittoli/math-utils@3.0.1(@alessiofrittoli/typed-map@1.1.0))(@alessiofrittoli/node-scripts@4.2.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@alessiofrittoli/typed-map@1.1.0))(@alessiofrittoli/type-utils@2.1.0(@alessiofrittoli/chain-functions@2.8.0)(@alessiofrittoli/node-scripts@4.2.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@alessiofrittoli/typed-map@1.1.0)))(@alessiofrittoli/url-utils@4.2.0))(@alessiofrittoli/math-utils@3.0.1(@alessiofrittoli/typed-map@1.1.0))(@alessiofrittoli/typed-map@1.1.0)(@alessiofrittoli/url-utils@4.2.0)
+
   '@alessiofrittoli/date-utils@4.3.0(@alessiofrittoli/math-utils@3.0.1(@alessiofrittoli/typed-map@1.1.0))(@alessiofrittoli/type-utils@2.1.0(@alessiofrittoli/chain-functions@2.8.0)(@alessiofrittoli/node-scripts@4.2.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@alessiofrittoli/typed-map@1.1.0)))':
     dependencies:
       '@alessiofrittoli/math-utils': 3.0.1(@alessiofrittoli/typed-map@1.1.0)
@@ -1768,6 +1807,15 @@ snapshots:
   '@alessiofrittoli/typed-map@1.1.0': {}
 
   '@alessiofrittoli/url-utils@4.2.0': {}
+
+  ? '@alessiofrittoli/web-utils@3.0.2(@alessiofrittoli/date-utils@4.3.0(@alessiofrittoli/math-utils@3.0.1(@alessiofrittoli/typed-map@1.1.0))(@alessiofrittoli/type-utils@2.1.0(@alessiofrittoli/chain-functions@2.8.0)(@alessiofrittoli/node-scripts@4.2.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@alessiofrittoli/typed-map@1.1.0))))(@alessiofrittoli/exception@4.3.0)(@alessiofrittoli/fetcher@2.2.0(@alessiofrittoli/chain-functions@2.8.0)(@alessiofrittoli/exception@4.3.0)(@alessiofrittoli/math-utils@3.0.1(@alessiofrittoli/typed-map@1.1.0))(@alessiofrittoli/node-scripts@4.2.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@alessiofrittoli/typed-map@1.1.0))(@alessiofrittoli/type-utils@2.1.0(@alessiofrittoli/chain-functions@2.8.0)(@alessiofrittoli/node-scripts@4.2.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@alessiofrittoli/typed-map@1.1.0)))(@alessiofrittoli/url-utils@4.2.0))(@alessiofrittoli/math-utils@3.0.1(@alessiofrittoli/typed-map@1.1.0))(@alessiofrittoli/typed-map@1.1.0)(@alessiofrittoli/url-utils@4.2.0)'
+  : optionalDependencies:
+      '@alessiofrittoli/date-utils': 4.3.0(@alessiofrittoli/math-utils@3.0.1(@alessiofrittoli/typed-map@1.1.0))(@alessiofrittoli/type-utils@2.1.0(@alessiofrittoli/chain-functions@2.8.0)(@alessiofrittoli/node-scripts@4.2.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@alessiofrittoli/typed-map@1.1.0)))
+      '@alessiofrittoli/exception': 4.3.0
+      '@alessiofrittoli/fetcher': 2.2.0(@alessiofrittoli/chain-functions@2.8.0)(@alessiofrittoli/exception@4.3.0)(@alessiofrittoli/math-utils@3.0.1(@alessiofrittoli/typed-map@1.1.0))(@alessiofrittoli/node-scripts@4.2.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@alessiofrittoli/typed-map@1.1.0))(@alessiofrittoli/type-utils@2.1.0(@alessiofrittoli/chain-functions@2.8.0)(@alessiofrittoli/node-scripts@4.2.0(@alessiofrittoli/tsconfig@1.1.0(typescript@6.0.3))(@alessiofrittoli/typed-map@1.1.0)))(@alessiofrittoli/url-utils@4.2.0)
+      '@alessiofrittoli/math-utils': 3.0.1(@alessiofrittoli/typed-map@1.1.0)
+      '@alessiofrittoli/typed-map': 1.1.0
+      '@alessiofrittoli/url-utils': 4.2.0
 
   '@asamuzakjp/css-color@3.2.0':
     dependencies:

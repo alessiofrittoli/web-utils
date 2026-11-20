@@ -88,6 +88,7 @@
 		"test:coverage:serve": "concurrently --prefix none --kill-others \"pnpm test:coverage\" \"pnpm test:serve-coverage\""
 	},
 	"peerDependencies": {
+		"@alessiofrittoli/console": "^1.1.0",
 		"@alessiofrittoli/date-utils": "^4.3.0",
 		"@alessiofrittoli/exception": "^4.3.0",
 		"@alessiofrittoli/fetcher": "^2.2.0",
@@ -96,6 +97,9 @@
 		"@alessiofrittoli/url-utils": "^4.2.0"
 	},
 	"peerDependenciesMeta": {
+		"@alessiofrittoli/console": {
+			"optional": true
+		},
 		"@alessiofrittoli/date-utils": {
 			"optional": true
 		},
@@ -116,6 +120,7 @@
 		}
 	},
 	"devDependencies": {
+		"@alessiofrittoli/console": "^1.1.0",
 		"@alessiofrittoli/date-utils": "^4.3.0",
 		"@alessiofrittoli/exception": "^4.3.0",
 		"@alessiofrittoli/fetcher": "^2.2.0",
